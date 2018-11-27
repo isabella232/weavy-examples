@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "~/Views/Shared/_PersonalLayout.cshtml";
+}
+
+<header class="navbar navbar-light sticky-top border-bottom px-3">
+    <h6 class="navbar-title mr-auto">Stars</h6>
+</header>
+
+<div id="tab-stars">
+    <div class="tab-loading d-none">@Html.SvgSpinner()</div>
+    <div class="tab-remote loaded" data-url="@(Url.Action<StarController>(c => c.Index()))"> @{ Html.RenderPartial("_Index"); }</div>
+</div>

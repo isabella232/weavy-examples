@@ -1,0 +1,222 @@
+﻿
+/****************************
+ | VARIABLES
+ ***************************/
+@import '../variables';
+@import "../vendor/bootstrap/functions";
+@import "../vendor/bootstrap/variables";
+@import "../vendor/bootstrap/mixins";
+
+$label_important_color: $red;
+$label_normal_color: $gray-300;
+$label_medium_color: $yellow;
+
+[v-cloak] {
+    display: none
+}
+
+.tasks-wrapper {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 40px rgba(0,0,0,.1);
+}
+
+.tasks-header {
+    border-radius: 6px 6px 0 0;
+    position: relative;
+    padding: 20px;
+
+
+    .task-report {
+        font-size: 0.9em;
+        color: #afafaf;
+        margin-top: 5px;
+    }
+}
+
+.tasks-form {
+    display: flex;
+    padding-bottom: 20px;
+
+    input {
+        margin: 0 20px;
+        border: 0;
+        outline: 0;
+        -webkit-appearance: none;
+        box-shadow: 0px 1px 15px 0px #f5f5f5;
+        border: 1px solid #e8e8e8;
+        background: #f5f5f5;
+        font-size: 18px;
+
+        :focus {
+            outline: 0;
+        }
+
+
+        &::-webkit-input-placeholder {
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 300;
+            color: #acaaaa;
+        }
+
+        &::-moz-placeholder {
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 300;
+            color: #acaaaa;
+        }
+
+        &::input-placeholder {
+            font-size: 18px;
+            font-style: italic;
+            font-weight: 300;
+            color: #acaaaa;
+        }
+    }
+}
+
+.task-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .task-item {
+        padding: 15px 10px;
+        border-top: 1px solid $border-color;
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        &.task-done {
+            .text {
+                color: $text-muted;
+                text-decoration: line-through;
+            }
+        }
+
+        .checkbox {
+            align-self: flex-start;
+        }
+
+        .text {
+            flex: 1;
+            margin-top: -2px;
+            padding-left: 5px;
+            padding-right: 35px;
+            margin-bottom: 0;
+        }
+
+        .priority-popup {
+            position: absolute;
+            right: 0px;
+            top: 23px;
+            border: 1px solid #EFEFEF;
+            list-style: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 4px 7px rgba(0,0,0,.1);
+            display: none;
+            z-index: 99999;
+
+            &.show {
+                display: block;
+            }
+
+            li {
+                padding: 3px 5px;
+                margin: 5px 0;
+                cursor: pointer;
+                white-space: nowrap;
+                font-size: .9em;
+                border-radius: 3px;
+
+                i {
+                    margin-right: 5px;
+                }
+
+                &:hover {
+                    background: #f5f5f5;
+                }
+            }
+        }
+
+        .label {
+            align-self: flex-start;
+            margin-top: .4rem;
+            display: inline-block;
+            background: $label_normal_color;
+            width: 15px;
+            height: 15px;
+            min-width: 15px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+
+            &.priority0 {
+                background: $label_normal_color;
+            }
+
+            &.priority1 {
+                background: $label_medium_color;
+            }
+
+            &.priority2 {
+                background: $label_important_color;
+            }
+
+            .priority-label {
+                left: 0;
+                width: 140px;
+
+                li {
+                    color: white;
+                    font-weight: 700;
+                    text-shadow: 0 1px 1px rgba(0,0,0,.2);
+
+                    &:hover {
+                        opacity: .8;
+                    }
+                }
+
+                .important {
+                    background: $label_important_color;
+                }
+
+                .medium {
+                    background: $label_medium_color
+                }
+
+                .normal {
+                    background: $label_normal_color
+                }
+            }
+        }
+
+        .task-star {
+            margin-top: -.1rem;
+        }
+
+        .task-comments {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        &.editing {
+            background: $theme-100;
+
+            input {
+                border: none;
+                font-family: inherit;
+                outline: none;
+                font-size: 1em;
+                width: 100%;
+                background: transparent;
+                margin: 4px 0;
+            }
+        }
+    }
+}

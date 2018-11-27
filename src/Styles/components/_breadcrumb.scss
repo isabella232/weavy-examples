@@ -1,0 +1,51 @@
+/// <reference path="../_core.scss" />
+
+.breadcrumb {
+    flex-wrap: nowrap;
+    min-width: 0; // needed for text-truncate
+}
+
+.breadcrumb-item {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 0 10 auto;
+    min-width: 3rem; // make room for 2 icons
+    max-width: 10rem;
+
+    a {
+        display: flex;
+        min-width: 0; // needed for text-truncate
+        .i {
+            margin-right: .25rem;
+        }
+
+        span {
+            @include text-truncate();
+        }
+    }
+
+    > .i {
+        color: $text-muted;
+    }
+}
+
+.breadcrumb-item.active {
+    min-width: auto;
+    max-width: none;
+    flex: 0 1 auto;
+    display: block;
+    @include text-truncate();
+    color: inherit;
+    font-weight: $headings-font-weight;
+}
+
+// hide all ancestors except immediate parent on small devices
+@include media-breakpoint-down(sm) {
+    .breadcrumb-item {
+        display: none;
+    }
+
+    .breadcrumb-item:nth-last-child(2) {
+        display: flex;
+    }
+}

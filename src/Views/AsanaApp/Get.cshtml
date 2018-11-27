@@ -1,0 +1,34 @@
+﻿@model Wvy.Models.AsanaApp
+
+<div class="container my-4 asana_app">
+    <h2>Asana tasks</h2>
+    <div id="app" v-cloak>
+
+        <button class="btn btn-primary" @@click="auth" v-if="!authenticated">Authenticate</button>
+
+        <section v-if="authenticated && me">
+            <div>Hello {{me.name}}</div>
+            <hr />
+            <ul v-if="tasks">
+                <li v-for="task in tasks" :class="{'section' : task.is_section}" v-if="task.name !== ''">
+                    <span class="checkbox" v-if="!task.is_section">
+                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="task.completed"><svg class="text-green i"><use xlink:href="#check-circle"></use></svg></a>
+                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="!task.completed"><svg class="i"><use xlink:href="#circle-outline"></use></svg></a>
+
+                    </span>
+                    {{task.name | section}}
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        wvy.asanaApp.init(@Model.Id, @Model.ClientId);
+    });
+</script>
+
+@section styles{
+    @Html.ThemeStyle("~/styles/apps/asana.scss")    
+}
