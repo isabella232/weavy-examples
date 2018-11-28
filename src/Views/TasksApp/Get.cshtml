@@ -23,7 +23,7 @@
 
     <!-- Tasks Header -->
     <template id="tasks-header">
-        <div class="tasks-header">
+        <div class="tasks-header d-none d-sm-block">
             <h2>{{appName}}</h2>
             <p class="task-report"><span class="task-remain">{{ taskDone }} done</span> / {{ taskTotal }} {{ taskTotal | pluralize }}</p>
         </div>
@@ -48,8 +48,8 @@
             </span>
 
             <span class="checkbox">
-                <a href="#" @@click="toggleCompleted" v-if="model.completed"><svg class="text-green i"><use xlink:href="#check-circle"></use></svg></a>
-                <a href="#" @@click="toggleCompleted" v-if="!model.completed"><svg class="i"><use xlink:href="#circle-outline"></use></svg></a>
+                <button class="btn-icon" @@click="toggleCompleted" v-if="model.completed"><svg class="text-green i"><use xlink:href="#check-circle"></use></svg></button>
+                <button class="btn-icon" @@click="toggleCompleted" v-if="!model.completed"><svg class="i"><use xlink:href="#circle-outline"></use></svg></button>
             </span>
 
             <p class="text flex-fill" v-if="isEditing">
@@ -60,8 +60,7 @@
             <div class="text" v-if="!isEditing" @@dblclick="edit">
                 <div>{{ model.name }}</div>
 
-                
-                <small class="text-muted">{{ model.description}}</small>
+                <small class="text-muted description">{{ model.description }}</small>
                 
                 <div v-if="model.due_date"><small :class="{'text-red': isDue}">{{model.due_date  | datetime}}</small></div>
 
