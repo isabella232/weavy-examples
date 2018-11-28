@@ -33,7 +33,7 @@
     <!-- Task List -->
     <template id="tasks-list">
         <ul class="task-list">
-            <draggable :list="collection" :options="{group:'tasks'}" @@end="onDrop">                
+            <draggable :list="collection" :options="{handle: '.checkbox'}" @@end="onDrop">                
                 <task-item v-for="item in collection" :model="item" :key="item.id"></task-item>                
             </draggable>            
         </ul>
