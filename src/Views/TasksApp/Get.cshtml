@@ -1,4 +1,5 @@
 ﻿@model Wvy.Models.TasksApp
+@using Wvy.Models;
 
 <div class="container my-4" id="taskApp@(Model.Id)">
     <!-- App -->
@@ -32,7 +33,9 @@
     <!-- Task List -->
     <template id="tasks-list">
         <ul class="task-list">
-            <task-item v-for="item in collection" :model="item" :key="item.id"></task-item>
+            <draggable :list="collection" :options="{group:'tasks'}" @@end="onDrop">                
+                <task-item v-for="item in collection" :model="item" :key="item.id"></task-item>                
+            </draggable>            
         </ul>
     </template>
 
@@ -170,7 +173,7 @@
 
 <script>        
     $(function () {
-        wvy.taskapp.init(@Model.Id, '@Model.AppGuid', '@Model.Name', @Html.ToJson(Model.Tasks));
+        wvy.taskapp.init(@Model.Id, '@Model.AppGuid', '@Model.Name', @Html.ToJson(Model.Tasks.Cast<TaskItem>().OrderBy(x => x.Order)));
     });
 </script>
 

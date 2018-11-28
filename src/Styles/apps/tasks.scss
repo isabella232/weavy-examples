@@ -24,12 +24,12 @@ $label_medium_color: $yellow;
 .tasks-header {
     border-radius: 6px 6px 0 0;
     position: relative;
-    padding: 20px;
+    padding: 10px 20px 0;
 
 
     .task-report {
         font-size: 0.9em;
-        color: #afafaf;
+        color: $text-muted;
         margin-top: 5px;
     }
 }

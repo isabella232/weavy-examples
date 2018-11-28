@@ -36,17 +36,18 @@ wvy.taskapp = (function ($) {
                     }
 
                     var taskApp = this;
-
+                    var sortOrder = TaskStore.state.items.length ? TaskStore.state.items[TaskStore.state.items.length - 1].order + 1 : 0;
+                                        
                     $.ajax({
                         url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks'),
-                        data: JSON.stringify({ name: value }),
+                        data: JSON.stringify({ name: value, order: sortOrder }),
                         method: 'POST',
                         contentType: 'application/json'
-                    }).then(function (task) {
+                    }).then(function (task) {                        
+                        task.order = sortOrder;
                         task.assigned_to = null;
                         task.assigned_to_user = null;
                         task.due_date = null;
-
                         eventHub.$emit('item-added', task);
 
                         taskApp.newTask = '';
@@ -201,6 +202,29 @@ wvy.taskapp = (function ($) {
                 'task-item': TaskItem
             },
             methods: {
+
+                updateSortOrder: function () {
+
+                    var data = $.map(this.collection, function (t, i) {                        
+                        t.order = i;
+                        return { id: t.id, order: t.order };                        
+                    });
+
+                    $.ajax({
+                        url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks/sort'),
+                        data: JSON.stringify(data),
+                        method: 'POST',
+                        contentType: 'application/json'
+                    }).then(function () {
+                        // sort order updated
+                        
+                    });
+                },
+
+                onDrop: function (e) {
+                    this.updateSortOrder();
+                },
+
                 saveTask: function (model) {
 
                     $.ajax({
@@ -242,6 +266,7 @@ wvy.taskapp = (function ($) {
 
                 eventHub.$on('item-added', function (model) {
                     taskList.collection.push(model);
+                    taskList.updateSortOrder();
                 });
             }
         };

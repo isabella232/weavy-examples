@@ -466,7 +466,9 @@
     <Content Include="ping.html" />
     <Content Include="Scripts\apps\asana.js" />
     <Content Include="Scripts\apps\tasks.js" />
+    <Content Include="Scripts\custom\sortable.min.js" />
     <Content Include="Scripts\custom\vue.js" />
+    <Content Include="Scripts\custom\vuedraggable.min.js" />
     <Content Include="Scripts\_bootstrap.bundle" />
     <Content Include="Scripts\_button.bundle" />
     <Content Include="Scripts\_codesample.bundle" />

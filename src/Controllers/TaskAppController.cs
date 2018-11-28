@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Weavy.Core.Events;
 using Weavy.Core.Models;
@@ -74,11 +75,35 @@ namespace Wvy.Controllers {
             var app = AppService.Get<TasksApp>(id);
 
             var task = new TaskItem {
-                Name = model.Name
+                Name = model.Name,
+                Order = model.Order
             };
             var inserted = ContentService.Insert<TaskItem>(task, app);
 
             return Json(inserted);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">The id of the app</param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("tasks/sort")]
+        public JsonResult UpdateSortOrder(int id, IEnumerable<TaskIn> model) {
+            var app = AppService.Get<TasksApp>(id);
+
+            foreach (var input in model) {
+                var task = ContentService.Get<TaskItem>(input.Id);
+                if(task != null) {
+                    task.Order = input.Order;
+                    ContentService.Update<TaskItem>(task);
+                }
+                
+            }
+                        
+            return Json(model);
         }
 
         /// <summary>

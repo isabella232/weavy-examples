@@ -1,5 +1,7 @@
 ﻿# libs
 ~/scripts/custom/vue.js
+~/scripts/custom/sortable.min.js
+~/scripts/custom/vuedraggable.min.js
 
 # my apps
 ~/scripts/apps/tasks.js

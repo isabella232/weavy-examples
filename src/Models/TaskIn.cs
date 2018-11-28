@@ -22,6 +22,11 @@ namespace Wvy.Models {
         /// <summary>
         /// 
         /// </summary>
+        public int Order { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description { get; set; }
 
         /// <summary>

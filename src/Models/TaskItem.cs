@@ -43,6 +43,11 @@ namespace Wvy.Models {
         public TaskPriority Priority { get; set; }
 
         /// <summary>
+        /// The sort order of the task
+        /// </summary>
+        public int Order { get; set; }
+
+        /// <summary>
         /// If the task i starred or not
         /// </summary>
         public bool IsStarred => this.IsStarred();
