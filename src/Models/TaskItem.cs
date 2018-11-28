@@ -18,6 +18,11 @@ namespace Wvy.Models {
         private Lazy<User> _assignedTo = null;
 
         /// <summary>
+        /// A description of the task
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
         /// The due date of the task
         /// </summary>
         public DateTime? DueDate { get; set; }

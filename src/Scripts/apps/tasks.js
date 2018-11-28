@@ -1,6 +1,8 @@
 ﻿var wvy = wvy || {};
 wvy.taskapp = (function ($) {
 
+    var vm = null;
+
     var init = function (id, guid, appName, tasks) {
         var eventHub = new Vue();
         var appId = id;
@@ -203,7 +205,7 @@ wvy.taskapp = (function ($) {
 
                     $.ajax({
                         url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks'),
-                        data: JSON.stringify({ id: model.id, name: model.name, completed: model.completed, dueDate: model.due_date, assignedTo: model.assigned_to, priority: model.priority }),
+                        data: JSON.stringify({ id: model.id, name: model.name, description: model.description, completed: model.completed, dueDate: model.due_date, assignedTo: model.assigned_to, priority: model.priority }),
                         method: 'PUT',
                         contentType: 'application/json'
                     }).then(function (updatedTask) {
@@ -251,6 +253,7 @@ wvy.taskapp = (function ($) {
                 return {
                     model: null,
                     tmpName: '',
+                    tmpDescription: '',
                     tmpDueDate: null,
                     tmpAssignedTo: null,
                     options: [],
@@ -259,15 +262,25 @@ wvy.taskapp = (function ($) {
             },
             methods: {
                 show: function () {
+                    var modal = this;
                     $('#task-details-modal').modal('show');
+
+                    setTimeout(function () {
+                        modal.picker = weavy.userspicker.init("select[data-role='user-picker']");
+                        modal.picker.on("change", function () {
+                            modal.tmpAssignedTo = this.value;
+                        });
+                    }, 1);
+
+                    
                 },
 
                 hide: function () {
+                    this.cleanup();
                     $('#task-details-modal').modal('hide');
                 },
 
                 cleanup: function () {
-
                     // clear select2
                     this.options = [];
                     $("select[data-role=user-picker]").children().remove();
@@ -279,6 +292,7 @@ wvy.taskapp = (function ($) {
 
                     if (this.tmpName != '') {
                         this.model.name = this.tmpName;
+                        this.model.description = this.tmpDescription;
                         this.model.due_date = this.tmpDueDate;
                         this.model.assigned_to = this.tmpAssignedTo;
 
@@ -296,6 +310,7 @@ wvy.taskapp = (function ($) {
                     // set values
                     modal.model = model;
                     modal.tmpName = model.name;
+                    modal.tmpDescription = model.description;
                     modal.tmpDueDate = model.due_date;
                     modal.tmpAssignedTo = model.assigned_to;
                     modal.options = [];
@@ -312,22 +327,7 @@ wvy.taskapp = (function ($) {
                 });
             },
 
-            mounted: function () {
-                var modal = this;
-                $(document).on("shown.bs.modal", "#task-details-modal", function (e) {
-                    setTimeout(function () {
-                        modal.picker = weavy.userspicker.init("select[data-role='user-picker']");
-                        modal.picker.on("change", function () {
-                            modal.tmpAssignedTo = this.value;
-                        });
-                    }, 1);
-
-                });
-
-                $(document).on("hidden.bs.modal", "#task-details-modal", function (e) {
-                    modal.cleanup();
-                });
-            }
+            
         };
 
         /* Task comments modal */
@@ -340,39 +340,12 @@ wvy.taskapp = (function ($) {
             },
             methods: {
                 show: function () {
-                    $('#task-comments-modal').modal('show');
-                },
-
-                hide: function () {
-                    $('#task-comments-modal').modal('hide');
-                }
-            },
-
-            created: function () {
-                var modal = this;
-
-                eventHub.$on('task-comments', function (model) {
-                    modal.model = model;
-
-                    modal.show();
-                });
-            },
-
-            mounted: function () {
-                var taskComments = this;
-
-                $(document).on("show.bs.modal", "#task-comments-modal", function (e) {
-                    // clear modal content and show spinner
-                    var $modal = $(this);
-                    $(".spinner", $modal).addClass("spin").show();
-                    $(".modal-body", $modal).empty();
-                });
-
-                $(document).on("shown.bs.modal", "#task-comments-modal", function (e) {
-
-                    var $modal = $(this);
+                    var taskComments = this;
+                    var $modal = $('#task-comments-modal');
                     var $spinner = $(".spinner", $modal);
                     var $body = $(".modal-body", $modal);
+                    $(".spinner", $modal).addClass("spin").show();
+                    $(".modal-body", $modal).empty();
 
                     $.ajax({
                         url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks/' + taskComments.model.id + '/comments'),
@@ -388,12 +361,29 @@ wvy.taskapp = (function ($) {
                         // hide spinner
                         $spinner.removeClass("spin").hide();
                     });
+
+                    $('#task-comments-modal').modal('show');
+                },
+
+                hide: function () {
+                    $('#task-comments-modal').modal('hide');
+                }
+
+            },
+
+            created: function () {
+                var modal = this;
+
+                eventHub.$on('task-comments', function (model) {
+                    modal.model = model;
+
+                    modal.show();
                 });
             }
         };
 
         /* App */
-        new Vue({
+        vm = new Vue({
             el: '#app',
             data: function () {
                 return {
@@ -438,8 +428,8 @@ wvy.taskapp = (function ($) {
 
     };
 
-    var destroy = function () {
-
+    var destroy = function () {        
+        //vm.$destroy();
     };
 
     return {

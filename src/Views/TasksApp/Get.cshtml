@@ -56,9 +56,13 @@
                 <input type="text" v-model="tempText" placeholder="Type a task name and hit enter" @@keyup.enter="save" @@blur="save" @@keyup.esc="cancelEdit">
             </p>
 
+            
             <div class="text" v-if="!isEditing" @@dblclick="edit">
                 <div>{{ model.name }}</div>
 
+                
+                <small class="text-muted">{{ model.description}}</small>
+                
                 <div v-if="model.due_date"><small :class="{'text-red': isDue}">{{model.due_date  | datetime}}</small></div>
 
                 <div v-if="model.assigned_to && model.assigned_to_user"><small><a :href="'/people/' + model.assigned_to" class="task-user"><img :title="'Assigned to' + model.assigned_to_user.profile.name" class="img-24 avatar" :src="'/people/' + model.assigned_to + '/avatar-48x48.jpg'" /></a> <span>{{model.assigned_to_user.profile.name}}</span></small></div>
@@ -115,6 +119,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" v-model="tmpDescription" placeholder="A task description"></textarea>                            
+                        </div>
+
+                        <div class="form-group">
                             <label>Due date</label>
                             <input type="datetime-local" class="form-control" v-model="tmpDueDate" placeholder="">
                         </div>
@@ -137,7 +146,7 @@
 
     <!-- Task Comments -->
     <template id="tasks-comments">
-        <div class="modal fade" id="task-comments-modal" tabindex="-1" role="dialog" aria-labelledby="task-details-modal" aria-hidden="true">
+        <div class="modal" id="task-comments-modal" tabindex="-1" role="dialog" aria-labelledby="task-details-modal" aria-hidden="true">
 
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -148,7 +157,7 @@
                         </button>
                     </div>
                     @Html.SvgSpinner()
-                    <div class="modal-body" v-if="model">
+                    <div class="modal-body">
 
                     </div>
                     <div class="modal-footer border-0">
@@ -160,7 +169,7 @@
     </template>
 </div>
 
-<script>    
+<script>        
     $(function () {
         wvy.taskapp.init(@Model.Id, '@Model.AppGuid', '@Model.Name', @Html.ToJson(Model.Tasks));
     });

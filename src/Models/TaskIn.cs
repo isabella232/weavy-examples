@@ -22,6 +22,11 @@ namespace Wvy.Models {
         /// <summary>
         /// 
         /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public bool Completed { get; set; }
 
         /// <summary>

@@ -99,6 +99,7 @@ namespace Wvy.Controllers {
             }
 
             task.Name = model.Name;
+            task.Description = model.Description;
             task.Completed = model.Completed;
             task.DueDate = model.DueDate;
             task.AssignedTo = model.AssignedTo;
