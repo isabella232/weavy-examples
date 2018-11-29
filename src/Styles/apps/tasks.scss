@@ -19,6 +19,7 @@ $label_medium_color: $yellow;
     background: #fff;
     border-radius: 6px;
     box-shadow: 0 0 40px rgba(0,0,0,.1);
+    position: relative;
 }
 
 .tasks-header {
@@ -31,6 +32,15 @@ $label_medium_color: $yellow;
         font-size: 0.9em;
         color: $text-muted;
         margin-top: 5px;
+    }
+}
+
+@include media-breakpoint-down(xs) {
+
+    .tasks-wrapper {
+        margin-top: 0 !important;
+        margin-left: calc(-#{$grid-gutter-width/2});
+        margin-right: calc(-#{$grid-gutter-width/2});
     }
 }
 
@@ -77,156 +87,163 @@ $label_medium_color: $yellow;
 }
 
 .task-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    .toggle-completed {
+        display: inline-block;
+        margin: 0 20px 10px;
+    }
 
-    .task-item {
-        padding: 15px 10px;
-        border-top: 1px solid $border-color;
-        position: relative;
-        display: flex;
-        align-items: center;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-        &.task-done {
-            .text {
-                color: $text-muted;
-                text-decoration: line-through;
-            }
-        }
-
-        .checkbox {
-            align-self: flex-start;
-            margin-top: -0.1rem;
-
-            button {
-                cursor: pointer;
-            }
-        }
-
-        .text {
-            flex: 1;
-            margin-top: -2px;
-            padding-left: 5px;
-            padding-right: 35px;
-            margin-bottom: 0;
-            text-overflow: ellipsis;
-            overflow: hidden;
-
-            .description{
-                white-space: nowrap;
-            }
-        }
-
-        .priority-popup {
-            position: absolute;
-            right: 0px;
-            top: 23px;
-            border: 1px solid #EFEFEF;
-            list-style: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            background: #fff;
-            box-shadow: 0 4px 7px rgba(0,0,0,.1);
-            display: none;
-            z-index: 99999;
-
-            &.show {
-                display: block;
-            }
-
-            li {
-                padding: 3px 5px;
-                margin: 5px 0;
-                cursor: pointer;
-                white-space: nowrap;
-                font-size: .9em;
-                border-radius: 3px;
-
-                i {
-                    margin-right: 5px;
-                }
-
-                &:hover {
-                    background: #f5f5f5;
-                }
-            }
-        }
-
-        .label {
-            align-self: flex-start;
-            margin-top: .4rem;
-            display: inline-block;
-            background: $label_normal_color;
-            width: 15px;
-            height: 15px;
-            min-width: 15px;
-            border-radius: 50%;
-            float: left;
-            margin-right: 10px;
+        .task-item {
+            padding: 15px 10px;
+            border-top: 1px solid $border-color;
             position: relative;
-            cursor: pointer;
+            display: flex;
+            align-items: center;
 
-            &.priority0 {
-                background: $label_normal_color;
+            &.task-done {
+                .text {
+                    color: $text-muted;
+                    text-decoration: line-through;
+                }
             }
 
-            &.priority1 {
-                background: $label_medium_color;
+            .checkbox {
+                align-self: flex-start;
+                margin-top: -0.1rem;
+
+                button {
+                    cursor: pointer;
+                }
             }
 
-            &.priority2 {
-                background: $label_important_color;
+            .text {
+                flex: 1;
+                margin-top: -2px;
+                padding-left: 5px;
+                padding-right: 35px;
+                margin-bottom: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+
+                .description {
+                    white-space: nowrap;
+                }
             }
 
-            .priority-label {
-                left: 0;
-                width: 140px;
+            .priority-popup {
+                position: absolute;
+                right: 0px;
+                top: 23px;
+                border: 1px solid #EFEFEF;
+                list-style: none;
+                padding: 5px 10px;
+                border-radius: 4px;
+                background: #fff;
+                box-shadow: 0 4px 7px rgba(0,0,0,.1);
+                display: none;
+                z-index: 99999;
+
+                &.show {
+                    display: block;
+                }
 
                 li {
-                    color: white;
-                    font-weight: 700;
-                    text-shadow: 0 1px 1px rgba(0,0,0,.2);
+                    padding: 3px 5px;
+                    margin: 5px 0;
+                    cursor: pointer;
+                    white-space: nowrap;
+                    font-size: .9em;
+                    border-radius: 3px;
+
+                    i {
+                        margin-right: 5px;
+                    }
 
                     &:hover {
-                        opacity: .8;
+                        background: #f5f5f5;
                     }
                 }
+            }
 
-                .important {
+            .label {
+                align-self: flex-start;
+                margin-top: .4rem;
+                display: inline-block;
+                background: $label_normal_color;
+                width: 15px;
+                height: 15px;
+                min-width: 15px;
+                border-radius: 50%;
+                float: left;
+                margin-right: 10px;
+                position: relative;
+                cursor: pointer;
+
+                &.priority0 {
+                    background: $label_normal_color;
+                }
+
+                &.priority1 {
+                    background: $label_medium_color;
+                }
+
+                &.priority2 {
                     background: $label_important_color;
                 }
 
-                .medium {
-                    background: $label_medium_color
-                }
+                .priority-label {
+                    left: 0;
+                    width: 140px;
 
-                .normal {
-                    background: $label_normal_color
+                    li {
+                        color: white;
+                        font-weight: 700;
+                        text-shadow: 0 1px 1px rgba(0,0,0,.2);
+
+                        &:hover {
+                            opacity: .8;
+                        }
+                    }
+
+                    .important {
+                        background: $label_important_color;
+                    }
+
+                    .medium {
+                        background: $label_medium_color
+                    }
+
+                    .normal {
+                        background: $label_normal_color
+                    }
                 }
             }
-        }
 
-        .task-star {
-            margin-top: -.1rem;
-        }
+            .task-star {
+                margin-top: -.1rem;
+            }
 
-        .task-comments {
-            margin-left: 5px;
-            cursor: pointer;
-        }
+            .task-comments {
+                margin-left: 5px;
+                cursor: pointer;
+            }
 
-        &.editing {
-            background: $theme-100;
+            &.editing {
+                background: $theme-100;
 
-            input {
-                border: none;
-                font-family: inherit;
-                outline: none;
-                font-size: 1em;
-                width: 100%;
-                background: transparent;
-                margin: 4px 0;
+                input {
+                    border: none;
+                    font-family: inherit;
+                    outline: none;
+                    font-size: 1em;
+                    width: 100%;
+                    background: transparent;
+                    margin: 4px 0;
+                }
             }
         }
     }

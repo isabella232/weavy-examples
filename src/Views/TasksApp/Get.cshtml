@@ -1,10 +1,10 @@
 ﻿@model Wvy.Models.TasksApp
 @using Wvy.Models;
 
-<div class="container my-4" id="taskApp@(Model.Id)">
+<div class="container" id="taskApp@(Model.Id)">
     <!-- App -->
     <div id="app">
-        <div class="tasks-wrapper">
+        <div class="tasks-wrapper my-4">
             <tasks-header></tasks-header>
             <div class="todo-content">
                 <tasks-form></tasks-form>
@@ -32,16 +32,20 @@
 
     <!-- Task List -->
     <template id="tasks-list">
-        <ul class="task-list">
-            <draggable :list="collection" :options="{handle: '.checkbox'}" @@end="onDrop">                
-                <task-item v-for="item in collection" :model="item" :key="item.id"></task-item>                
-            </draggable>            
-        </ul>
+        <div class="task-list">
+            <a class="toggle-completed" href="#" @@click="toggleCompleted">{{(hideCompleted ? 'Show' : 'Hide')}} completed {{(hideCompleted ? '(' + taskDone + ')' : '')}}</a>
+            <ul>
+                <draggable :list="collection" :options="{handle: '.checkbox'}" @@end="onDrop">
+                    <task-item v-for="item in collection" :model="item" :hide="hideCompleted" :key="item.id"></task-item>
+                </draggable>
+            </ul>
+        </div>
+        
     </template>
 
     <!-- Task Item -->
     <template id="task-item">
-        <li class="task-item" :class="{'editing': isEditing, 'task-done': isDone}">
+        <li class="task-item" :class="{'editing': isEditing, 'task-done': isDone, 'd-none': shouldHide}">
             <span @@click="showPriorities" :class="'label priority' + model.priority">
                 <ul class="priority-label priority-popup">
                     <li @@click="savePriority(2)" class="important">Important</li>
@@ -59,12 +63,12 @@
                 <input type="text" v-model="tempText" placeholder="Type a task name and hit enter" @@keyup.enter="save" @@blur="save" @@keyup.esc="cancelEdit">
             </p>
 
-            
+
             <div class="text" v-if="!isEditing" @@dblclick="edit">
                 <div>{{ model.name }}</div>
 
                 <small class="text-muted description">{{ model.description }}</small>
-                
+
                 <div v-if="model.due_date"><small :class="{'text-red': isDue}">{{model.due_date  | datetime}}</small></div>
 
                 <div v-if="model.assigned_to && model.assigned_to_user"><small><a :href="'/people/' + model.assigned_to" class="task-user"><img :title="'Assigned to' + model.assigned_to_user.profile.name" class="img-24 avatar" :src="'/people/' + model.assigned_to + '/avatar-48x48.jpg'" /></a> <span>{{model.assigned_to_user.profile.name}}</span></small></div>
@@ -122,7 +126,7 @@
 
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control" v-model="tmpDescription" placeholder="A task description"></textarea>                            
+                            <textarea class="form-control" v-model="tmpDescription" placeholder="A task description"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -171,7 +175,8 @@
     </template>
 </div>
 
-<script>        
+<script>
+
     $(function () {
         wvy.taskapp.init(@Model.Id, '@Model.AppGuid', '@Model.Name', @Html.ToJson(Model.Tasks.Cast<TaskItem>().OrderBy(x => x.Order)));
     });
@@ -181,7 +186,7 @@
     @Html.ThemeStyle("~/styles/apps/tasks.scss")
 }
 
-@section footer {    
+@section footer {
     @{
         Html.RenderPartial("_FeedbackModal");
         Html.RenderPartial("_EditCommentModal");

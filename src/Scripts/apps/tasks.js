@@ -93,7 +93,7 @@ wvy.taskapp = (function ($) {
         /* Task item component */
         var TaskItem = {
             template: '#task-item',
-            props: ['model'],
+            props: ['model', 'hide'],
             data: function () {
                 return {
                     tempText: '',
@@ -113,6 +113,11 @@ wvy.taskapp = (function ($) {
 
                 isDue: function () {
                     return this.model.due_date && new Date(this.model.due_date) <= new Date();
+                },
+
+                shouldHide: function () {
+                    // work-around since Vue Draggable does not support computed lists                    
+                    return this.hide && this.model.completed;
                 }
             },
 
@@ -198,10 +203,38 @@ wvy.taskapp = (function ($) {
         var TaskList = {
             template: '#tasks-list',
             props: ['collection'],
+            data: function () {
+                return {
+                    hideCompleted: false
+                };
+            },
+            
             components: {
                 'task-item': TaskItem
             },
+            
+            computed: {
+                taskDone: function () {
+                    var total = 0;
+                    
+                    if (this.collection.length > 0) {
+                        for (var i = 0; i < this.collection.length; i++) {
+                            if (this.collection[i].completed) {
+                                total++;
+                            }
+                        }
+                    }
+                    
+                    return total;
+                },
+            },
+
             methods: {
+                toggleCompleted: function (e) {
+                    e.preventDefault();
+                    this.hideCompleted = !this.hideCompleted;
+                    localStorage.setItem("tasklist_hide_completed", this.hideCompleted);                    
+                },
 
                 updateSortOrder: function () {
 
@@ -216,8 +249,7 @@ wvy.taskapp = (function ($) {
                         method: 'POST',
                         contentType: 'application/json'
                     }).then(function () {
-                        // sort order updated
-                        
+                        // sort order updated                        
                     });
                 },
 
@@ -255,6 +287,8 @@ wvy.taskapp = (function ($) {
 
             created: function () {
                 var taskList = this;
+                
+                taskList.hideCompleted = JSON.parse(localStorage.getItem("tasklist_hide_completed")) || false;
 
                 eventHub.$on('item-save', function (model) {
                     taskList.saveTask(model);
