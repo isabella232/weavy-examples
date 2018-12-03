@@ -8,7 +8,7 @@ using Wvy.Models;
 
 namespace Wvy.Controllers {
     /// <summary>
-    /// Controller for the <see cref="TasksApp"/>.
+    /// Controller for the <see cref="AsanaApp"/>.
     /// </summary>
     [RoutePrefix("apps/{id:int}/B309F192-9F22-4E39-AAFC-DD59589227C7")]
     public class AsanaAppController : AppController<AsanaApp> {
