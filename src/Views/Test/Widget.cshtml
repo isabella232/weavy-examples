@@ -1,7 +1,7 @@
 ﻿@using System.Linq;
 @{
     Layout = null;
-    
+    var loader = new WeavyLoaderOptions { Minified = true, Slim = false };
 
 }
 <!DOCTYPE html>
@@ -170,6 +170,6 @@
     @*<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>*@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" crossorigin="anonymous"></script>
 
-    @WeavyHtmlExtensions.WidgetLoader(min: true, libs: true)
+    @Html.Raw(loader.ToString())
 </body>
 </html>

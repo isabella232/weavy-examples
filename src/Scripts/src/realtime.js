@@ -2,25 +2,23 @@ var weavy = weavy || {};
 
 weavy.realtime = (function ($) {
 
-    // attach an event handler for the specified server event, e.g. "presence", "typing" etc (see RealTimeHub for a list of events)
+    // attach an event handler for the specified server event, e.g. "presence", "typing" etc (see PushService for a list of built-in events)
     function on(event, handler, proxy) {
         proxy = proxy || "rtm";
         $(document).on(event + "." + proxy + ".weavy", null, null, handler);
     }
 
-    // invoke a method on the server, e.g. "SetActive", "Typing" etc. (see RealTimeHub for al list of methods)
-    function invoke(hub) {
-        hub = hub || "rtm";
-
+    // invoke a method on a server hub, e.g. "SetActive" on the RealTimeHub (rtm) or "Typing" on the MessengerHub (messenger).
+    function invoke(hub, method, data) {
+        var args = data ? [method, data] : [method];
         if (weavy.connection.connection.state === $.signalR.connectionState.connected) {
             var proxy = weavy.connection.proxies[hub];
-
-            proxy.invoke.apply(proxy, $.makeArray(arguments).slice(1)).fail(function (error) {
+            proxy.invoke.apply(proxy, args).fail(function (error) {
                 console.error(error);
             });
         } else if (weavy.browser && weavy.browser.embedded) {
             // if embedded then execute invoke message from host page
-            window.parent.postMessage({ name: "invoke", hub: hub, args: $.makeArray(arguments).slice(1) }, "*")
+            window.parent.postMessage({ name: "invoke", hub: hub, args: args }, "*")
         }
     }
 

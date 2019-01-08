@@ -88,4 +88,4 @@ weavy.userspicker = (function ($) {
     return {
         init: initPicker
     }
-})($);
+})(jQuery);

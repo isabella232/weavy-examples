@@ -10,7 +10,7 @@
             }
         </div>
         <div class="navbar-icons">
-            <button type="button" class="btn btn-icon" data-hide="drawer-details">@Html.SvgIcon("close")</button>
+            <button type="button" class="btn btn-icon" data-hide="drawer-details">@Svg.Icon("close")</button>
         </div>
     </div>
 </header>
@@ -31,7 +31,7 @@
             <legend>People</legend>
             <table class="table table-users">
                 <tr>
-                    <td class="table-icon"><button type="button" class="btn btn-icon">@Html.SvgIcon("plus")</button></td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("plus")</button></td>
                     <td><a href="javascript:;" data-toggle="drawer-add-people">Add People</a></td>
                     <td></td>
                 </tr>
@@ -41,9 +41,9 @@
                         <td>@member.GetTitle()</td>
                         <td class="table-icon dropdown">
                             @if (member.Id == User.Id) {
-                                <button type="button" class="btn btn-icon" data-leave="@member.Id">@Html.SvgIcon("close")</button>
+                                <button type="button" class="btn btn-icon" data-leave="@member.Id">@Svg.Icon("close")</button>
                             } else {
-                                <button type="button" class="btn btn-icon" data-remove-user="@member.Id">@Html.SvgIcon("close")</button>
+                                <button type="button" class="btn btn-icon" data-remove-user="@member.Id">@Svg.Icon("close")</button>
                             }
                         </td>
                     </tr>
@@ -63,7 +63,7 @@
               var attrs = Html.PreviewAttributes(attachment);
               var href = attrs["data-href"] ?? attachment.FileUrl(download:true);
                 <tr @Html.Raw(attrs.AsHtmlAttributes())>
-                    <td class="table-icon">@Html.SvgIcon(attachment)</td>
+                    <td class="table-icon">@Svg.Icon(attachment)</td>
                     <td><a href="@href">@attachment.Blob.Name</a></td>
                 </tr>
             }

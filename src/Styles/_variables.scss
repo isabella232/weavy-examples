@@ -211,7 +211,7 @@ $hr-border-color: rgba($black,.1); // rgba($black,.1)
 $table-cell-padding: .75rem; //.75rem
 $table-cell-padding-sm: .25rem; //.3rem
 
-$table-border-color: $gray-200; //$gray-300
+$table-border-color: $hr-border-color; //$gray-300
 
 $table-head-bg: $body-bg; //$gray-200;
 $table-head-color: $panel-color; // $gray-700;

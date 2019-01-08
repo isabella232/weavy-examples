@@ -40,7 +40,7 @@ weavy.alert = (function ($) {
 
     function alert(type, message, duration, id) {
         var $alerts = $(".alerts");
-        var $alert = $('<div class="alert alert-dismissible fade" role="alert"><button type="button" class="btn btn-icon close" data-dismiss="alert" aria-label="Close"><svg class="i"><use xlink:href="#close" /></svg></button></div>');
+        var $alert = $('<div class="alert alert-dismissible fade" role="alert"><button type="button" class="btn btn-icon close" data-dismiss="alert" aria-label="Close"><svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg></button></div>');
         $alert.addClass("alert-" + type);
         
         if (typeof id !== "undefined") {

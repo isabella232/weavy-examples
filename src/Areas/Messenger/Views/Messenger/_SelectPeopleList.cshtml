@@ -1,4 +1,4 @@
-﻿@model SearchResult<User, UserQuery>
+﻿@model UserSearchResult
 
 @{
     var selected = ViewData["selected"] as IEnumerable<User> ?? new List<User>();
@@ -39,8 +39,8 @@
                             }
                         </div>
                     </div>
-                    <button type="button" class="btn btn-icon checked">@Html.SvgIcon("checkbox-marked-outline")</button>
-                    <button type="button" class="btn btn-icon unchecked">@Html.SvgIcon("checkbox-blank-outline")</button>
+                    <button type="button" class="btn btn-icon checked">@Svg.Icon("checkbox-marked-outline")</button>
+                    <button type="button" class="btn btn-icon unchecked">@Svg.Icon("checkbox-blank-outline")</button>
                 </div>
             </div>
         }

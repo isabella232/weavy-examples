@@ -72,11 +72,11 @@
                 </div>
             } else if (members.Any(x => x.DeliveredAt >= Model.CreatedAt)) {
                 <div class="status status-delivered" title="Delivered">
-                    @Html.SvgIcon("check-circle", size: 18)
+                    @Svg.Icon("check-circle", size: 18)
                 </div>
             } else {
                 <div class="status status-sent" title="Sent">
-                    @Html.SvgIcon("check-circle-outline", size: 18)
+                    @Svg.Icon("check-circle-outline", size: 18)
                 </div>
             }
         }

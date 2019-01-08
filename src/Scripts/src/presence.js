@@ -23,14 +23,14 @@ weavy.presence = (function ($) {
             _active = true;
 
             // tell server that connection is active
-            weavy.realtime.invoke("rtm", "SetActive");
+            weavy.realtime.invoke("rtm", "setActive");
         }
     }
 
     function ping() {
         if (_active) {
             // ping the server to indicate that user is still active on this connection
-            weavy.realtime.invoke("rtm", "SetActive");
+            weavy.realtime.invoke("rtm", "setActive");
         }
     }
 

@@ -1,8 +1,8 @@
 ﻿# libs
-~/scripts/custom/vue.js
-~/scripts/custom/sortable.min.js
-~/scripts/custom/vuedraggable.min.js
+~/areas/apps/scripts/vendor/vue.js
+~/areas/apps/scripts/vendor/sortable.min.js
+~/areas/apps/scripts/vendor/vuedraggable.min.js
 
 # my apps
-~/scripts/apps/tasks.js
-~/scripts/apps/asana.js
+~/areas/apps/scripts/tasks.js
+~/areas/apps/scripts/asana.js

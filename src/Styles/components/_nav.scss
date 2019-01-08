@@ -59,6 +59,7 @@
 
             .badge {
                 @include badge-notification;
+                top: .5rem;
             }
         }
     }

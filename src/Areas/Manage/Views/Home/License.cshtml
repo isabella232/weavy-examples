@@ -13,12 +13,12 @@
     @using (Html.BeginForm(null, null, FormMethod.Post, new { autocomplete = "off", data_turboform = "", novalidate = "" })) {
         <div class="form-group">
             <label for="LicenseKey">
-                License key <button type="button" title="License details" class="btn btn-icon" data-toggle="modal" data-target="#license-details">@Html.SvgIcon("information")</button>
+                License key <button type="button" title="License details" class="btn btn-icon" data-toggle="modal" data-target="#license-details">@Svg.Icon("information")</button>
             </label>
             <div class="input-group">
                 @Html.TextBoxFor(x => x.LicenseKey, new { @class = "form-control" + (feedback.IsNullOrEmpty() ? "" : " is-invalid") })
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit" title="Update">@Html.SvgIcon("refresh")</button>
+                    <button class="btn btn-primary" type="submit" title="Update">@Svg.Icon("refresh")</button>
                 </div>
             </div>
             @if (!feedback.IsNullOrEmpty()) {
@@ -56,7 +56,7 @@
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
                     <h5 class="modal-title">License details</h5>
-                    <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Html.SvgIcon("close")</button>
+                    <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Svg.Icon("close")</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">

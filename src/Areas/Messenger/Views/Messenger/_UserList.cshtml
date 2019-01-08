@@ -1,6 +1,6 @@
 ﻿@using Weavy.Web.Areas.Messenger.Controllers
 @using Weavy.Web.Controllers
-@model SearchResult<User, UserQuery>
+@model UserSearchResult
 
 @if (Model.HasItems()) {
     foreach (var group in Model.GroupBy(x => x.GetTitle().ToUpper().Trim().FirstOrDefault())) {

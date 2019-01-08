@@ -25,17 +25,17 @@
                 <div class="form-group">
                     
                     <div class="context">
-                        <div class="context-data"><img class="context-icon" src="" /><span class="context-url"></span><a href="#" title="Remove url as context" class="remove-context btn btn-icon">@Html.SvgIcon("close", size: 18)</a></div>
+                        <div class="context-data"><img class="context-icon" src="" /><span class="context-url"></span><a href="#" title="Remove url as context" class="remove-context btn btn-icon">@Svg.Icon("close", size: 18)</a></div>
                      </div>
                     
                     @Html.TextArea("Text", string.Empty, new { placeholder = "Type a message...", rows = "1", @class = "form-control", disabled = "disabled", data_quicklinks = true, data_mentions = true })
                     <div class="form-buttons">
-                        <button type="submit" class="btn btn-icon btn-primary" title="Send message">@Html.SvgIcon("send")</button>
+                        <button type="submit" class="btn btn-icon btn-primary" title="Send message">@Svg.Icon("send")</button>
                         <div class="btn btn-icon emojionearea-button-container" id="emojionearea-button-container">
                             <div class="emojionearea-button"><div class="emojionearea-button-open"></div></div>
                         </div>
-                        <div class="btn btn-icon btn-file" title="Add files">@Html.SvgIcon("attachment")<input type="file" name="files" multiple /></div>
-                        <button type="button" class="btn btn-icon btn-add-context d-embedded context" title="Attach current url as context">@Html.SvgIcon("link-context")</button>
+                        <div class="btn btn-icon btn-file" title="Add files">@Svg.Icon("attachment")<input type="file" name="files" multiple /></div>
+                        <button type="button" class="btn btn-icon btn-add-context d-embedded context" title="Attach current url as context">@Svg.Icon("link-context")</button>
                     </div>
                 </div>
 

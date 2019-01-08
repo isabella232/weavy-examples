@@ -51,6 +51,7 @@
 ~/scripts/src/sortable.js
 ~/scripts/src/tagsinput.js
 ~/scripts/src/notifications.js
+~/scripts/src/ui.js
 ~/scripts/src/desktop-notifications.js
 ~/scripts/src/widget-personal.js
 ~/scripts/src/drawer.js

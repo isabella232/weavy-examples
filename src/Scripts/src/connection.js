@@ -3,7 +3,7 @@ weavy.connection = (function ($, w) {
     // create a new hub connection
     var connection = $.hubConnection("/signalr", { useDefaultPath: false });
     var reconnecting = false;
-    var hubProxies = { rtm: connection.createHubProxy('rtm'), widget: connection.createHubProxy('widget') };
+    var hubProxies = { rtm: connection.createHubProxy('rtm'), widget: connection.createHubProxy('widget'), messenger: connection.createHubProxy('messenger') };
     var wins = [w]; // all windows when in embedded mode
     var _reconnectTimeout = null;
     var reconnectRetries = 0;
@@ -106,7 +106,7 @@ weavy.connection = (function ($, w) {
     });
 
     connection.disconnected(function () {
-        console.info("disconnected...");
+        console.info("disconnected");
 
         if (!explicitlyDisconnected) {
             reconnectRetries++;
@@ -128,7 +128,8 @@ weavy.connection = (function ($, w) {
     });
 
     function triggerEvent(name) {
-        console.debug("triggering: " + name);
+        console.debug(name);
+
         var event = $.Event(name);
 
         // trigger event (with json object instead of string), handle any number of json objects passed from hub (args)

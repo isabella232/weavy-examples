@@ -42,14 +42,13 @@
 </head>
 
 <body>
-    @Html.SvgSprite()
     <div class="container">
         <h1>WEAVY FILEBROWSER!</h1>
         <div>
-            <button class="btn btn-default dropbox">@Html.SvgIcon("dropbox") Dropbox</button>
-            <button class="btn btn-default box">@Html.SvgIcon("box") Box</button>
-            <button class="btn btn-default onedrive">@Html.SvgIcon("onedrive") OneDrive</button>
-            <button class="btn btn-default google">@Html.SvgIcon("google") Google Drive</button>
+            <button class="btn btn-default dropbox">@Svg.Icon("dropbox", "native") Dropbox</button>
+            <button class="btn btn-default box">@Svg.Icon("box", "native") Box</button>
+            <button class="btn btn-default onedrive">@Svg.Icon("onedrive", "native") OneDrive</button>
+            <button class="btn btn-default google">@Svg.Icon("google-drive", "native") Google Drive</button>
 
         </div>
         

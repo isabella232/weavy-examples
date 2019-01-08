@@ -125,7 +125,7 @@ weavy.bubbles = (function ($) {
 
                 var $closeButton = $('<button class="btn btn-icon i weavy-bubble-close ml-3" title="Close">')
                     .attr("data-remove-bubble", JSON.stringify({ spaceId: data.space_id, bubbleId: data.bubble_id }))
-                    .append('<svg class="i"><use xlink:href="#close"></use></svg>');
+                    .append('<svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg>');
 
                 var $dropdownItem = $('<div class="dropdown-item weavy-bubble-item">')
                     .addClass("weavy-bubble-" + data.space_id)
@@ -148,7 +148,7 @@ weavy.bubbles = (function ($) {
 
                 var $closeAction = $('<div class="weavy-bubble-action weavy-bubble-close" title="Close">')
                     .attr("data-remove-bubble", JSON.stringify({ spaceId: data.space_id, bubbleId: data.bubble_id }))
-                    .append('<svg class="i"><use xlink:href="#close-circle"></use></svg>');
+                    .append('<svg class="i i-close-circle" height="24" viewBox="0 0 24 24" width="24"><path d="m12 2c5.53 0 10 4.47 10 10s-4.47 10-10 10-10-4.47-10-10 4.47-10 10-10m3.59 5-3.59 3.59-3.59-3.59-1.41 1.41 3.59 3.59-3.59 3.59 1.41 1.41 3.59-3.59 3.59 3.59 1.41-1.41-3.59-3.59 3.59-3.59z"/></svg>');
 
                 var $bubbleTooltip = $('<div class="weavy-bubble-tooltip">')
                     .attr('id', "weavy-bubble-tooltip-" + data.space_id)

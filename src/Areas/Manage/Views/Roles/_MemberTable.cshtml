@@ -2,7 +2,7 @@
 
 @if (Model.Members.Any()) {
     foreach (var user in Model.Members) {
-        <tr class="@($"{(user.IsTrashed() ? "table-trashed" : "")} {(user.IsSuspended ? "table-suspended": "")}")">
+        <tr class="@($"{(user.IsTrashed() ? "table-trashed" : "")} {(user.IsSuspended ? "table-muted": "")}")">
             <td class="table-icon">@user.AvatarImg(32, presence: true)</td>
             <td>
                 @if (user.Username == user.GetTitle()) {
@@ -16,7 +16,7 @@
                 @using (Html.BeginForm(nameof(RolesController.RemoveMember), null, new { Model.Role.Id })) {
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                     @Html.Hidden("UserId", user.Id)
-                    <button type="submit" class="btn btn-icon" title="Remove member" data-remove-from-role>@Html.SvgIcon("close")</button>
+                    <button type="submit" class="btn btn-icon" title="Remove member" data-remove-from-role>@Svg.Icon("close")</button>
                 }
             </td>
         </tr>

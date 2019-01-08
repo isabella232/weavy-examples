@@ -3,4 +3,6 @@
 ~/scripts/src/realtime.js
 ~/scripts/src/urlChecker.js
 ~/scripts/src/widget/widget.js
+#~/scripts/src/widget/_widget-plugin-helloworld.js
+#~/scripts/src/widget/_widget-plugin-template.js
 ~/scripts/src/widget/position.js

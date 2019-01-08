@@ -70,7 +70,6 @@ weavy.messenger = (function ($) {
 
     // archive conversation
     function archive(id) {
-        console.debug("archiving conversation " + id);
         $.ajax({
             contentType: "application/json",
             method: "POST",
@@ -82,7 +81,6 @@ weavy.messenger = (function ($) {
 
     // unarchive conversation
     function unarchive(id) {
-        console.debug("unarchiving conversation " + id);
         $.ajax({
             contentType: "application/json",
             method: "DELETE",
@@ -94,7 +92,6 @@ weavy.messenger = (function ($) {
 
     // leave conversation
     function leave(id) {
-        console.debug("leaving conversation " + id);
         $.ajax({
             contentType: "application/json",
             method: "DELETE",
@@ -373,7 +370,6 @@ weavy.messenger = (function ($) {
         weavy.audio.play("#message-sound");
 
         if (window.Notification) {
-            console.debug("notification permission is " + Notification.permission + " and context.notify is " + weavy.context.notify);
 
             if (Notification.permission === "granted" && weavy.context.notify) {
                 var notification = new Notification("Message from " + (message.created_by.name || message.created_by.username), {
@@ -402,7 +398,7 @@ weavy.messenger = (function ($) {
 
     // send typing indicator to server
     function sendTyping() {
-        weavy.realtime.invoke("rtm", "Typing", _conversation);
+        weavy.realtime.invoke("messenger", "typing", _conversation);
     }
 
     // called to update gui with typing indicators
@@ -416,7 +412,7 @@ weavy.messenger = (function ($) {
         var now = Date.now();
         _typing.forEach(function (item, index) {
             if (now - item.time > 5 * 1000) {
-                console.debug("user stopped typing");
+                //console.debug("user stopped typing");
                 _typing.splice(index, 1);
             }
         });
@@ -433,7 +429,7 @@ weavy.messenger = (function ($) {
             for (var key in grouped) {
                 var text = "";
                 var names = _.map(grouped[key], function (item) {
-                    console.debug("user is typing in conversation " + key);
+                    //console.debug("user is typing in conversation " + key);
                     return item.user.username;
                 });
 
@@ -465,8 +461,6 @@ weavy.messenger = (function ($) {
 
     // refresh the gui
     function refreshConversation(refreshToRoot) {
-        console.debug("refreshing ui...");
-
         if (typeof (refreshToRoot) !== "undefined" && refreshToRoot) {
             // load start page
             document.location.href = weavy.url.resolve("/messenger");
@@ -484,7 +478,7 @@ weavy.messenger = (function ($) {
             count = $(".list-group-item.conversation.unread").length;
         }
         console.debug("badge = " + count);
-        $(".badge").text(count == 0 ? "" : count.toString());
+        $(".badge").text(count === 0 ? "" : count.toString());
     }
 
     // remove new messages banner from currently active conversation (and cache)
@@ -611,8 +605,6 @@ weavy.messenger = (function ($) {
 
     // TODO: many of the event handlers below can be hooked up before DOM READY!!!
     $(function () {
-
-
 
         //////////////////////////////////
         // callbacks for the real time api

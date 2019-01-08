@@ -9,7 +9,7 @@
             <tr>
                 <th class="table-icon"></th>
                 <th><a href="@Url.OrderBy("name")">Members</a></th>
-                <th class="table-icon"><button type="button" class="btn btn-icon " title="Add members" data-toggle="modal" data-target="#add-dialog" data-keyboard="true" data-focus="true">@Html.SvgIcon("plus")</button></th>
+                <th class="table-icon"><button type="button" class="btn btn-icon " title="Add members" data-toggle="modal" data-target="#add-dialog" data-keyboard="true" data-focus="true">@Svg.Icon("plus")</button></th>
             </tr>
         </thead>
         <tbody id="infinite-scroll-target">
@@ -33,7 +33,7 @@
                     @Html.AntiForgeryToken()
                     <div class="modal-header">
                         <h5 class="modal-title">Add members</h5>
-                        <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Html.SvgIcon("close")</button>
+                        <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">@Svg.Icon("close")</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

@@ -46,8 +46,7 @@ weavy.context = {
 
             weavy.connection.on("statechanged", function (e, data) {                
                 if (disconnected && data.state.newState === 1) {
-                    // todo: reload or show a message that the page should be reloaded?
-                    location.reload();
+                    weavy.ui.update();
                 }
             });
         }

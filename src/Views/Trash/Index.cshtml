@@ -1,4 +1,4 @@
-﻿@model SearchResult<TrashedEntity, TrashQuery>
+﻿@model TrashSearchResult
 @{
     Title = "Recycle bin";
     string tab = ViewContext.RouteData.Values["tab"] as string;
@@ -43,7 +43,7 @@
         <tbody>
             @foreach (var item in Model) {
                 <tr>
-                    <td class="table-icon">@Html.SvgIcon(item)</td>
+                    <td class="table-icon">@Svg.Icon(item)</td>
                     <td>@item.Title.Ellipsis(128)</td>
                     <td>@(item.Space(filter:false)?.Name)</td>
                     <td>@Html.Time(item.TrashedAt, format: "g")</td>
@@ -56,7 +56,7 @@
                                 @if (Model.Query.EntityTypes.Count == 1) {
                                     @Html.Hidden("tab", Model.Query.EntityTypes.Single().ToString())
                                 }
-                                <button type="submit" class="btn btn-icon btn-success btn-load" title="Restore">@Html.SvgIcon("undo")</button>
+                                <button type="submit" class="btn btn-icon btn-success btn-load" title="Restore">@Svg.Icon("undo")</button>
                             </form>
                             @if (item.Type != EntityType.User) {
                                 <form method="post" action="@Url.Action(nameof(TrashController.Delete))" data-turboform>
@@ -66,7 +66,7 @@
                                     @if (Model.Query.EntityTypes.Count == 1) {
                                         @Html.Hidden("tab", Model.Query.EntityTypes.Single().ToString())
                                     }
-                                    <button type="submit" class="btn btn-icon btn-danger btn-load" title="Permanently delete">@Html.SvgIcon("close")</button>
+                                    <button type="submit" class="btn btn-icon btn-danger btn-load" title="Permanently delete">@Svg.Icon("close")</button>
                                 </form>
                             }
                         </div>

@@ -292,13 +292,17 @@ weavy.comments = (function ($) {
     });
 
     // rtm like comment
-    weavy.realtime.on("likecomment", function (e, comment, user) {        
-        updateCommentFeedback(comment.id)
+    weavy.realtime.on("like", function (e, liked) {       
+        if (liked.type === 'comment') {
+            updateCommentFeedback(liked.id);
+        }
     });
 
     // rtm unlike comment
-    weavy.realtime.on("unlikecomment", function (e, comment, user) {        
-        updateCommentFeedback(comment.id)
+    weavy.realtime.on("unlike", function (e, unliked) {        
+        if (unliked.type === 'comment') {
+            updateCommentFeedback(unliked.id);
+        }
     });
 
     // load edit form

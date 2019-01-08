@@ -5,7 +5,7 @@
     var meta = Model.MetaData();
 }
 <tr data-id="@Model.Id" data-item-guid="@Model.ContentGuid" data-allowed-children="@meta.AllowedChildren()" data-allowed-parents="@meta.AllowedParents()" data-href="@Model.Url()">
-  <td class="table-icon">@Html.SvgIcon(Model)</td>
+  <td class="table-icon">@Svg.Icon(Model)</td>
   <td class="py-2 align-middle" title="@Model.Name">
     <div class="d-flex align-items-center">
       <a href="@Model.Url()" class="text-truncate">@Model.Name</a>
@@ -17,6 +17,6 @@
   </td>
   <td>@Html.Time(Model.ModifiedAt, format: "g")</td>
   <td>@Model.Kind()</td>
-  <td>@if (Model is FileBase file) { @FileHelper.FileSizeAsString(file.Blob.Size) }</td>
+  <td>@if (Model is IFile file) { @FileHelper.FileSizeAsString(file.Blob.Size) }</td>
   <td class="table-icon">@{ Html.RenderPartial("_ContentMenu", Model);}</td>
 </tr>

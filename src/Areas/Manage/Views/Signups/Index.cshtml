@@ -1,5 +1,5 @@
 ﻿@using Weavy.Web.Areas.Manage.Controllers
-@model SearchResult<Invite, InviteQuery>
+@model InviteSearchResult
 @{
     Title = "Sign-ups";
     Back = Url.Action<HomeController>(c => c.Index());
@@ -46,16 +46,16 @@
                             <td title="Sign-up request is approved">@invite.Status</td>
                             <td class="table-icon">
                                 <form method="post" action="@(Url.Action<SignupsController>(c => c.Update(invite.Id, null)))" data-turboform>
-                                    <button type="submit" name="button" class="btn btn-icon btn-info" value="email" title="Resend @(invite.IsSignup ? "approval": "invite") email">@Html.SvgIcon("email")</button>
-                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Html.SvgIcon("close")</button>
+                                    <button type="submit" name="button" class="btn btn-icon" value="email" title="Resend @(invite.IsSignup ? "approval": "invite") email">@Svg.Icon("email")</button>
+                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Svg.Icon("close")</button>
                                 </form>
                             </td>
                         } else if (invite.Status == InviteStatus.Verified) {
                             <td title="Email is verified">@invite.Status</td>
                             <td class="table-icon">
                                 <form method="post" action="@(Url.Action<SignupsController>(c => c.Update(invite.Id, null)))" data-turboform>
-                                    <button type="submit" name="button" class="btn btn-icon btn-success" value="approve" title="Approve @(invite.IsSignup ? "sign-up request": "invite")">@Html.SvgIcon("check")</button>
-                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Html.SvgIcon("close")</button>
+                                    <button type="submit" name="button" class="btn btn-icon btn-success" value="approve" title="Approve @(invite.IsSignup ? "sign-up request": "invite")">@Svg.Icon("check")</button>
+                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Svg.Icon("close")</button>
                                 </form>
                             </td>
                         } else {
@@ -63,10 +63,10 @@
                             <td class="table-icon">
                                 <form method="post" action="@(Url.Action<SignupsController>(c => c.Update(invite.Id, null)))" data-turboform>
                                     @if (!invite.IsSignup) {
-                                        <button type="submit" name="button" class="btn btn-icon btn-info" value="email" title="Resend @(invite.IsSignup ? "email confirmation" : "invite")">@Html.SvgIcon("email")</button>
+                                        <button type="submit" name="button" class="btn btn-icon" value="email" title="Resend @(invite.IsSignup ? "email confirmation" : "invite")">@Svg.Icon("email")</button>
                                     }
 
-                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Html.SvgIcon("close")</button>
+                                    <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete" title="Remove @(invite.IsSignup ? "sign-up request": "invite")">@Svg.Icon("close")</button>
                                 </form>
                             </td>
                         }

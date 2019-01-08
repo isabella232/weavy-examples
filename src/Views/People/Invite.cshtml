@@ -1,7 +1,7 @@
 ﻿@model InviteUsersModel
 @{
     Title = "Invite people";
-    Back = Url.Action<PeopleController>(c => c.Index(null, null, null));
+    Back = Url.Action<PeopleController>(c => c.Index(null, null));
 }
 <div class="container mt-3">
     <p>Invite people to @Theme.Name by entering their emails below.</p>

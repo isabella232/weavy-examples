@@ -1,28 +1,60 @@
 ﻿@model TestViewModel
 
 
-    <nav class="navbar navbar-content sticky-top">
+<nav class="navbar navbar-content sticky-top">
 
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item" title="Files"><a href="#">@Html.SvgIcon("folder", "amber")<span>Files</span></a>@Html.SvgIcon("chevron-right")</li>
-            <li class="breadcrumb-item" title="Long Folder Name That Should Get Truncated"><a href="#">@Html.SvgIcon("folder", "amber")<span>Long Folder Name That Should Get Truncated</span></a>@Html.SvgIcon("chevron-right")</li>
-            <li class="breadcrumb-item active" title="@Title">@Title</li>
-        </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item" title="Files"><a href="#">@Svg.Icon("folder", "amber")<span>Files</span></a>@Svg.Icon("chevron-right")</li>
+        <li class="breadcrumb-item" title="Long Folder Name That Should Get Truncated"><a href="#">@Svg.Icon("folder", "amber")<span>Long Folder Name That Should Get Truncated</span></a>@Svg.Icon("chevron-right")</li>
+        <li class="breadcrumb-item active" title="@Title">@Title</li>
+    </ol>
 
-        <div class="navbar-icons ml-auto">
-            <button class="btn btn-icon d-dark" data-body-bg="light">@Html.SvgIcon("lightbulb-outline")</button>
-            <button class="btn btn-icon d-light" data-body-bg="dark">@Html.SvgIcon("lightbulb")</button>
-            @{ Html.RenderPartial("_ContentMenu", new Note()); }
+    <div class="navbar-icons ml-auto">
+        <button class="btn btn-icon d-dark" data-body-bg="light">@Svg.Icon("lightbulb-outline")</button>
+        <button class="btn btn-icon d-light" data-body-bg="dark">@Svg.Icon("lightbulb")</button>
+        <div class="dropdown">
+            <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
+                @Svg.Icon("dots-vertical")
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#icons">Icons</a>
+                <a class="dropdown-item" href="#colors">Colors</a>
+                <a class="dropdown-item" href="#forms">Forms</a>
+                <a class="dropdown-item" href="#tables">Tables</a>
+                <a class="dropdown-item" href="#text">Text</a>
+                <a class="dropdown-item" href="#alerts">Alerts</a>
+                <a class="dropdown-item" href="#buttons">Buttons</a>
+                <a class="dropdown-item" href="#spinners">Spinners</a>
+                <a class="dropdown-item" href="#pagination">Pagination</a>
+            </div>
         </div>
-    </nav>
-
+    </div>
+</nav>
 
 <div class="container">
 
+    
+
     <section id="icons">
         <h1 class="display-3 mt-4">Icons</h1>
-        <hr />
-        @Html.SvgIcons()
+        @Svg.Icons()
+        <div class="d-flex">
+            <div class="ml-auto">
+                @Svg.Icon("weavy", "native", 96, htmlAttributes: new { data_toggle = "tooltip", title = "color: native, size: 96" }) 
+                @Svg.Icon("weavy", "icon", 48, htmlAttributes: new { data_toggle = "tooltip", title = "color: icon, size: 48" })  
+                @Svg.Icon("weavy", "danger", 36, htmlAttributes: new { data_toggle = "tooltip", title = "color: danger, size: 32" }) 
+                @Svg.Icon("weavy", "red-300", 24, htmlAttributes: new { data_toggle = "tooltip", title = "color: red-300" }) 
+                @Svg.Icon("weavy", size: 18, htmlAttributes: new { data_toggle = "tooltip", title = "size: 18" })  
+            </div>
+            <div class="mr-auto">
+                @Svg.Icon("weavy+onedrive", size: 18, htmlAttributes: new { data_toggle = "tooltip", title = "size: 18, overlay: onedrive" })
+                @Svg.Icon("weavy+onedrive", "red-300", htmlAttributes: new { data_toggle = "tooltip", title = "color: red-300, overlay: onedrive" })
+                @Svg.Icon("weavy+onedrive", "danger", 36, htmlAttributes: new { data_toggle = "tooltip", title = "color: danger, size: 32, overlay: onedrive" })
+                @Svg.Icon("weavy+onedrive", "icon", 48, htmlAttributes: new { data_toggle = "tooltip", title = "color: icon, size: 48, overlay: onedrive" })
+                @Svg.Icon("weavy+onedrive", "native", 96, htmlAttributes: new { data_toggle = "tooltip", title = "color: native, size: 96, overlay: onedrive" })
+            </div>
+        </div>
+
     </section>
 
     <section id="colors">
@@ -39,7 +71,7 @@
             @foreach (var color in colors) {
                 <div class="col-6 col-sm-4 col-lg-2 mb-4">
                     <div class="p-2 swatch-@color">@color.Replace("-", " ").ToTitleCase()</div>
-                    <div class="p-2 text-@color">Abc @Html.SvgIcon("palette", htmlAttributes: new { @class = "i-inline" })</div>
+                    <div class="p-2 text-@color">Abc @Svg.Icon("palette", htmlAttributes: new { @class = "i-inline" })</div>
                     @foreach (var shade in shades) {
                         var name = theme.ContainsKey(color + "-" + shade) ? " = " + theme[color + "-" + shade].ToTitleCase() : null;
                         <div class="p-2 swatch-@color-@shade">@shade @name</div>
@@ -142,82 +174,183 @@
         </form>
     </section>
 
-
     <section id="tables">
         <h1 class="display-3 mt-4">Tables</h1>
         <hr />
-        <table class="table table-hover">
-            <thead class="thead-light">
+        <table class="table table-hover table-test">
+            <thead>
                 <tr>
                     <th class="table-icon"></th>
-                    <th style="width:250px;">Username</th>
                     <th>Name</th>
-                    <th class="table-icon" style="width:80px"></th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th class="table-icon"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#tables">@@linus</a></td>
-                    <td class="hidden-sm-down">Linus Birgerstam</td>
-                    <td class="table-icon text-right">
+                <tr data-href="@User.Url()">
+                    <td class="table-icon">@User.AvatarImg(32, presence: true)</td>
+                    <td>
+                        @if (User.Username == User.GetTitle()) {
+                            <a href="@User.Url()"><small class="text-muted">@@@User.Username</small></a>
+                        } else {
+                            <a href="@User.Url()">@User.GetTitle()</a> <small class="text-muted">@@@User.Username</small>
+                        }
+                        @Html.Badge(User)
+                    </td>
+                    <td>@User.Profile.GetExcerpt()</td>
+                    <td>Default</td>
+                    <td class="table-icon">
                         <div class="dropdown">
                             <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
-                                @Html.SvgIcon("dots-vertical")
+                                @Svg.Icon("dots-vertical")
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">@Html.SvgIcon("plus") An action</a>
-                                <a class="dropdown-item" href="#">@Html.SvgIcon("check") Another action</a>
+                                <a class="dropdown-item" href="#">@Svg.Icon("plus") An action</a>
+                                <a class="dropdown-item" href="#">@Svg.Icon("check") Another action</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">@Html.SvgIcon("check") Separated action</a>
+                                <a class="dropdown-item" href="#">@Svg.Icon("delete") Separated action</a>
                             </div>
                         </div>
                     </td>
                 </tr>
+
+                <tr class="table-muted" data-href="@User.Url()">
+                    <td class="table-icon">@User.AvatarImg(32)</td>
+                    <td>
+                        @if (User.Username == User.GetTitle()) {
+                            <a href="@User.Url()"><small class="text-muted">@@@User.Username</small></a>
+                        } else {
+                            <a href="@User.Url()">@User.GetTitle()</a> <small class="text-muted">@@@User.Username</small>
+                        }
+                        <span class="badge badge-secondary">muted</span>
+                    </td>
+                    <td>@User.Profile.GetExcerpt()</td>
+                    <td>Muted</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-trashed" data-href="@User.Url()">
+                    <td class="table-icon">@User.AvatarImg(32)</td>
+                    <td>
+                        @if (User.Username == User.GetTitle()) {
+                            <a href="@User.Url()"><small class="text-muted">@@@User.Username</small></a>
+                        } else {
+                            <a href="@User.Url()">@User.GetTitle()</a> <small class="text-muted">@@@User.Username</small>
+                        }
+                        <span class="badge badge-danger">trashed</span>
+                    </td>
+                    <td>@User.Profile.GetExcerpt()</td>
+                    <td>Trashed</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("backup-restore", "success")</button></td>
+                </tr>
+
+                @if (WeavyContext.HQ != null) {
+                    <tr data-href="@WeavyContext.HQ.Url()">
+                        <td class="table-icon">@WeavyContext.HQ.AvatarImg(32)</td>
+                        <td class="py-2 align-middle">
+                            <div class="d-flex align-items-center">
+                                <div class="text-truncate">
+                                    <a href="@WeavyContext.HQ.Url()">@WeavyContext.HQ.Name</a>
+                                    @if (WeavyContext.HQ.Teamname != null) {<small class="text-muted">@@@WeavyContext.HQ.Teamname</small>}
+                                </div>
+                                @Html.StarToggle(WeavyContext.HQ, htmlAttributes: new { @class = "flex-noscale" })
+                                <span class="badge badge-info m-1 flex-noscale">main</span>
+                            </div>
+                        </td>
+                        <td>@WeavyContext.HQ.Description</td>
+                        <td>Default</td>
+                        <td class="table-icon"><button type="button" class="btn btn-icon btn-success">@Svg.Icon("check")</button></td>
+                    </tr>
+                }
+
+                <tr data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("folder", "amber")</td>
+                    <td class="py-2 align-middle">
+                        <div class="d-flex align-items-center">
+                            <a href="javascript:;" class="text-truncate">Folder</a>
+                            <button type="button" class="btn btn-icon ml-auto flex-noscale">
+                                @Svg.Icon("star", "yellow")
+                            </button>
+                        </div>
+                    </td>
+                    <td>Folder description goes here...</td>
+                    <td>Default</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file-document-box", "primary")</td>
+                    <td><a href="javascript:;" class="text-truncate">Note</a></td>
+                    <td></td>
+                    <td>Default</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-primary" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "primary")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-primary">primary</span></td>
+                    <td>Description</td>
+                    <td>Primary</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-secondary" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "secondary")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-secondary">secondary</span></td>
+                    <td>Description</td>
+                    <td>Secondary</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-success" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "success")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-success">success</span></td>
+                    <td>Description</td>
+                    <td>Success</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-danger" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "danger")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-danger">danger</span></td>
+                    <td>Description</td>
+                    <td>Danger</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-warning" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "warning")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-warning">warning</span></td>
+                    <td>Description</td>
+                    <td>Warning</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
+                <tr class="table-info" data-href="javascript:;">
+                    <td class="table-icon">@Svg.Icon("file", "info")</td>
+                    <td><a href="javascript:;">Name</a> <span class="badge badge-info">info</span></td>
+                    <td>Description</td>
+                    <td>Info</td>
+                    <td class="table-icon"><button type="button" class="btn btn-icon">@Svg.Icon("dots-vertical")</button></td>
+                </tr>
+
                 <tr data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@johan</a></td>
-                    <td class="hidden-sm-down">Johan Jeppson</td>
-                    <td class="table-icon text-right"><button type="button" class="btn btn-icon btn-success">@Html.SvgIcon("check")</button></td>
-                </tr>
-                <tr class="table-warning" data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@magnus</a> <span class="badge badge-warning">warning</span></td>
-                    <td class="hidden-sm-down">Magnus Krona</td>
-                    <td class="table-icon text-right"><button type="button" class="btn btn-icon">@Html.SvgIcon("close")</button></td>
-                </tr>
-                <tr class="table-suspended" data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@jimmy</a></td>
-                    <td class="hidden-sm-down">Jimmy Wilhelmsson</td>
-                    <td class="table-icon text-right"><a href="#" class="btn btn-icon btn-danger">@Html.SvgIcon("open-in-new")</a></td>
-                </tr>
-                <tr class="table-danger" data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@rickard</a> <span class="badge badge-danger">danger</span></td>
-                    <td class="hidden-sm-down">Rickard Hansson</td>
-                    <td class="table-icon text-right"><form method="get" action="" data-turboform><button type="submit" class="btn btn-icon btn-danger">@Html.SvgIcon("delete")</button></form></td>
-                </tr>
-                <tr class="table-trashed" data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@robert</a></td>
-                    <td class="hidden-sm-down">Robert Hess</td>
-                    <td class="table-icon text-right"><a href="#" class="btn btn-icon btn-danger">@Html.SvgIcon("backup-restore")</a></td>
-                </tr>
-                <tr data-href="#tables">
-                    <td class="table-icon hidden-xs-down">@User.AvatarImg(24, retina: true)</td>
-                    <td><a href="#">@@klas</a></td>
-                    <td class="hidden-sm-down">Klas Lundberg</td>
-                    <td class="table-icon text-right">
-                        <form method="get" action="" data-turboform>
-                            <button type="submit" name="button" class="btn btn-icon btn-success" value="approve">@Html.SvgIcon("check")</button>
-                            <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete">@Html.SvgIcon("close")</button>
+                    <td class="table-icon">@(new User().AvatarImg(32))</td>
+                    <td><a href="#">firstname.lastname@domain.test</a></td>
+                    <td>Invited User</td>
+                    <td>Default</td>
+                    <td class="table-icon">
+                        <form method="get">
+                            <button type="submit" name="button" class="btn btn-icon btn-success" value="approve">@Svg.Icon("check")</button>
+                            <button type="submit" name="button" class="btn btn-icon btn-danger" value="delete">@Svg.Icon("close")</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
     </section>
+    
 
     <section id="text">
         <h1 class="display-3 mt-4">Text</h1>
@@ -319,7 +452,7 @@
 
             <div class="dropdown d-inline-block  ml-auto">
                 <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
-                    @Html.SvgIcon("dots-vertical")
+                    @Svg.Icon("dots-vertical")
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="@(Url.Action<TestController>(c => c.Error(null)))">Get => Error</a>
@@ -333,18 +466,18 @@
         </div>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <button type="button" class="btn btn-icon close" data-dismiss="alert" aria-label="Close">
-                @Html.SvgIcon("close")
+                @Svg.Icon("close")
             </button>
             This is a warning alert with an undo form. <form class="d-inline" action="" method="get"><button type="submit" class="btn btn-link alert-link">Undo</button>.</form>
         </div>
         <div class="alert alert-info alert-dismissible fade show" role="alert">
             <button type="button" class="btn btn-icon close" data-dismiss="alert" aria-label="Close">
-                @Html.SvgIcon("close")
+                @Svg.Icon("close")
             </button>
             This is a dismissible info alert.
         </div>
         <a class="alert alert-info fade show d-flex" role="alert" href="#">
-            @Html.SvgIcon("information-outline", size: 36, htmlAttributes: new { @class = "align-self-start flex-noscale mt-1 mr-2 d-none d-sm-block" })
+            @Svg.Icon("information-outline", size: 36, htmlAttributes: new { @class = "align-self-start flex-noscale mt-1 mr-2 d-none d-sm-block" })
             <span>Alls of this alert is <span class="alert-link">a link</span>.</span>
             <span class="btn btn-outline-info ml-auto d-none d-sm-inline-flex">Button</span>
         </a>
@@ -399,12 +532,14 @@
         <div class="form-group">
             <button class="btn btn-primary" type="button">Normal</button>
             <button class="btn btn-secondary btn-load" data-style="zoom-in" type="button">Disable</button>
-            <button type="button" class="btn btn-info">@Html.SvgIcon("thumb-up") Icon</button>
+            <button type="button" class="btn btn-black">@Svg.Icon("azure", "native") Azure</button>
+            <button type="button" class="btn btn-black">@Svg.Icon("microsoft", "native") Microsoft</button>
+            <button type="button" class="btn btn-black">@Svg.Icon("google", "native") Google</button>
             <button class="btn btn-outline-warning" type="button">Outline</button>
             <div class="btn-group dropdown">
                 <button type="button" class="btn btn-primary">Split button</button>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
-                    @Html.SvgIcon("menu-down")
+                    @Svg.Icon("menu-down")
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
                     <form>
@@ -419,28 +554,28 @@
         </div>
 
         <div class="form-group">
-            <button type="button" class="btn btn-icon btn-link">@Html.SvgIcon("arrow-left")<span>Back</span></button>
-            <button type="button" class="btn btn-icon btn-badge">@Html.SvgIcon("bell") <span class="badge badge-danger">3</span></button>
+            <button type="button" class="btn btn-icon btn-link">@Svg.Icon("arrow-left")<span>Back</span></button>
+            <button type="button" class="btn btn-icon btn-badge">@Svg.Icon("bell") <span class="badge badge-danger">3</span></button>
             <button type="button" class="btn btn-icon btn-badge">@User.AvatarImg(24) <span class="badge badge-danger">3</span></button>
-            <button type="button" class="btn btn-icon">@Html.SvgIcon("comment")</button>
+            <button type="button" class="btn btn-icon">@Svg.Icon("comment")</button>
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Toggle Dropdown">
-                    @Html.SvgIcon("dots-vertical")
+                    @Svg.Icon("dots-vertical")
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">@Html.SvgIcon("pencil") Link action</a>
+                    <a class="dropdown-item" href="#">@Svg.Icon("pencil") Link action</a>
                     <form action="#" method="get" data-turboform>
                         <input type="hidden" name="q" value="form" />
-                        <button type="submit" class="dropdown-item">@Html.SvgIcon("upload") Form action</button>
+                        <button type="submit" class="dropdown-item">@Svg.Icon("upload") Form action</button>
                     </form>
 
-                    <a class="dropdown-item" href="#">@Html.SvgIcon("pin") Button action</a>
+                    <a class="dropdown-item" href="#">@Svg.Icon("pin") Button action</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" target="_blank">@Html.SvgIcon("check") Separated action</a>
+                    <a class="dropdown-item" href="#" target="_blank">@Svg.Icon("check") Separated action</a>
                 </div>
-                <button type="button" class="btn btn-sm btn-round btn-success">@Html.SvgIcon("plus")</button>
-                <button type="button" class="btn btn-round btn-success">@Html.SvgIcon("plus")</button>
-                <button type="button" class="btn btn-lg btn-round btn-success">@Html.SvgIcon("plus")</button>
+                <button type="button" class="btn btn-sm btn-round btn-success">@Svg.Icon("plus")</button>
+                <button type="button" class="btn btn-round btn-success">@Svg.Icon("plus")</button>
+                <button type="button" class="btn btn-lg btn-round btn-success">@Svg.Icon("plus")</button>
             </div>
         </div>
 

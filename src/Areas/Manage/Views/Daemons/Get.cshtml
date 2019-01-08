@@ -38,7 +38,7 @@
             @if (Model.IsRunnable()) {
                 <div class="btn-group">
                     <button type="submit" name="button" value="@nameof(DaemonsController.Update)" class="btn btn-primary btn-load">Save</button>
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">@Html.SvgIcon("menu-down")</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">@Svg.Icon("menu-down")</button>
                     <div class="dropdown-menu">
                         <button type="submit" name="button" value="@nameof(DaemonsController.Run)" class="dropdown-item">Save and Run</button>
                     </div>

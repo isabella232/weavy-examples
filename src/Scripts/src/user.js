@@ -78,7 +78,7 @@ weavy.user = (function ($) {
         // verify that href matches /people/{id}
         _href = $(this).attr("href") || $(this).data("href");
         if (!_re.test(_href)) {
-            console.debug(_href + " is not a profile link");
+            // not a profile link
             _href = null;
             return;
         }

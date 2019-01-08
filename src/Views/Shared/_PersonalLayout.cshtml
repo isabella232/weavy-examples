@@ -6,7 +6,7 @@
 @section navbar_left {
     <div class="navbar-icons">
         @if (Back != null) {
-            <a class="btn btn-icon" href="@Back">@Html.SvgIcon("arrow-left")</a>
+            <a class="btn btn-icon" href="@Back">@Svg.Icon("arrow-left")</a>
         } else {
             <button type="button" class="btn btn-icon" data-toggle="drawer" data-target="#drawer-profile">@User.AvatarImg(24)</button>
         }
@@ -18,7 +18,7 @@
         @RenderSection("navbar_secondary", required: false)
     } else {
         <nav class="nav nav-tabs" role="tablist">
-            <a class="nav-link nav-icon nav-badge @(Url.IsActive<NotificationController>(c => c.Index(), LinkActive.Action) ? "active" : "")" href="@(Url.Action<NotificationController>(c => c.Index()))" title="Notifications">@Html.SvgIcon("bell")@Html.NotificationsBadge()</a>
+            <a class="nav-link nav-icon nav-badge @(Url.IsActive<NotificationController>(c => c.Index(), LinkActive.Action) ? "active" : "")" href="@(Url.Action<NotificationController>(c => c.Index()))" title="Notifications">@Svg.Icon("bell")@Html.NotificationsBadge()</a>
             @(Html.ActionLink<StarController>(c => c.Index(), icon: "star", htmlAttributes: new { @class = "nav-link nav-icon" }, active: LinkActive.Action))
             @(Html.ActionLink<ContentController>(c => c.Drafts(), icon: "file", htmlAttributes: new { @class = "nav-link nav-icon" }, active: LinkActive.Action))
         </nav>

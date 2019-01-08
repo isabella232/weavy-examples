@@ -15,7 +15,6 @@
     @RenderSection("scripts", required: false)
 </head>
 <body class="@BodyClasses("body-dark")" @BodyAttributes>
-    @Html.SvgSprite()
     <div class="alerts">@Html.AlertMessages()</div>
     <main role="main">
         @RenderBody()

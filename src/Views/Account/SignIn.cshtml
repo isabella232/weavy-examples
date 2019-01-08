@@ -35,7 +35,7 @@
         using (Html.BeginForm(nameof(AccountController.SignInExternal), typeof(AccountController).ControllerName(), new { path = Model.Path }, FormMethod.Post, new { target = "_blank" })) {
           <div class="form-buttons justify-content-center">
             @foreach (AuthenticationDescription p in loginProviders) {
-              <button type="submit" class="btn btn-@p.AuthenticationType.Slugify()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType">@Html.SvgIcon(p.AuthenticationType.Slugify()) Sign in with @p.Caption</button>
+              <button type="submit" class="btn btn-black" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType">@Svg.Icon(p.AuthenticationType.Slugify(), "native") Sign in with @p.Caption</button>
             }
           </div>
         }

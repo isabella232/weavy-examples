@@ -4,12 +4,12 @@
 
     <div class="navbar navbar-primary">
         <div class="navbar-icons">
-            <button type="button" class="btn btn-icon" data-toggle="pane-one" title="Back">@Html.SvgIcon("arrow-left")<span class="badge badge-danger">@Model.UnreadConversations</span></button>
+            <button type="button" class="btn btn-icon" data-toggle="pane-one" title="Back">@Svg.Icon("arrow-left")<span class="badge badge-danger">@Model.UnreadConversations</span></button>
         </div>
         <div class="navbar-middle conversation-title">@(Model.Conversation?.GetTitle())</div>
         <div class="navbar-icons">            
-            <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("expand-window")</button>
-            <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("close")</button>
+            <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("expand-window")</button>
+            <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("close")</button>
         </div>
     </div>
     <div class="navbar navbar-secondary">

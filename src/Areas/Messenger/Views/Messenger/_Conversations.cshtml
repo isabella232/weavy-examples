@@ -23,7 +23,7 @@
             Html.RenderPartial("_Conversation", conversation, new ViewDataDictionary { { "Active", Model.Conversation?.Id == conversation.Id } });
         }
         @if (rooms.Count() > 3) {
-            <div class="list-group-separator expand"><button type="button" class="btn btn-icon" title="Expand rooms" data-expand="rooms">@Html.SvgIcon("dots-horizontal")</button></div>
+            <div class="list-group-separator expand"><button type="button" class="btn btn-icon" title="Expand rooms" data-expand="rooms">@Svg.Icon("dots-horizontal")</button></div>
         }
     </div>
 

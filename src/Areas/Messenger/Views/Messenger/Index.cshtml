@@ -16,7 +16,6 @@
     }
 </head>
 <body class="@BodyClasses()" @BodyAttributes>
-    @Html.SvgSprite()
     <div class="alerts"></div>
 
     <div class="app @(ActionName == nameof(MessengerController.Index) || ActionName == nameof(MessengerController.Archived) ? "one" : "two")">
@@ -28,8 +27,8 @@
                 </div>
                 <div class="navbar-middle conversation-title">@(Model.Conversation?.GetTitle() ?? "Messenger")</div>
                 <div class="navbar-icons">
-                    <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("expand-window")</button>
-                    <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("close")</button>
+                    <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("expand-window")</button>
+                    <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("close")</button>
                 </div>
             </div>
         </header>
@@ -43,8 +42,8 @@
                     </div>
                     <div class="navbar-middle">&nbsp;</div>
                     <div class="navbar-icons">
-                        <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("expand-window")</button>
-                        <button type="button" class="btn btn-icon d-embedded visibility-h">@Html.SvgIcon("close")</button>
+                        <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("expand-window")</button>
+                        <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("close")</button>
                     </div>
                 </div>
             </header>
@@ -53,12 +52,12 @@
                 <div class="navbar navbar-secondary">
                     <div class="form-group search search-conversations">
                         <input type="text" name="q" class="form-control" placeholder="Find conversations..." />
-                        <button type="button" class="btn btn-icon btn-search">@Html.SvgIcon("magnify")</button>
-                        <button type="button" class="btn btn-icon btn-reset d-none">@Html.SvgIcon("close")</button>
+                        <button type="button" class="btn btn-icon btn-search">@Svg.Icon("magnify")</button>
+                        <button type="button" class="btn btn-icon btn-reset d-none">@Svg.Icon("close")</button>
                         <input type="hidden" name="archive" value="@Model.Archive.ToString().ToLower()" />
                     </div>
                     <div class="dropdown ml-1">
-                        <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">@Html.SvgIcon("message-plus")</button>
+                        <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">@Svg.Icon("message-plus")</button>
                         <div class="dropdown-menu dropdown-menu-right">
                             <button type="button" class="dropdown-item" data-toggle="drawer-message">New message</button>
                             <button type="button" class="dropdown-item" data-toggle="drawer-room-name">New room</button>
@@ -90,7 +89,7 @@
                 <div class="drawer drawer-settings">
                     <header class="drawer-header">
                         <div class="navbar-icons">
-                            <button type="button" class="btn btn-icon" data-toggle="drawer-settings">@Html.SvgIcon("arrow-left")<span>Settings</span></button>
+                            <button type="button" class="btn btn-icon" data-toggle="drawer-settings">@Svg.Icon("arrow-left")<span>Settings</span></button>
                         </div>
                     </header>
                     <div class="drawer-body drawer-body-padded scroll-y">
@@ -101,7 +100,7 @@
                 <div class="drawer drawer-message">
                     <header class="drawer-header">
                         <div class="navbar-icons">
-                            <button type="button" class="btn btn-icon" data-toggle="drawer-message">@Html.SvgIcon("arrow-left")<span>New message</span></button>
+                            <button type="button" class="btn btn-icon" data-toggle="drawer-message">@Svg.Icon("arrow-left")<span>New message</span></button>
                         </div>
                     </header>
                     <div class="drawer-body scroll-y">
@@ -112,13 +111,13 @@
                     <div class="drawer drawer-room-name">
                         <header class="drawer-header">
                             <div class="navbar-icons">
-                                <button class="btn btn-icon" type="button" data-toggle="drawer-room-name">@Html.SvgIcon("arrow-left")<span>New room</span></button>
+                                <button class="btn btn-icon" type="button" data-toggle="drawer-room-name">@Svg.Icon("arrow-left")<span>New room</span></button>
                             </div>
                         </header>
                         <div class="drawer-body scroll-y">
                             <div class="form-group search">
                                 <input type="text" name="name" class="form-control" placeholder="Room name..." />
-                                <button type="button" class="btn btn-icon" data-toggle="drawer-select-people">@Html.SvgIcon("arrow-right")</button>
+                                <button type="button" class="btn btn-icon" data-toggle="drawer-select-people">@Svg.Icon("arrow-right")</button>
                             </div>
                         </div>
                     </div>
@@ -126,7 +125,7 @@
                     <div class="drawer drawer-select-people">
                         <header class="drawer-header">
                             <div class="navbar-icons">
-                                <button type="button" class="btn btn-icon" data-toggle="drawer-select-people">@Html.SvgIcon("arrow-left")<span>Add people</span></button>
+                                <button type="button" class="btn btn-icon" data-toggle="drawer-select-people">@Svg.Icon("arrow-left")<span>Add people</span></button>
                             </div>
                         </header>
                         <div class="drawer-body scroll-y">
@@ -148,7 +147,7 @@
                         <div class="navbar navbar-secondary">
                             <div class="navbar-middle">Add people</div>
                             <div class="navbar-icons">
-                                <button type="button" class="btn btn-icon" data-toggle="drawer-add-people">@Html.SvgIcon("close")</button>
+                                <button type="button" class="btn btn-icon" data-toggle="drawer-add-people">@Svg.Icon("close")</button>
                             </div>
                         </div>
                     </header>

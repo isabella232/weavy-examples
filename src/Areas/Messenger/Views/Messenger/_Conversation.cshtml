@@ -14,13 +14,13 @@
             <div class="media-title">@Model.GetTitle()</div>
             <div class="media-text">
                 <span class="typing-hide">
-                    @(Model.LastMessageById != null ? (Model.LastMessageById == User.Id ? "You: " : Model.IsRoom ? Model.LastMessageBy.GetTitle() + ": " : "") : "") @(Model.Description.IsNullOrEmpty() ? (Model.Description == null ? MvcHtmlString.Empty : Html.SvgIcon("attachment", htmlAttributes: new { @class="i-inline"})) : Html.Raw(Emojione.ShortnameToImage(Html.Encode(Model.Description.Ellipsis(48))))) 
+                    @(Model.LastMessageById != null ? (Model.LastMessageById == User.Id ? "You: " : Model.IsRoom ? Model.LastMessageBy.GetTitle() + ": " : "") : "") @(Model.Description.IsNullOrEmpty() ? (Model.Description == null ? MvcHtmlString.Empty : Svg.Icon("attachment", htmlAttributes: new { @class="i-inline"})) : Html.Raw(Emojione.ShortnameToImage(Html.Encode(Model.Description.Ellipsis(48))))) 
                 </span>
                 <span class="typing-show"></span>
             </div>
         </div>
         <div class="dropdown">
-            <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">@Html.SvgIcon("dots-vertical")</button>
+            <button type="button" class="btn btn-icon dropdown-toggle" data-toggle="dropdown">@Svg.Icon("dots-vertical")</button>
             <div class="dropdown-menu dropdown-menu-right">
                 @if (Model.LastMessageAt.HasValue) {
                     if (!Model.IsRead) {

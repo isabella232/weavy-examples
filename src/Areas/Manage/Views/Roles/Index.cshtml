@@ -1,4 +1,4 @@
-﻿@model SearchResult<Role, RoleQuery>
+﻿@model RoleSearchResult
 @{
     Title = "Roles";
     Back = Url.Action<HomeController>(c => c.Index());
@@ -7,7 +7,7 @@
 
 @section fab {
     <div class="fab">
-        <a class="btn btn-round btn-primary" href="@(Url.Action<RolesController>(c => c.New()))" title="Add role">@Html.SvgIcon("plus")</a>
+        <a class="btn btn-round btn-primary" href="@(Url.Action<RolesController>(c => c.New()))" title="Add role">@Svg.Icon("plus")</a>
     </div>
 }
 
@@ -20,7 +20,7 @@
                 <th class="table-icon"></th>
                 <th>Name</th>
                 <th>Description</th>
-                <th>Members</th>
+                <th class="text-right">Members</th>
                 <th class="table-icon"></th>
             </tr>
         </thead>

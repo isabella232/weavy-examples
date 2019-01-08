@@ -48,8 +48,9 @@
 
     @include hover-focus {
         outline: none;
-        color: darken($icon-color, 10%);
+        color: rgba($icon-color, .87);
     }
+
     // color variants
     @each $color, $value in $theme-colors {
         &.btn-#{$color} {
@@ -83,10 +84,6 @@
         }
     }
 }
-
-/*a.btn-icon {
-    color: inherit;
-}*/
 
 .btn-text {
     border: none;
@@ -125,25 +122,8 @@
     }
 }
 
-
-.btn-azure {
-    @include button-variant(#2771ed, darken(#2771ed, 5%));
-}
-
-.btn-facebook {
-    @include button-variant(#3c65c4, darken(#3c65c4, 5%));
-}
-
-.btn-google {
-    @include button-variant(#dd4b39, darken(#dd4b39, 5%));
-}
-
-.btn-microsoft {
+.btn-black {
     @include button-variant(#000, #000);
-}
-
-.btn-twitter {
-    @include button-variant(#1da1f3, darken(#1da1f3, 5%));
 }
 
 .btn-list-group-item {

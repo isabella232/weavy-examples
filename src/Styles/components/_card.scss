@@ -104,3 +104,8 @@ $card-size: 10rem;
     background-color: transparent;
     border-top: none;
 }
+
+// heading above card (e.g. on manage page)
+.card-heading {
+    padding-left: $card-border-width;
+}

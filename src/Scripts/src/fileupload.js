@@ -145,23 +145,23 @@ weavy.fileupload = (function ($) {
                         weavy.alert.warning('There is already a file named ' + data.result.skipped[0].name + '.' +
                             '<form action="' + action + '" class="alert-form upload-replace">' +
                             '<input type="hidden" name="blobs" value="' + ids + '" />' +
-                            '<button type="submit" class="btn btn-icon"><svg class="i">' +
-                            '<use xmlns: xlink="http://www.w3.org/1999/xlink" xlink: href="#check"></use></svg> Replace the file' +
+                            '<button type="submit" class="btn btn-icon">' +
+                            '<svg class="i i-check" height="24" viewBox="0 0 24 24" width="24"><path d="m21 7-12 12-5.5-5.5 1.41-1.41 4.09 4.08 10.59-10.58z"/></svg> Replace the file' +
                             '</button > ' +
                             '</form>' +
                             '<button type="button" class="btn btn-icon upload-skip" data-uploaded="' + uploaded + '">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg> Skip this file' +
+                            '<svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg> Skip this file' +
                             '</button>');
                     } else {
                         weavy.alert.warning('There are ' + data.result.skipped.length + ' files with the same names.' +
                             '<form action="' + action +'" class="alert-form upload-replace">' +
                             '<input type="hidden" name="blobs" value="' + ids + '" />' +
                             '<button type="submit" class="btn btn-icon">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#check"></use></svg> Replace the files' +
+                            '<svg class="i i-check" height="24" viewBox="0 0 24 24" width="24"><path d="m21 7-12 12-5.5-5.5 1.41-1.41 4.09 4.08 10.59-10.58z"/></svg> Replace the files' +
                             '</button>' +
                             '</form>' +
                             '<button type="button" class="btn btn-icon upload-skip" data-uploaded="' + uploaded + '">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg> Skip these files' +
+                            '<svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg> Skip these files' +
                             '</button>');
                     }
                 } else {
@@ -201,23 +201,23 @@ weavy.fileupload = (function ($) {
                         weavy.alert.warning('There is already a file named ' + data.result.skipped[0].name + '.' +
                             '<form action="' + action + '" class="alert-form upload-replace">' +
                             '<input type="hidden" name="blobs" value="' + ids + '" />' +
-                            '<button type="submit" class="btn btn-icon"><svg class="i">' +
-                            '<use xmlns: xlink="http://www.w3.org/1999/xlink" xlink: href="#check"></use></svg> Replace the file' +
+                            '<button type="submit" class="btn btn-icon">' +
+                            '<svg class="i i-check" height="24" viewBox="0 0 24 24" width="24"><path d="m21 7-12 12-5.5-5.5 1.41-1.41 4.09 4.08 10.59-10.58z"/></svg> Replace the file' +
                             '</button > ' +
                             '</form>' +
                             '<button type="button" class="btn btn-icon upload-skip" data-uploaded="' + uploaded + '">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg> Skip this file' +
+                            '<svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg> Skip this file' +
                             '</button>');
                     } else {
                         weavy.alert.warning('There are ' + data.result.skipped.length + ' files with the same names.' +
                             '<form action="' + action + '" class="alert-form upload-replace">' +
                             '<input type="hidden" name="blobs" value="' + ids + '" />' +
                             '<button type="submit" class="btn btn-icon">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#check"></use></svg> Replace the files' +
+                            '<svg class="i i-check" height="24" viewBox="0 0 24 24" width="24"><path d="m21 7-12 12-5.5-5.5 1.41-1.41 4.09 4.08 10.59-10.58z"/></svg> Replace the files' +
                             '</button>' +
                             '</form>' +
                             '<button type="button" class="btn btn-icon upload-skip" data-uploaded="' + uploaded + '">' +
-                            '<svg class="i"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use></svg> Skip these files' +
+                            '<svg class="i i-close" height="24" viewBox="0 0 24 24" width="24"><path d="m19 6.41-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/></svg> Skip these files' +
                             '</button>');
                     }
                 } else {
