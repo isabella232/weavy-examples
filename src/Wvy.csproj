@@ -913,6 +913,9 @@
     <Content Include="Views\Widget\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="img\icons\outline-assignment.svg" />
+    <Content Include="img\icons\outline-assignment_turned_in.svg" />
+    <Content Include="Areas\Apps\Styles\tasks.scss" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

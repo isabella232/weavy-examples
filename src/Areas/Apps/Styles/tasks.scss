@@ -2,10 +2,10 @@
 /****************************
  | VARIABLES
  ***************************/
-@import '../variables';
-@import "../vendor/bootstrap/functions";
-@import "../vendor/bootstrap/variables";
-@import "../vendor/bootstrap/mixins";
+@import '../../../Styles/variables';
+@import "../../../Styles/vendor/bootstrap/functions";
+@import "../../../Styles/vendor/bootstrap/variables";
+@import "../../../Styles/vendor/bootstrap/mixins";
 
 $label_important_color: $red;
 $label_normal_color: $gray-300;
@@ -98,7 +98,7 @@ $label_medium_color: $yellow;
         padding: 0;
 
         .task-item {
-            padding: 15px 10px;
+            padding: 15px 10px 15px 0;
             border-top: 1px solid $border-color;
             position: relative;
             display: flex;
@@ -114,6 +114,7 @@ $label_medium_color: $yellow;
             .checkbox {
                 align-self: flex-start;
                 margin-top: -0.1rem;
+                margin-left: 1rem;
 
                 button {
                     cursor: pointer;
@@ -170,17 +171,12 @@ $label_medium_color: $yellow;
             }
 
             .label {
-                align-self: flex-start;
-                margin-top: .4rem;
                 display: inline-block;
                 background: $label_normal_color;
-                width: 15px;
-                height: 15px;
-                min-width: 15px;
-                border-radius: 50%;
-                float: left;
-                margin-right: 10px;
-                position: relative;
+                width: 6px;
+                height: 100%;
+                min-width: 6px;
+                position: absolute;
                 cursor: pointer;
 
                 &.priority0 {
@@ -224,12 +220,20 @@ $label_medium_color: $yellow;
             }
 
             .task-star {
-                margin-top: -.1rem;
+                margin-top: .1rem;
+                align-self: flex-start;
+                cursor:pointer;
             }
 
             .task-comments {
+                margin-top: .2rem;
                 margin-left: 5px;
                 cursor: pointer;
+                align-self: flex-start;
+            }
+
+            .dropdown {
+                align-self: flex-start;
             }
 
             &.editing {

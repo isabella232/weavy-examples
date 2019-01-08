@@ -46,13 +46,7 @@
     <!-- Task Item -->
     <template id="task-item">
         <li class="task-item" :class="{'editing': isEditing, 'task-done': isDone, 'd-none': shouldHide}">
-            <span @@click="showPriorities" :class="'label priority' + model.priority">
-                <ul class="priority-label priority-popup">
-                    <li @@click="savePriority(2)" class="important">Important</li>
-                    <li @@click="savePriority(1)" class="medium">Medium</li>
-                    <li @@click="savePriority(0)" class="normal">Normal</li>
-                </ul>
-            </span>
+            <span :class="'label priority' + model.priority"></span>
 
             <span class="checkbox">
                 <button class="btn-icon" @@click="toggleCompleted" v-if="model.completed">@Svg.Icon("check-circle", color: "green")</button>
@@ -74,7 +68,7 @@
                 <div v-if="model.assigned_to && model.assigned_to_user"><small><a :href="'/people/' + model.assigned_to" class="task-user"><img :title="'Assigned to' + model.assigned_to_user.profile.name" class="img-24 avatar" :src="'/people/' + model.assigned_to + '/avatar-48x48.jpg'" /></a> <span>{{model.assigned_to_user.profile.name}}</span></small></div>
             </div>
 
-            <span v-if="!isEditing && model.is_starred" class="task-star">
+            <span v-if="!isEditing && model.is_starred" class="task-star" @@click="toggleStarred" data-entity="content" :data-id="model.id" data-toggle="star">
                 @Svg.Icon("star", color: "yellow")                
             </span>
 
@@ -98,8 +92,13 @@
                         @Svg.Icon("star-off", color: "yellow", htmlAttributes: new { @class = "d-none" }) <span class="d-none">Unstar</span>
                     </button>
 
-                    <button @@click="deleteItem" type="button" class="dropdown-item">@Svg.Icon("delete", color: "danger") Trash</button>
+                    <button v-if="hasPermission('delete')" @@click="deleteItem" type="button" class="dropdown-item">@Svg.Icon("delete", color: "danger") Trash</button>
 
+                    <div class="dropdown-divider"></div>
+                    <h6 class="dropdown-header">Priority</h6>
+                    <a class="dropdown-item" href="#" @@click="savePriority(2)">@Svg.Icon("circle-outline", color: "red", htmlAttributes: new { v_if = "model.priority != 2" }) @Svg.Icon("check-circle", color: "red", htmlAttributes: new { v_if = "model.priority == 2" })<span>Important</span></a>
+                    <a class="dropdown-item" href="#" @@click="savePriority(1)">@Svg.Icon("circle-outline", color: "yellow", htmlAttributes: new { v_if = "model.priority != 1" }) @Svg.Icon("check-circle", color: "yellow", htmlAttributes: new { v_if = "model.priority == 1" })<span>Medium</span></a>
+                    <a class="dropdown-item" href="#" @@click="savePriority(0)">@Svg.Icon("circle-outline", color: "gray", htmlAttributes: new { v_if = "model.priority != 0" }) @Svg.Icon("check-circle", color: "gray", htmlAttributes: new { v_if = "model.priority == 0" })<span>Normal</span></a>
                 </div>
             </div>
 
@@ -184,7 +183,7 @@
 </script>
 
 @section styles{
-    @Html.ThemeStyle("~/styles/apps/tasks.scss")
+    @Html.ThemeStyle("~/areas/apps/styles/tasks.scss")
 }
 
 @section footer {

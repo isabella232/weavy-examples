@@ -11,7 +11,7 @@ namespace Wvy.Areas.Apps.Models {
     /// </summary>
     [Serializable]
     [Guid("F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB")]
-    [Content(Icon = "checkbox-marked-outline", Name = "Task item", Description = "A task item.", Parents = new Type[] { typeof(TasksApp) })]
+    [Content(Icon = "outline-assignment_turned_in", Name = "Task item", Description = "A task item.", Parents = new Type[] { typeof(TasksApp) })]
     public class TaskItem : Content, ICommentable, IStarrable {
 
         [NonSerialized]

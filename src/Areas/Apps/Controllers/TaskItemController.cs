@@ -50,9 +50,9 @@ namespace Wvy.Areas.Apps.Controllers
             task.Completed = !task.Completed;
             var updated = ContentService.Update<TaskItem>(task);
 
-            // call hooks                        
-            //Hooker.CallAsync(new RealTimeEvent() { EventName = "task_toggle_completed", Data = new TaskOut() { TaskId = tid, Completed = task.Completed } });
-
+            // push realtime event           
+            PushService.Push("task_toggle_completed", task);
+            
             return Json(updated);
         }
 
@@ -94,6 +94,10 @@ namespace Wvy.Areas.Apps.Controllers
                     new Notification(model.AssignedTo.Value, $@"{User.GetTitle()} assigned you to the task <strong>{task.Name}</strong>") { Link = task }
                 );
             }
+
+
+            // push realtime event           
+            PushService.Push("task_updated", task);
 
             return Json(updated);
         }

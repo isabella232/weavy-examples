@@ -124,6 +124,10 @@ wvy.taskapp = (function ($) {
 
             methods: {
 
+                hasPermission(permission) {                    
+                    return $.inArray(permission, this.model.permissions) !== -1;
+                },
+
                 toggleStarred: function () {
                     this.model.is_starred = !this.model.is_starred;
                 },
@@ -453,16 +457,58 @@ wvy.taskapp = (function ($) {
 
             mounted: function () {
                 TaskStore.load();
-                
+                var app = this;
+
                 // rtm tasks
+
+                // task toggle completed
                 weavy.realtime.on("task_toggle_completed", function (e, data) {
 
                     var t = TaskStore.state.items.find(function (task) {
-                        return task.id === data.task_id;
+                        return task.id === data.id;
                     });
 
                     if (t) {
                         t.completed = data.completed;
+                    }
+                });
+
+                // task is updated
+                weavy.realtime.on("task_updated", function (e, data) {
+                    
+                    var t = TaskStore.state.items.find(function (task) {
+                        return task.id === data.id;
+                    });
+
+                    if (t) {                        
+                        t.name = data.name;                        
+                        t.description = data.description;
+                        t.due_date = data.due_date;
+                        t.priority = app.getPriority(data.priority);
+                        t.assigned_to = data.assigned_to;
+                        t.assigned_to_user = data.assigned_to_user;
+                    }
+                });
+
+                // task is starred
+                weavy.realtime.on("star", function (e, data) {                    
+                    var t = TaskStore.state.items.find(function (task) {
+                        return task.id === data.id;
+                    });
+
+                    if (t) {
+                        t.is_starred = data.is_starred;
+                    }
+                });
+
+                // task is unstarred
+                weavy.realtime.on("unstar", function (e, data) {
+                    var t = TaskStore.state.items.find(function (task) {
+                        return task.id === data.id;
+                    });
+
+                    if (t) {
+                        t.is_starred = data.is_starred;
                     }
                 });
             },
@@ -474,6 +520,19 @@ wvy.taskapp = (function ($) {
             methods: {
                 hidePriorities: function () {
                     $('.priority-popup').removeClass('show');
+                },
+
+                getPriority: function (priorityName) {
+                    switch (priorityName) {
+                        case "normal":
+                            return 0;
+                        case "medium":
+                            return 1;
+                        case "high":
+                            return 2;
+                        default:
+                            return 0;
+                    }
                 }
             },
 

@@ -1,8 +1,7 @@
 ﻿@model Wvy.Areas.Apps.Models.TaskItem
 <div data-type="content" data-id="@Model.Id" data-content-id="@Model.Id">
     @if (Model is ICommentable commentable) {
-        <section class="content-comments my-3 section-comments">
-            <h4 class="display-4"><span>Comments</span></h4>
+        <section class="content-comments my-3 section-comments">            
             <div class="list-group comments" data-container="comments">
                 @Html.Partial("_Comments", commentable.Comments())
             </div>

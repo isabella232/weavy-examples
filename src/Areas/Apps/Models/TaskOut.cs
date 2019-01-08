@@ -8,7 +8,8 @@ namespace Wvy.Areas.Apps.Models {
         public TaskOut() {
         }
 
-        public int TaskId { get; set; }
+        public int Id { get; set; }
+
         public bool Completed { get; set; }
     }
 
