@@ -7,7 +7,7 @@ namespace Wvy.Areas.Apps.Models {
 
     [Serializable]
     [Guid("B309F192-9F22-4E39-AAFC-DD59589227C7")]
-    [App(Icon = "application", Name = "Asana tasks", Description = "A Asana integration demo", AllowMultiple = true)]
+    [App(Icon = "asana-logo", Color ="native", Name = "Asana tasks", Description = "A Asana integration demo", AllowMultiple = true)]
 
     public class AsanaApp: App {
 

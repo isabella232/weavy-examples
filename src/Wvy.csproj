@@ -316,6 +316,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\Apps\Controllers\AsanaController.cs" />
     <Compile Include="Areas\Apps\Controllers\TaskItemController.cs" />
     <Compile Include="Areas\Apps\Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
@@ -916,6 +917,10 @@
     <Content Include="img\icons\outline-assignment.svg" />
     <Content Include="img\icons\outline-assignment_turned_in.svg" />
     <Content Include="Areas\Apps\Styles\tasks.scss" />
+    <Content Include="Areas\Apps\Views\Asana\Auth.cshtml" />
+    <Content Include="Areas\Apps\Views\Asana\Get.cshtml" />
+    <Content Include="img\icons\asana-logo.svg" />
+    <Content Include="Areas\Apps\Styles\asana.scss" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

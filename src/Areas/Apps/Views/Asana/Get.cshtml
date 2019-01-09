@@ -1,4 +1,4 @@
-﻿@model Wvy.Models.AsanaApp
+﻿@model Wvy.Areas.Apps.Models.AsanaApp
 
 <div class="container my-4 asana_app">
     <h2>Asana tasks</h2>
@@ -12,8 +12,8 @@
             <ul v-if="tasks">
                 <li v-for="task in tasks" :class="{'section' : task.is_section}" v-if="task.name !== ''">
                     <span class="checkbox" v-if="!task.is_section">
-                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="task.completed"><svg class="text-green i"><use xlink:href="#check-circle"></use></svg></a>
-                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="!task.completed"><svg class="i"><use xlink:href="#circle-outline"></use></svg></a>
+                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="task.completed">@Svg.Icon("check-circle", color: "green") </a>
+                        <a href="#" v-on:click.prevent="toggleCompleted(task)" v-if="!task.completed">@Svg.Icon("circle-outline")</a>
 
                     </span>
                     {{task.name | section}}
@@ -30,5 +30,5 @@
 </script>
 
 @section styles{
-    @Html.ThemeStyle("~/styles/apps/asana.scss")    
+    @Html.ThemeStyle("~/areas/apps/styles/asana.scss")    
 }

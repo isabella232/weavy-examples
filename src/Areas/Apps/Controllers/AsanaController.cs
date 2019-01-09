@@ -1,17 +1,15 @@
-﻿using System;
-using System.Web.Mvc;
-using Weavy.Core.Events;
+﻿using System.Web.Mvc;
 using Weavy.Core.Models;
-using Weavy.Core.Services;
 using Weavy.Web.Controllers;
-using Wvy.Models;
+using Wvy.Areas.Apps.Models;
 
-namespace Wvy.Controllers {
+namespace Wvy.Areas.Apps.Controllers
+{
     /// <summary>
     /// Controller for the <see cref="AsanaApp"/>.
     /// </summary>
-    [RoutePrefix("apps/{id:int}/B309F192-9F22-4E39-AAFC-DD59589227C7")]
-    public class AsanaAppController : AppController<AsanaApp> {
+    [RoutePrefix("{id:int}/B309F192-9F22-4E39-AAFC-DD59589227C7")]
+    public class AsanaController : AppController<AsanaApp> {
 
         /// <summary>
         /// Get action for the app
