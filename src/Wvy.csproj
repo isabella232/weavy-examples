@@ -331,6 +331,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Apps\Scripts\asana.js" />
     <Content Include="Areas\Apps\Scripts\tasks.js" />
     <Content Include="Areas\Apps\Scripts\vendor\sortable.min.js" />
     <Content Include="Areas\Apps\Scripts\vendor\vue.js" />

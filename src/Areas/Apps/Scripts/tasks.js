@@ -133,7 +133,10 @@ wvy.taskapp = (function ($) {
                 },
 
                 editTaskDetails: function (e) {
-                    e.preventDefault();
+                    if (e) {
+                        e.preventDefault();
+                    }
+                    
                     eventHub.$emit('task-details', this.model);
                 },
 
@@ -199,6 +202,17 @@ wvy.taskapp = (function ($) {
                 savePriority: function (type) {
                     this.model.priority = type;
                     this.saveTask();
+                }
+            },
+
+
+            created: function () {
+                if (window.location.hash) {
+                    var hash = window.location.hash.substring(1);
+                    var taskId = hash.split("-")[1];                    
+                    if (taskId == this.model.id) {
+                        this.editTaskDetails();                        
+                    }                    
                 }
             }
 
