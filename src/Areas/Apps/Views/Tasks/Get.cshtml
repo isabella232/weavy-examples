@@ -68,7 +68,7 @@
                 <div v-if="model.assigned_to && model.assigned_to_user"><small><a :href="'/people/' + model.assigned_to" class="task-user"><img :title="'Assigned to' + model.assigned_to_user.profile.name" class="img-24 avatar" :src="'/people/' + model.assigned_to + '/avatar-48x48.jpg'" /></a> <span>{{model.assigned_to_user.profile.name}}</span></small></div>
             </div>
 
-            <span v-if="!isEditing && model.is_starred" class="task-star" @@click="toggleStarred" data-entity="content" :data-id="model.id" data-toggle="star">
+            <span v-if="!isEditing && model.is_starred" class="task-star on" @@click="toggleStarred" data-entity="content" :data-id="model.id" data-toggle="star">
                 @Svg.Icon("star", color: "yellow")                
             </span>
 
