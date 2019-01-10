@@ -8,6 +8,7 @@ using Wvy.Areas.Apps.Models;
 
 namespace Wvy.Areas.Apps.Controllers
 {    
+    [RoutePrefix("{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB")]
     public class TaskItemController : ContentController<TaskItem>
     {
         // GET: Apps/TaskItem
@@ -24,7 +25,7 @@ namespace Wvy.Areas.Apps.Controllers
         /// <param name="tid">The id of the task</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("~/content/{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB/comments")]
+        [Route("comments")]
         public ActionResult Comments(int id)
         {
 
@@ -41,7 +42,7 @@ namespace Wvy.Areas.Apps.Controllers
         /// <param name="tid">The id of the task</param>
         /// <returns></returns>
         [HttpPut]
-        [Route("~/content/{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB/toggle")]
+        [Route("toggle")]
         public JsonResult ToggleCompleted(int id)
         {
 
@@ -66,7 +67,7 @@ namespace Wvy.Areas.Apps.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut]
-        [Route("~/content/{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB/tasks")]
+        [Route("tasks")]
         public JsonResult UpdateTask(int id, TaskIn model)
         {
 
@@ -109,7 +110,7 @@ namespace Wvy.Areas.Apps.Controllers
         /// <param name="tid">The id of the task</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("~/content/{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB/tasks")]
+        [Route("tasks")]
         public JsonResult DeleteTask(int id)
         {
 
