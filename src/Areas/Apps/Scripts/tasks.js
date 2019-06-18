@@ -40,7 +40,7 @@ wvy.taskapp = (function ($) {
                     var sortOrder = TaskStore.state.items.length ? TaskStore.state.items[TaskStore.state.items.length - 1].order + 1 : 0;
                                         
                     $.ajax({
-                        url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks'),
+                        url: wvy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks'),
                         data: JSON.stringify({ name: value, order: sortOrder }),
                         method: 'POST',
                         contentType: 'application/json'
@@ -124,7 +124,7 @@ wvy.taskapp = (function ($) {
 
             methods: {
 
-                hasPermission(permission) {                    
+                hasPermission: function (permission) {                    
                     return $.inArray(permission, this.model.permissions) !== -1;
                 },
 
@@ -158,7 +158,7 @@ wvy.taskapp = (function ($) {
                     this.model.completed = !this.model.completed;
 
                     $.ajax({
-                        url: weavy.url.resolve('/content/' + this.model.id + '/' + this.model.content_type + '/toggle'),
+                        url: wvy.url.resolve('/content/' + this.model.id + '/' + this.model.content_type + '/toggle'),
                         method: 'PUT',
                         contentType: 'application/json'
                     }).then(function (task) {
@@ -262,7 +262,7 @@ wvy.taskapp = (function ($) {
                     });
 
                     $.ajax({
-                        url: weavy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks/sort'),
+                        url: wvy.url.resolve('/apps/' + appId + '/' + appGuid + '/tasks/sort'),
                         data: JSON.stringify(data),
                         method: 'POST',
                         contentType: 'application/json'
@@ -278,7 +278,7 @@ wvy.taskapp = (function ($) {
                 saveTask: function (model) {
 
                     $.ajax({
-                        url: weavy.url.resolve('/content/' + model.id + '/' + model.content_type + '/tasks'),
+                        url: wvy.url.resolve('/content/' + model.id + '/' + model.content_type + '/tasks'),
                         data: JSON.stringify({ id: model.id, name: model.name, description: model.description, completed: model.completed, dueDate: model.due_date, assignedTo: model.assigned_to, priority: model.priority }),
                         method: 'PUT',
                         contentType: 'application/json'
@@ -293,7 +293,7 @@ wvy.taskapp = (function ($) {
                     var taskList = this;
 
                     $.ajax({
-                        url: weavy.url.resolve('/content/' + task.id + '/' + task.content_type + '/tasks'),
+                        url: wvy.url.resolve('/content/' + task.id + '/' + task.content_type + '/tasks'),
                         method: 'DELETE',
                         contentType: 'application/json'
                     }).then(function (response) {
@@ -343,7 +343,7 @@ wvy.taskapp = (function ($) {
                     $('#task-details-modal').modal('show');
 
                     setTimeout(function () {
-                        modal.picker = weavy.userspicker.init("select[data-role='user-picker']");
+                        modal.picker = wvy.userspicker.init("select[data-role='user-picker']");
                         modal.picker.on("change", function () {
                             modal.tmpAssignedTo = this.value;
                         });
@@ -425,14 +425,14 @@ wvy.taskapp = (function ($) {
                     $(".modal-body", $modal).empty();
 
                     $.ajax({
-                        url: weavy.url.resolve('/content/' + taskComments.model.id + '/' + taskComments.model.content_type + '/comments'),
+                        url: wvy.url.resolve('/content/' + taskComments.model.id + '/' + taskComments.model.content_type + '/comments'),
                         type: "GET"
                     }).then(function (html) {
 
                         $body.html(html);
 
-                        weavy.comments.initCommentEditor($("textarea.comments-form", $body));
-                        weavy.urlContext.init();
+                        wvy.comments.initCommentEditor($("textarea.comments-form", $body));
+                        wvy.urlContext.init();
 
                     }).always(function () {
                         // hide spinner
@@ -475,7 +475,7 @@ wvy.taskapp = (function ($) {
                 // rtm tasks
 
                 // task toggle completed
-                weavy.realtime.on("task_toggle_completed", function (e, data) {
+                wvy.realtime.on("task_toggle_completed", function (e, data) {
 
                     var t = TaskStore.state.items.find(function (task) {
                         return task.id === data.id;
@@ -487,7 +487,7 @@ wvy.taskapp = (function ($) {
                 });
 
                 // task is updated
-                weavy.realtime.on("task_updated", function (e, data) {
+                wvy.realtime.on("task_updated", function (e, data) {
                     
                     var t = TaskStore.state.items.find(function (task) {
                         return task.id === data.id;
@@ -504,7 +504,7 @@ wvy.taskapp = (function ($) {
                 });
 
                 // task is starred
-                weavy.realtime.on("star", function (e, data) {                    
+                wvy.realtime.on("star", function (e, data) {                    
                     var t = TaskStore.state.items.find(function (task) {
                         return task.id === data.id;
                     });
@@ -515,7 +515,7 @@ wvy.taskapp = (function ($) {
                 });
 
                 // task is unstarred
-                weavy.realtime.on("unstar", function (e, data) {
+                wvy.realtime.on("unstar", function (e, data) {
                     var t = TaskStore.state.items.find(function (task) {
                         return task.id === data.id;
                     });

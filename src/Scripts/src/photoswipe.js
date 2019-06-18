@@ -1,16 +1,18 @@
-﻿(function ($) {
+﻿var wvy = wvy || {};
+
+(function ($) {
 
     // open photoswipe on click
     $(document).on("click", "[data-photoswipe]", function (e) {
-        // open widget preview
-        if (weavy.browser.embedded) {
+        // open weavy client preview
+        if (wvy.browser.embedded) {
             document.documentElement.classList.add("pswp-transparent");
-            weavy.postal.post({ name: "open-preview" });
+            wvy.postal.post({ name: "preview-open" });
         }
 
         e.preventDefault();
-        if (weavy.browser.embedded) {
-            // embedded: let widget apply styles before photoswipe init
+        if (wvy.browser.embedded) {
+            // embedded: let weavy client apply styles before photoswipe init
             var $that = $(this);
             $(window).one("resize", function () { photoswipe($that, true); });
 
@@ -80,9 +82,9 @@
 
         // Gallery unbinds events (triggers before closing animation)
         pswp.listen('unbindEvents', function () {
-            // close widget preview
-            if (weavy.browser.embedded) {
-                weavy.postal.post({ name: "close-preview" });
+            // close weavy client preview
+            if (wvy.browser.embedded) {
+                wvy.postal.post({ name: "preview-close" });
                 $(window).one("resize", function () { requestAnimationFrame(function () { document.documentElement.classList.remove("pswp-transparent"); }) });
             }
         });
@@ -200,8 +202,8 @@
             var thumb = $item.data("thumb-src") || $item.find("> img").attr("src");
             
             // get type and id from url
-            var match = src.match(/\/(files|attachments)\/([0-9]+)\//);
-            var type = match[1] === "files" ? "content" : "attachment";
+            var match = src.match(/\/(files|blobs|attachments)\/([0-9]+)\//);
+            var type = /files|blobs/.test(match[1]) ? "content" : "attachment";
             var id = match[2];
 
             // get size

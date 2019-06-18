@@ -10,9 +10,11 @@
             <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.EditProfile()))">@Svg.Icon("pencil") Edit profile</a>
             <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.EditSettings()))">@Svg.Icon("format-list-checks") Settings</a>
             <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.EditAccount()))">@Svg.Icon("account-network") Account details</a>
-            <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.EditPassword()))">@Svg.Icon("account-key") Change password</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="@Url.Action(nameof(AccountController.SignOut), typeof(AccountController).ControllerName(), new { area = "" , path = "/notify" })" title="Sign out" data-widget-event data-widget-name="signingOut">@Svg.Icon("logout") Sign out</a>
+            @if (!ConfigurationService.WindowsAuthentication) {
+                <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.EditPassword()))">@Svg.Icon("account-key") Change password</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="@(Url.Action<AccountController>(c => c.SignOut("/notify")))" title="Sign out" data-weavy-event data-weavy-name="signing-out">@Svg.Icon("logout") Sign out</a>
+            }
         </nav>
     </div>
 </aside>

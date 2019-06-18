@@ -37,12 +37,11 @@
                                 @Svg.Icon("dots-vertical")
                             </button>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <form action="@Url.Action(nameof(ContentController.Revert), null, new { id = item.Id })" method="post">
+                                <form action="@(Url.Action<ContentController>(c => c.Revert(item.Id, item.Version)))" method="post">
                                     @Html.HttpMethodOverride(HttpVerbs.Put)
-                                    @Html.Hidden(nameof(item.Version), item.Version)
                                     <button type="submit" class="dropdown-item">@Svg.Icon("undo") Revert</button>
                                 </form>
-                                <form action="@Url.Action(nameof(ContentController.DeleteVersion), null, new { id = item.Id, version = item.Version })" method="post">
+                                <form action="@(Url.Action<ContentController>(c => c.DeleteVersion(item.Id, item.Version)))" method="post">
                                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                                     <button type="submit" class="dropdown-item">@Svg.Icon("close") Remove</button>
                                 </form>

@@ -1,18 +1,19 @@
 ﻿<!DOCTYPE html>
 <html class="@HtmlClasses()" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, maximum-scale=1, user-scalable=no"> @* Viewport must contain width=device-width, minimum-scale=1.0 to trigger GPU Rasterization https://www.chromium.org/developers/design-documents/chromium-graphics/how-to-get-gpu-rasterization *@
-  <meta name="turbolinks-cache-control" content="no-preview">
-  <title>@Html.Title(Title)</title>
-  @Html.ThemeHead()
-  @Html.ThemeStyle("~/styles/weavy.scss", htmlAttributes: new { data_turbolinks_track = "reload" })
-  @RenderSection("styles", required: false)
-  @if (WeavyRequestContext.Current.Browser.Browser == "IE") {
-    @Bundler.Scripts("~/scripts/ie.bundle", htmlAttributes: new { data_turbolinks_track = "reload" })
-  }
-  @Bundler.Scripts("~/scripts/weavy.bundle", htmlAttributes: new { data_turbolinks_track = "reload" })
-  @RenderSection("scripts", required: false)
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, maximum-scale=1, user-scalable=no"> @* Viewport must contain width=device-width, minimum-scale=1.0 to trigger GPU Rasterization https://www.chromium.org/developers/design-documents/chromium-graphics/how-to-get-gpu-rasterization *@
+    <meta name="turbolinks-cache-control" content="no-preview">
+    <title>@Html.Title(Title)</title>
+    @Html.ThemeHead()
+    @Html.ThemeStyle("~/styles/weavy.scss", htmlAttributes: new { data_turbolinks_track = "reload" })
+    @RenderSection("styles", required: false)
+    @Bundler.Scripts("~/scripts/browser.bundle", htmlAttributes: new { data_turbolinks_track = "reload" })
+    @if (WeavyRequestContext.Current.Browser.Browser == "IE") {
+        @Bundler.Scripts("~/scripts/ie.bundle", htmlAttributes: new { data_turbolinks_track = "reload" })
+    }
+    @Bundler.Scripts("~/scripts/wvy.bundle", htmlAttributes: new { data_turbolinks_track = "reload", defer = "" })
+    @RenderSection("scripts", required: false)
 </head>
 <body class="@BodyClasses("has-navbar" + (IsSectionDefined("navbar_secondary") ? " has-navbar-secondary" : ""))" @BodyAttributes>
     <nav class="navbar-theme fixed-top">
@@ -44,7 +45,7 @@
                 @RenderSection("navbar_right", required: false)
             } else {
                 <div class="navbar-icons">
-                    <button type="button" class="btn btn-icon btn-badge d-standalone" data-toggle="drawer" data-target="#drawer-user">@User.AvatarImg(24)@Html.NotificationsBadge()</button>
+                    <button type="button" class="btn btn-icon d-standalone" data-toggle="drawer" data-target="#drawer-user">@User.AvatarImg(24)@Html.NotificationsBadge()</button>
                     <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("expand-window")</button>
                     <button type="button" class="btn btn-icon d-embedded visibility-h">@Svg.Icon("close")</button>
                 </div>

@@ -30,24 +30,22 @@
 } else {
     <section class="content-section">
         @if (!(Model is IFile)) {
-        <p class="text-muted">
-            Created @Html.Time(Model.ModifiedAt, "g") by <a href="@editor.Url()">@editor.Link()</a>.
-        </p>
+            <p class="text-muted">
+                Created @Html.Time(Model.ModifiedAt, "g") by <a href="@editor.Url()">@editor.Link()</a>.
+            </p>
         }
 
         @if (Model.HasPermission(Permission.Edit)) {
             <div class="buttons d-flex">
                 <a href="@(Url.Action<ContentController>(c => c.Versions(Model.Id)))" class="btn btn-icon btn-link mr-auto">@Svg.Icon("arrow-left") Back</a>
-                <form action="@Url.Action(nameof(ContentController.Revert), null, new { id = versionable.Id })" method="post">
+                <form action="@(Url.Action<ContentController>(c => c.Revert(versionable.Id, versionable.Version)))" method="post">
                     @Html.HttpMethodOverride(HttpVerbs.Put)
-                    @Html.Hidden(nameof(versionable.Version), versionable.Version)
                     <button type="submit" class="btn btn-icon" title="Revert to this version">@Svg.Icon("undo")</button>
                 </form>
-                <form action="@Url.Action(nameof(ContentController.DeleteVersion), null, new { id = versionable.Id, version = versionable.Version })" method="post">
+                <form action="@(Url.Action<ContentController>(c => c.DeleteVersion(versionable.Id, versionable.Version)))" method="post">
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                     <button type="submit" class="btn btn-icon" title="Remove this version">@Svg.Icon("delete")</button>
                 </form>
-
             </div>
         }
     </section>

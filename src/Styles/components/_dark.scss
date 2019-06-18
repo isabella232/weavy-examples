@@ -2,9 +2,9 @@
 
 // overrides for dark mode
 .body-dark {
-    background: $theme-800;
+    background: $theme-800 !important;
     $color: color-yiq($theme-800);
-    color: $color;
+    color: $color !important;
 
     .navbar-theme {
         background: rgba($theme-900, .8);

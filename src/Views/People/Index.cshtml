@@ -1,14 +1,13 @@
 ﻿@model UserSearchResult
 @{
     Title = "People";
-    
+
     var tab = ViewContext.RouteData.Values["tab"] as string;
 }
 
 @section navbar_middle {
     @Html.Partial("_NavbarMenu")
 }
-
 
 @section navbar_secondary {
     <nav class="nav nav-tabs">
@@ -19,17 +18,25 @@
         }
         @(Html.ActionLink<PeopleController>(c => c.Index(null, "internal"), text: "Internal", htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Path))
         @(Html.ActionLink<PeopleController>(c => c.Index(null, "external"), text: "External", htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Path))
+        @if (PermissionService.HasSystemPermission(Permission.ManageUsers)) {
+            @(Html.ActionLink<PeopleController>(c => c.Pending(null), text: "Pending", badge: ViewBag.Pending as long?, htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Action))
+        }
     </nav>
 
     @if (PermissionService.HasSystemPermission(Permission.ManageUsers)) {
-        <div class="fab dropdown">
-            <button class="btn btn-round btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" title="Add or invite user">@Svg.Icon("plus")</button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="@(Url.Action<PeopleController>(c => c.New()))">@Svg.Icon("account", "primary") Add user</a>
-                <a class="dropdown-item" href="@(Url.Action<PeopleController>(c => c.Invite()))">@Svg.Icon("email", "deep-orange") Invite people</a>
+        if (PermissionService.HasSystemPermission(Permission.Invite)) {
+            <div class="fab dropdown">
+                <button class="btn btn-round btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" title="Add or invite user">@Svg.Icon("plus")</button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="@(Url.Action<PeopleController>(c => c.New()))">@Svg.Icon("account", "primary") Add user</a>
+                    <a class="dropdown-item" href="@(Url.Action<PeopleController>(c => c.Invite()))">@Svg.Icon("email", "deep-orange") Invite people</a>
+                </div>
             </div>
-        </div>
-
+        } else {
+            <div class="fab">
+                <a class="btn btn-round btn-primary" href="@(Url.Action<PeopleController>(c => c.New()))" title="Add user">@Svg.Icon("plus")</a>
+            </div>
+        }
     } else if (PermissionService.HasSystemPermission(Permission.Invite)) {
         <div class="fab">
             <a class="btn btn-round btn-primary" href="@(Url.Action<PeopleController>(c => c.Invite()))" title="Invite people">@Svg.Icon("plus")</a>

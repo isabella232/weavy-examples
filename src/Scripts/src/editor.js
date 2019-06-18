@@ -1,6 +1,7 @@
-﻿var weavy = weavy || {};
+﻿/*global twttr */
+var wvy = wvy || {};
 
-weavy.editor = (function ($) {
+wvy.editor = (function ($) {
 
     var pluginName = 'weavyEditor';
 
@@ -26,11 +27,6 @@ weavy.editor = (function ($) {
          */
         function init() {
             // Add any initialization logic here...
-            emojione.imagePathSVG = weavy.url.resolve("/img/eo/");
-            emojione.imageType = "svg";
-            $.fn.emojioneArea.defaults.useInternalCDN = false;
-            $.fn.emojioneArea.defaults.imageType = "svg";
-
             $wrapper = $("<div class='weavy-editor'/>");
             $wrapper.insertBefore($el);
             $wrapper.on("click", function (e) {
@@ -39,32 +35,20 @@ weavy.editor = (function ($) {
             });
 
             // Force hide emojis if mobile
-            if (weavy.browser.mobile) {
+            if (wvy.browser.mobile) {
                 options.emojis = false;
             }
 
-            var $textarea = $el.emojioneArea({
+            var $textarea = $el.removeAttr("disabled").emojioneArea({
                 attributes: {
                     dir: "ltr",
                     spellcheck: true,
                     autocomplete: "on",
                     autocorrect: "on",
-                    autocapitalize: "on",
-                    tabindex: "1"
+                    autocapitalize: "on"                    
                 },
-                container: $wrapper,
-                tonesStyle: "bullet",
-                hidePickerOnBlur: true,
-                saveEmojisAs: 'shortname',
                 buttonTitle: "Insert emoji",
-                inline: options.inline,
-                placeholder: options.placeholder,
-                pickerPosition: options.mode === 'default' ? (options.inline ? "bottom" : "top") : options.mode,
-                shortcuts: false,
-                textcomplete: {
-                    maxCount: 5,
-                    placement: null
-                },
+                container: $wrapper,
                 events: {
                     "picker.show": function (picker, evt) {
                         toggleMore(false);
@@ -73,12 +57,23 @@ weavy.editor = (function ($) {
                     "picker.hide": function (picker, evt) {
                         picker.hide();
                     }
-                }
+                },
+                imageType: "svg",
+                inline: options.inline,
+                pickerPosition: options.mode === 'default' ? (options.inline ? "bottom" : "top") : options.mode,
+                placeholder: options.placeholder,
+                saveEmojisAs: "shortname",
+                searchPlaceholder: "Search...",
+                shortcuts: false,
+                textcomplete: {
+                    maxCount: 5,
+                    placement: null
+                },
+                tonesStyle: "bullet",
+                useInternalCDN: false
             });
 
             if ($textarea[0] !== null) {
-                $textarea.removeAttr("disabled");
-
                 _emojiarea = $textarea[0].emojioneArea;
 
                 // collapsed mode
@@ -131,7 +126,7 @@ weavy.editor = (function ($) {
                         match: noPrefix ? /((@[a-zA-Z0-9_]+)|([a-zA-Z0-9_]+))$/ : /\B@([a-zA-Z0-9_]+)$/,
                         search: function (term, callback) {
 
-                            $.getJSON(weavy.url.resolve("/api/autocomplete/mentions"), {
+                            $.getJSON(wvy.url.resolve("/a/autocomplete/mentions"), {
                                 q: term,
                                 top: 5
                             }).done(function (resp) {
@@ -143,8 +138,7 @@ weavy.editor = (function ($) {
                         },
                         index: 1,
                         template: function (item) {
-                            //return '<img class="img-24 avatar" src="' + weavy.url.thumb(item.thumb_url, "48x48-crop,both") + '" alt="" /><span>' + (item.name || item.username) + ' <small>@' + item.username + '</small></span>';
-                            var html = '<img class="img-24 avatar" src="' + weavy.url.thumb(item.thumb_url, "48x48-crop,both") + '" alt="" /><span>' + (item.name || item.username);
+                            var html = '<img class="img-24 avatar" src="' + wvy.url.thumb(item.thumb_url, "48x48-crop,both") + '" alt="" /><span>' + (item.name || item.username);
                             if (item.username) {
                                 html += ' <small>@' + item.username + '</small>';
                             }
@@ -170,7 +164,7 @@ weavy.editor = (function ($) {
                         match: /\[([^\]]+)$/,
 
                         search: function (term, callback) {
-                            $.getJSON(weavy.url.resolve("/api/autocomplete"), { q: term, top: top }).done(function (resp) {
+                            $.getJSON(wvy.url.resolve("/a/autocomplete"), { q: term, top: top }).done(function (resp) {
                                 callback(resp);
                             }).fail(function () {
                                 callback([]);
@@ -203,7 +197,7 @@ weavy.editor = (function ($) {
 
                         // init file upload                
                         $wrapper.fileupload({
-                            url: weavy.url.resolve("/api/blobs"),
+                            url: wvy.url.resolve("/a/blobs"),
                             dropZone: $wrapper,
                             dataType: "json",
                             paramName: "blobs",
@@ -270,7 +264,7 @@ weavy.editor = (function ($) {
                             // TODO: endpoint that takes array of embedid
                             $.each(ids, function (i, id) {
                                 $.ajax({
-                                    url: weavy.url.resolve("/embeds/" + id),
+                                    url: wvy.url.resolve("/embeds/" + id),
                                     method: "GET"
                                 }).done(function (html) {
                                     $embeds.append(html).show();
@@ -299,7 +293,7 @@ weavy.editor = (function ($) {
                                         var currentUrl = urls[i];
 
                                         // add protocol if missing
-                                        if (!/^(?:f|ht)tps?\:\/\//.test(currentUrl)) {
+                                        if (!/^(?:f|ht)tps?:\/\//.test(currentUrl)) {
                                             currentUrl = "http://" + currentUrl;
                                         }
 
@@ -315,7 +309,7 @@ weavy.editor = (function ($) {
 
                                         $.ajax({
                                             contentType: "application/json; charset=utf-8",
-                                            url: weavy.url.resolve("/embeds"),
+                                            url: wvy.url.resolve("/embeds"),
                                             type: "POST",
                                             data: JSON.stringify(data),
                                             beforeSend: function (xhr, settings) {
@@ -373,7 +367,7 @@ weavy.editor = (function ($) {
                         var pollId = $textarea.data("editor-poll-id");
                         if (pollId) {
                             $.ajax({
-                                url: weavy.url.resolve("/api/posts/" + pollId),
+                                url: wvy.url.resolve("/a/posts/" + pollId),
                                 method: "GET"
                             }).then(function (post) {
                                 if (post.poll) {
@@ -461,7 +455,7 @@ weavy.editor = (function ($) {
                         $context.find(".context-data").fadeOut(200);
                         $context.slideUp(200);
                         $wrapper.closest("form").find("#contextUrl").attr("disabled", true);
-                        hook("onContextChange", e, { has_context: false });
+                        hook("onContextChange", e, { hasContext: false });
                     });
 
                     $($contextButton).on("click", function (e) {
@@ -470,7 +464,7 @@ weavy.editor = (function ($) {
                         $wrapper.closest("form").find("#contextUrl").attr("disabled", false);
                         $context.find(".context-data").fadeIn(200);
                         $context.slideDown(200);
-                        hook("onContextChange", e, { has_context: true });
+                        hook("onContextChange", e, { hasContext: true });
                     });
                 }
 
@@ -485,7 +479,7 @@ weavy.editor = (function ($) {
                 }
 
                 // add submit button
-                var $submit = $('<button tabindex="2" type="submit" class="btn-submit btn btn-icon btn-primary" title="Submit"><svg class="i i-send" height="24" viewBox="0 0 24 24" width="24"><path d="m2 21 21-9-21-9v7l15 2-15 2z"/></svg></button>');
+                var $submit = $('<button type="submit" class="btn-submit btn btn-icon btn-primary" title="Submit"><svg class="i i-send" height="24" viewBox="0 0 24 24" width="24"><path d="m2 21 21-9-21-9v7l15 2-15 2z"/></svg></button>');
                 if (options.submitButton) {
                     $submit = options.submitButton;
                 } else {

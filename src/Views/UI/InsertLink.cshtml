@@ -84,7 +84,7 @@
                 @if (Model.Query.WrappedQuery.Text.IsNullOrWhiteSpace()) {
                     <button type="submit" class="btn btn-icon" title="Search">@Svg.Icon("magnify")</button>
                 } else {
-                    <a class="btn btn-icon" href="@Url.Action(ActionName, new { id = Request.QueryString["id"], url = Request.QueryString["url"], editortype = Request.QueryString["editortype"] })" title="Clear search">@Svg.Icon("close")</a>
+                    <a class="btn btn-icon" href="@Url.Action(ActionName, new { id = Request.QueryString["id"], url = Request.QueryString["url"], editortype = Request.QueryString["editortype"], area = "" })" title="Clear search">@Svg.Icon("close")</a>
                 }
             </form>
             <div class="result">

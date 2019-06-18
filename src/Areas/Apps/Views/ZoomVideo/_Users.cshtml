@@ -1,0 +1,24 @@
+﻿@model ZoomVideo
+
+@if (!Model.UserMembers.IsNullOrEmpty())
+{
+    foreach (var um in Model.UserMembers) {
+        if (um.User != null) {
+            <div class="card my-3">
+                <div class="media m-3">
+                    <img class="avatar img-48" src="@(um.Member.AvatarUrl(48))" alt="@um.User.first_name @um.User.last_name">
+                    <div class="media-body">
+                        <h5 class="mt-0">@um.User.first_name @um.User.last_name <small>@@@um.Member.Username</small></h5>
+                        @(um.User.timezone?.Replace("_", " "))
+                    </div>
+                    <div class="media-icons">
+                        @if (!um.User.pmi.IsNullOrDefault()) {
+                            <a class="btn btn-icon" href="https://zoom.us/j/@um.User.pmi" data-zoom-launch target="_blank">@Svg.Icon("video")</a>
+                        }
+                    </div>
+                </div>  
+            </div>
+        }
+
+    }
+}

@@ -1,0 +1,19 @@
+﻿@model ZoomVideo
+@{
+    var htmlAttributes = new Dictionary<string, object>() { { "autocomplete", "off" }, { "novalidate", "" } };
+    if (ViewData["turboform"] != null)
+    {
+        htmlAttributes.Add("data-turboform", "");
+    }
+
+}
+
+@using (Html.BeginForm(nameof(ZoomVideoController.CreateMeeting), typeof(ZoomVideoController).ControllerName(), FormMethod.Post, htmlAttributes))
+{
+    @Html.EditorsForModel(Model.MeetingTemplate);
+
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-primary btn-load">Create</button>
+        <a href="@Back" class="btn btn-outline-secondary">Cancel</a>
+    </div>
+}

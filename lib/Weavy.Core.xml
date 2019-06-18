@@ -1890,6 +1890,13 @@
             <param name="trashable"></param>
             <returns></returns>
         </member>
+        <member name="M:Weavy.Core.Models.ITrashableExtensions.TrashedBy(Weavy.Core.Models.ITrashable,System.Boolean)">
+            <summary>
+              Gets the <see cref="T:Weavy.Core.Models.User"/> that trashed the entity.
+            </summary>   
+            <param name="trashable"></param>
+            <param name="filter"></param>
+        </member>
         <member name="T:Weavy.Core.Models.Link">
             <summary>
             A content type representing a link to (external) content.
@@ -1948,12 +1955,12 @@
         <member name="P:Weavy.Core.Models.Note.AttachmentIds">
             <summary>
             Gets the ids of all files attached to the item.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.Note.CommentIds">
             <summary>
             Gets the ids of all comments.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.Note.FollowedByIds">
             <summary>
@@ -1963,7 +1970,7 @@
         <member name="P:Weavy.Core.Models.Note.StarredByIds">
             <summary>
             Gets the ids of the users that have starred the item.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.Note.Tags">
             <summary>
@@ -2099,7 +2106,7 @@
         </member>
         <member name="T:Weavy.Core.Models.SpaceBubble">
             <summary>
-            An object representing a space in the widget context.
+            An object representing a space in the weavy client context.
             </summary>
         </member>
         <member name="M:Weavy.Core.Models.SpaceBubble.#ctor">
@@ -2169,11 +2176,6 @@
         <member name="P:Weavy.Core.Models.SpaceBubble.IsStarred">
             <summary>
             Gets or sets a value indicating if the current user has starred the space.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Models.SpaceBubble.IsMessenger">
-            <summary>
-            Gets a value indicating if this is messenger.
             </summary>
         </member>
         <member name="T:Weavy.Core.Models.BubbleType">
@@ -3128,9 +3130,9 @@
             Gets the time when the invite token expires.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Invite.IsSignup">
+        <member name="P:Weavy.Core.Models.Invite.IsExternal">
             <summary>
-            Gets a value indicating if this is a sign-up.
+            Gets a value indicating if the invited user will be created as external.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Invite.IsInvite">
@@ -3138,9 +3140,14 @@
             Gets a value indicating if this is an invite.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Invite.IsExternal">
+        <member name="P:Weavy.Core.Models.Invite.IsInternal">
             <summary>
-            Gets a value indicating if this is an invite to external user.
+            Gets a value indicating if the invited user will be created as internal.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.Invite.IsSignup">
+            <summary>
+            Gets a value indicating if this is a sign-up.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Invite.IsValid">
@@ -3251,7 +3258,7 @@
             The push notification types, used when pushing to mobile apps.
             </summary>
         </member>
-        <member name="F:Weavy.Core.Models.PushNotificationDestination.Weavy">
+        <member name="F:Weavy.Core.Models.PushNotificationDestination.Spaces">
             <summary>
             Push to Weavy Spaces app.
             </summary>
@@ -3861,13 +3868,6 @@
             Create a deep copy of the current object.
             </summary>
             <returns>A deep copy of the current object.</returns>
-        </member>
-        <member name="M:Weavy.Core.Models.Blob.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
-            <summary>
-             Determines whether the specified object is valid.
-            </summary>
-            <param name="validationContext"></param>
-            <returns></returns>
         </member>
         <member name="T:Weavy.Core.Models.CacheRegion">
             <summary>
@@ -5245,17 +5245,17 @@
         <member name="P:Weavy.Core.Models.File.CommentIds">
             <summary>
             Gets the ids of all comments for the entity.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.File.FollowedByIds">
             <summary>
             Gets the ids of the <see cref="T:Weavy.Core.Models.User"/>s that follow the space.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.File.StarredByIds">
             <summary>
             Gets the ids of the users that have starred the item.
-            </summary>
+            </summary>        
         </member>
         <member name="P:Weavy.Core.Models.File.Version">
             <summary>
@@ -5736,14 +5736,14 @@
             Gets the id of the <see cref="T:Weavy.Core.Models.User"/> that trashed this <see cref="T:Weavy.Core.Models.Role"/>.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Role.Provider">
+        <member name="P:Weavy.Core.Models.Role.Iss">
             <summary>
-            Gets or sets the name of the external role provider.
+            Gets or sets the issuer (for external roles).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Role.ProviderId">
+        <member name="P:Weavy.Core.Models.Role.Sub">
             <summary>
-            Gets or sets the external role id.
+            Gets or sets the subject (for external roles).
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Role.SyncedAt">
@@ -5828,9 +5828,9 @@
             Gets or sets a user id. Can be used to find all roles that a <see cref="T:Weavy.Core.Models.User"/> is member of.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.RoleQuery.Provider">
+        <member name="P:Weavy.Core.Models.RoleQuery.Iss">
             <summary>
-            Gets or sets the provider name. Can be used to find all roles from a specific provider.
+            Gets or sets the role issuer. Can be used to find all roles from a specific issuer.
             </summary>
         </member>
         <member name="T:Weavy.Core.Models.Hook">
@@ -6506,7 +6506,7 @@
         </member>
         <member name="P:Weavy.Core.Models.License.GraceDays">
             <summary>
-            Gets or sets the maximum number of days the license continues to work before reverting to free, <c>null</c> means no grace days.
+            Gets or sets the number of days that the license will continue to work after it has expired, <c>null</c> means no grace days.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.License.MaxSpaces">
@@ -6555,22 +6555,27 @@
         </member>
         <member name="T:Weavy.Core.Models.Login">
             <summary>
-            A class representing an external login, e.g. Twitter, Facebook, Google, Microsoft, Windows etc. 
+            A class representing an external login, e.g. Active Directory, Google, Windows etc. 
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Login.UserId">
+        <member name="P:Weavy.Core.Models.Login.Id">
             <summary>
-            Gets or sets the id of the associated <see cref="T:Weavy.Core.Models.User"/>.
+            Gets the login id.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Login.Provider">
+        <member name="P:Weavy.Core.Models.Login.Type">
             <summary>
-            Gets or sets the name of the authentication provider.
+            Gets or sets the authentication type.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Login.ProviderId">
+        <member name="P:Weavy.Core.Models.Login.Iss">
             <summary>
-            Gets or sets the external id.
+            Gets or sets the issuer of the login.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.Login.Sub">
+            <summary>
+            Gets or sets the unique user id in the external systwem.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Login.Email">
@@ -6580,12 +6585,17 @@
         </member>
         <member name="P:Weavy.Core.Models.Login.Claims">
             <summary>
-            Gets or sets the claims from the external login provider.
+            Gets or sets the claims received from the external login provider.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Login.SyncedAt">
             <summary>
              Gets the time the <see cref="T:Weavy.Core.Models.User"/> was last synchronized with the authentication provider.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.Login.UserId">
+            <summary>
+            Gets or sets the id of the associated <see cref="T:Weavy.Core.Models.User"/>.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.Login.ClaimsString">
@@ -7543,11 +7553,6 @@
             Gets or sets the id of a space to search, empty to search all spaces.
             </summary>
         </member>
-        <member name="P:Weavy.Core.Models.Query.MemberId">
-            <summary>
-            Gets or sets a user id. Can be used to search in spaces where the user is a member. 
-            </summary>
-        </member>
         <member name="P:Weavy.Core.Models.Query.CreatedAfter">
             <summary>
             Gets or sets a date that limits the result to entities created on or after this date.
@@ -8228,6 +8233,18 @@
             Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Weavy.Core.Models.SpaceQuery.Member">
+            <summary>
+            Gets or sets a value indicating whether the find spaces where the current user is member.
+            Specifying <c>true</c> finds only spaces where the current user is member and <c>false</c> finds only spaces where the current user is not member.
+            Default is <c>null</c> which finds all spaces regardless of membership status. 
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.SpaceQuery.MemberId">
+            <summary>
+            Gets or sets a user id. Can be used to find spaces where a user is member. 
+            </summary>
+        </member>
         <member name="P:Weavy.Core.Models.SpaceQuery.Privacy">
             <summary>
             Gets or sets the privacy level to search for.
@@ -8259,24 +8276,24 @@
             Status is A-OK ;)
             </summary>
         </member>
+        <member name="F:Weavy.Core.Models.SystemStatus.ConfigurationInvalid">
+            <summary>
+            Indicates that invalid configuration settings were detected.
+            </summary>
+        </member>
         <member name="F:Weavy.Core.Models.SystemStatus.DatabaseVersionInvalid">
             <summary>
             Indicates that the database version does not match the expected system version (resolved by upgrading the database or downgrading the application).
             </summary>
         </member>
-        <member name="F:Weavy.Core.Models.SystemStatus.VersionNotAllowed">
+        <member name="F:Weavy.Core.Models.SystemStatus.LicenseError">
             <summary>
-            Indicates that the license does not allow this version (resolved by purchasing a maintenance subscription or downgrading to an allowed version).
-            </summary>
-        </member>
-        <member name="F:Weavy.Core.Models.SystemStatus.LicenseExpired">
-            <summary>
-            Indicates that the license has expired.
+            Indicates that there is something wrong with the license, i.e. invalid key and/or signature (resolved by registering a valid license).
             </summary>
         </member>
         <member name="F:Weavy.Core.Models.SystemStatus.LicenseInvalid">
             <summary>
-            Indicates that the license is invalid, i.e. invalid key and/or signature (resolved by registering a valid license key).
+            Indicates that the license is invalid, i.e. expired and/or not allowed (resolved by updating the license).
             </summary>
         </member>
         <member name="F:Weavy.Core.Models.SystemStatus.Error">
@@ -8720,9 +8737,24 @@
             An object representing a push notification (to mobile devices).
             </summary>
         </member>
+        <member name="P:Weavy.Core.Models.PushNotification.Badge">
+            <summary>
+            Gets or sets a number to apply to the app badge.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.PushNotification.Destination">
+            <summary>
+            Gets or sets a value indicating which app the push notification should be sent to.
+            </summary>
+        </member>
         <member name="P:Weavy.Core.Models.PushNotification.Guid">
             <summary>
             Gets or sets the Guid of the notification receiver.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Models.PushNotification.IsSilent">
+            <summary>
+            Gets or sets a value indicating whether the push notification should be silent, i.e. only update the badge.
             </summary>
         </member>
         <member name="P:Weavy.Core.Models.PushNotification.Message">
@@ -8733,21 +8765,6 @@
         <member name="P:Weavy.Core.Models.PushNotification.Url">
             <summary>
             Gets or sets the url where clicking the notification should take you.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Models.PushNotification.Badge">
-            <summary>
-            Gets or sets a number to apply to the app badge.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Models.PushNotification.IsSilent">
-            <summary>
-            Gets or sets a value indicating whether the push notification should be silent, i.e. only update the badge.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Models.PushNotification.Destination">
-            <summary>
-            Gets or sets a value indicating which app the push notification should be sent to.
             </summary>
         </member>
         <member name="T:Weavy.Core.Models.IndexSearchResult">
@@ -8855,6 +8872,11 @@
             Gets or sets configuration settings for the cache provider.
             </summary>
         </member>
+        <member name="P:Weavy.Core.Configuration.WeavyConfiguration.NotificationProvider">
+            <summary>
+            Gets or sets configuration settings for the push notification provider.
+            </summary>
+        </member>
         <member name="P:Weavy.Core.Configuration.WeavyConfiguration.IndexProvider">
             <summary>
              Gets or sets configuration settings for the fulltext index provider.
@@ -8873,26 +8895,6 @@
         <member name="P:Weavy.Core.Configuration.WeavyConfiguration.Modules">
             <summary>
             Gets or sets the collection of assemblies to scan for extensions.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Configuration.WeavyConfiguration.License">
-            <summary>
-            Gets or sets the license section.
-            </summary>
-        </member>
-        <member name="T:Weavy.Core.Configuration.LicenseConfiguration">
-            <summary>
-            Configures the public key for verifying the license signature.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Configuration.LicenseConfiguration.#ctor">
-            <summary>
-            Initializes a new instance of the LicenseConfiguration class.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Configuration.LicenseConfiguration.PublicKey">
-            <summary>
-            Gets or sets public key used to verify that the license signature is valid.
             </summary>
         </member>
         <member name="T:Weavy.Core.Configuration.ProviderConfiguration">
@@ -9830,6 +9832,49 @@
             Gets the user whose password is being reset.
             </summary>
         </member>
+        <member name="T:Weavy.Core.Events.AfterSystemSetup">
+            <summary>
+            Runs just after the initial setup of Weavy.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Events.AfterSystemSetup.User">
+            <summary>
+            Gets the user that was created during setup.
+            </summary>
+        </member>
+        <member name="T:Weavy.Core.Helpers.AsyncHelper">
+            <summary>
+            Provides helper method to call awaitable methods from a synchronous environment.
+            <see href="https://stackoverflow.com/a/40120697"/>
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Helpers.AsyncHelper.MyTaskFactory">
+            <summary>
+            The task factory.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Helpers.AsyncHelper.RunSync``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Executes an async <see cref="T:System.Threading.Tasks.Task`1"/> method which has a TResult return type synchronously
+            </summary>
+            <param name="func">
+            The <see cref="T:System.Func`1"/> delegate to run.
+            </param>
+            <typeparam name="TResult">
+            <see cref="T:System.Type"/> that is the result of the task.
+            </typeparam>
+            <returns>
+            The result.
+            </returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.AsyncHelper.RunSync(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Executes an async <see cref="T:System.Threading.Tasks.Task`1"/> method which has a void return value synchronously.
+            </summary>
+            <param name="func">
+            The <see cref="T:System.Func`1"/> delegate to run.
+            </param>
+        </member>
         <member name="T:Weavy.Core.Helpers.CollectionExtensions">
             <summary>
             Helper and extension methods for collections.
@@ -10042,6 +10087,86 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
+        <member name="T:Weavy.Core.Helpers.IdentityExtensions">
+            <summary>
+            Extensions making it easier to get claims off of an identity.
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Helpers.IdentityExtensions.AUTHENTICATION_TYPE">
+            <summary>
+            Name of the authentication type claim
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetIdClaim(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the user id claim if it exists, otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetId(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the user id if it exists, otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetUsername(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the username if it exists, otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetEmail(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the email if it exists, otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetName(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the display name if it exists, otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.GetAuthenticationTypeForLogin(System.Security.Claims.ClaimsIdentity)">
+            <summary>
+            Get the authentication type for logins.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.IdentityExtensions.Get(System.Security.Claims.ClaimsIdentity,System.String[])">
+            <summary>
+            Get the first claim with any of the specified type(s), otherwise <c>null</c>.
+            </summary>
+            <param name="identity">A claims-based identity.</param>
+            <param name="claimTypes">A list of claim types to check, e.g. ["sub", "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"].</param>
+            <returns></returns>
+        </member>
+        <member name="T:Weavy.Core.Helpers.JwtHelper">
+            <summary>
+            Helper class for encoding and decoding JWT tokens. See https://tools.ietf.org/html/rfc7519 and https://www.iana.org/assignments/jwt/jwt.xhtml.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Helpers.JwtHelper.Decode(System.String)">
+            <summary>
+            Decodes a JSON web token.
+            </summary>
+            <param name="token"></param>
+            <returns>A dictionary with the JWT token claims.</returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.JwtHelper.Encode(System.Collections.Generic.IDictionary{System.String,System.String},System.Nullable{System.Int32})">
+            <summary>
+            Encode a JSON web token.
+            </summary>
+            <param name="claims">The claims to add to the token</param>
+            <param name="exp">Number of seconds until the token expires.</param>
+            <returns>The encoded JWT token string.</returns>
+        </member>
         <member name="T:Weavy.Core.Helpers.PostExtensions">
             <summary>
             Extension methods for <see cref="T:Weavy.Core.Models.Post"/> objects.
@@ -10222,7 +10347,7 @@
             <param name="color">The color.</param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.ColorExtensions.ToHex(Inventive.Core.Imaging.HslaColor)">
+        <member name="M:Weavy.Core.Helpers.ColorExtensions.ToHex(Weavy.Core.Imaging.HslaColor)">
             <summary>
             Returns a hex string representing the color.
             </summary>
@@ -10236,7 +10361,7 @@
             <param name="argb"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.ColorExtensions.ToArgbColor(Inventive.Core.Imaging.HslaColor)">
+        <member name="M:Weavy.Core.Helpers.ColorExtensions.ToArgbColor(Weavy.Core.Imaging.HslaColor)">
             <summary>
             Converts an HSL color value to RGB.
             </summary>
@@ -10601,6 +10726,14 @@
             Helper and extension methods for dates and times.
             </summary>
         </member>
+        <member name="M:Weavy.Core.Helpers.DateTimeExtensions.ToStringRelative(System.TimeSpan,System.Boolean)">
+            <summary>
+            Returns a textual representation of a time span.
+            </summary>
+            <param name="duration">The time span to return as text.</param>
+            <param name="abbrev"></param>
+            <returns>Returns the time as readable text, e.g. "3 hours".</returns>
+        </member>
         <member name="M:Weavy.Core.Helpers.DateTimeExtensions.From(System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Returns a textual representation of a date relative to another date.
@@ -10694,43 +10827,39 @@
         </member>
         <member name="T:Weavy.Core.Helpers.Emojione">
             <summary>
-            
+            Helper class for converting emoji to different formats.
             </summary>
         </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.GetShortnameFromCodepoint(System.String)">
+        <member name="M:Weavy.Core.Helpers.Emojione.AsciiToShortname(System.String)">
             <summary>
-            Returns the shortname corresponding to the specified codepoint.
+            Converts ascii emoji to shortname, e.g. :) -> :smile:
             </summary>
-            <param name="codepoint"></param>
-            <returns>Returns a string, or <c>null</c> if there is no mapping from the specified codepoint to shortname.</returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.GetCodepointFromAscii(System.String)">
-            <summary>
-            Returns the codepoint corresponding to the specified ascii emoji.
-            </summary>
-            <param name="ascii"></param>
-            <returns>Returns a string, or <c>null</c> if there is no mapping from the specified ascii emoji to codepoint.</returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.GetCodepointFromShortname(System.String)">
-            <summary>
-            Returns the codepoint corresponding to the specified shortname.
-            </summary>
-            <param name="shortname"></param>
-            <returns>Returns a string, or <c>null</c> if there is no mapping from the specified shortname to codepoint.</returns>
+            <param name="str"></param>
+            <returns></returns>
         </member>
         <member name="M:Weavy.Core.Helpers.Emojione.AsciiToUnicode(System.String)">
             <summary>
-            Converts ascii emojis to unicode.
+            Converts ascii emoji to unicode, e.g. :) -> 😄
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.ShortnameToImage(System.String)">
+        <member name="M:Weavy.Core.Helpers.Emojione.GetEmojiArray(System.String)">
             <summary>
-            Takes input containing emoji shortnames and converts it to emoji images.
+            Get emoji array for the specified codepoint.
             </summary>
-            <param name="str"></param>
+            <param name="codepoint"></param>
             <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.GetImage(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Get image markup for specified emoji.
+            </summary>
+            <param name="input">A single native unicode emoji or emoji shortname, e.g. 😃 or :smiley:.</param>
+            <param name="ascii"><c>true</c> to also convert ascii emoji to images, e.g. :D.</param>
+            <param name="inline"><c>true</c> to return inline &lt;svg&gt; instead of &lt;img&gt;.</param>
+            <param name="sprite"><c>true</c> to enable sprite mode instead of individual image.</param>
+            <returns>The codepoint.</returns>
         </member>
         <member name="M:Weavy.Core.Helpers.Emojione.ImageToShortname(System.String)">
             <summary>
@@ -10739,40 +10868,31 @@
             <param name="html"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.ShortnameToUnicode(System.String)">
+        <member name="M:Weavy.Core.Helpers.Emojione.ShortnameToAscii(System.String)">
+            <summary>
+            This will replace shortnames with their ascii equivalent, e.g. :wink: -> ;). 
+            This is useful for systems that don't support unicode or images.
+            </summary>
+            <param name="str"></param>
+            <returns>A string with ascii replacements.</returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.ShortnameToImage(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Takes input containing emoji shortnames and converts it to emoji images.
+            </summary>
+            <param name="str"></param>
+            <param name="ascii"><c>true</c> to also convert ascii emoji to images.</param>
+            <param name="inline"><c>true</c> to return inline &lt;svg&gt; instead of &lt;img&gt;.</param>
+            <param name="sprite"><c>true</c> to enable sprite mode instead of individual images.</param>
+            <returns>A string with appropriate html for rendering emoji.</returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.ShortnameToUnicode(System.String,System.Boolean)">
             <summary>
             Converts shortname emojis to unicode, useful for sending emojis back to mobile devices.
             </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.UnicodeToImage(System.String)">
-            <summary>
-            Takes native unicode emoji input, such as that from your mobile device, and translates it directly to emoji images.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.UnicodeToShortname(System.String)">
-            <summary>
-            Converts unicode emoji to shortnames.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.ToImage(System.String)">
-            <summary>
-            Takes an input string containing both native unicode emoji and shortnames, and translates it into emoji images for display.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.Emojione.UnifyUnicode(System.String)">
-            <summary>
-            Unifies all emoji to their unicode types.
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
+            <param name="str">The input string</param>
+            <param name="ascii"><c>true</c> to also convert ascii emoji in the inpur string to unicode.</param>
+            <returns>A string with unicode replacements</returns>
         </member>
         <member name="M:Weavy.Core.Helpers.Emojione.ToCodePoint(System.String)">
             <summary>
@@ -10781,12 +10901,46 @@
             <param name="unicode"></param>
             <returns></returns>
         </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.ToImage(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Takes an input string containing both native unicode emoji and shortnames, and translates it into emoji images for display.
+            </summary>
+            <param name="str">The input string.</param>
+            <param name="ascii"><c>true</c> to also convert ascii emoji to images.</param>
+            <param name="inline"><c>true</c> to return inline &lt;svg&gt; instead of &lt;img&gt;.</param>
+            <param name="sprite"><c>true</c> to enable sprite mode instead of individual images.</param>
+            <returns>A string with appropriate html for rendering emoji.</returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.ToShort(System.String)">
+            <summary>
+            Converts unicode emoji to shortnames.
+            </summary>
+            <param name="str">The input string</param>
+            <returns>A string with shortname replacements.</returns>
+        </member>
         <member name="M:Weavy.Core.Helpers.Emojione.ToUnicode(System.String)">
             <summary>
             Converts a unicode code point/code pair to a unicode character
             </summary>
             <param name="codepoint"></param>
             <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.UnicodeToImage(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Takes native unicode emoji input, such as that from your mobile device, and outputs image markup.
+            </summary>
+            <param name="str">The input string</param>
+            <param name="inline"><c>true</c> to return inline &lt;svg&gt; instead of &lt;img&gt;.</param>
+            <param name="sprite"><c>true</c> to enable sprite mode instead of individual images.</param>
+            <returns>A string with appropriate html for rendering emoji.</returns>
+        </member>
+        <member name="M:Weavy.Core.Helpers.Emojione.UnifyUnicode(System.String,System.Boolean)">
+            <summary>
+            Unifies all emoji to their standard unicode types. 
+            </summary>
+            <param name="str">The input string.</param>
+            <param name="ascii"><c>true</c> to also convert ascii emoji to unicode.</param>
+            <returns>A string with standardized unicode.</returns>
         </member>
         <member name="T:Weavy.Core.Helpers.EntityExtensions">
             <summary>
@@ -11255,25 +11409,6 @@
             <param name="path">The path string to check.</param>
             <returns>Returns true if the file is a text file.</returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.FileHelper.IsAllowedExtension(System.String)">
-            <summary>
-            Checks if the extension of the file is allowed.
-            </summary>
-            <param name="filename"></param>
-            <returns><c>true</c> if the extension is allowed, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.FileHelper.GetExtensionWhitelist">
-            <summary>
-            Returns the whitelisted extensions separated with pipe.
-            </summary>
-            <returns><c>null</c> if there are no whitelisted extensions, otherwise the extensions separated with |.</returns>
-        </member>
-        <member name="M:Weavy.Core.Helpers.FileHelper.GetMaxUploadSize">
-            <summary>
-            Returns the maximum allowed size for uploaded files in bytes.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Weavy.Core.Helpers.FileHelper.IsFileToLarge(System.Int64)">
             <summary>
             Returns a value indicating if the file is larger than MaxUploadSize.
@@ -11374,12 +11509,11 @@
             <param name="fit"></param>
             <param name="align"></param>
         </member>
-        <member name="M:Weavy.Core.Helpers.FileHelper.GetIcon(System.String@,System.String)">
+        <member name="M:Weavy.Core.Helpers.FileHelper.GetAppIcon(System.String@)">
             <summary>
-            Gets the icon (for the specified area).
+            Gets the app icon.
             </summary>
             <param name="etag"></param>
-            <param name="area"></param>
             <returns></returns>
         </member>
         <member name="M:Weavy.Core.Helpers.FileHelper.GetAvatar(Weavy.Core.Models.EntityType)">
@@ -12197,6 +12331,11 @@
             Gets the default json serializer settings used by Weavy. Output is in snake_case and pretty printed (indented).
             </summary>
         </member>
+        <member name="F:Weavy.Core.Helpers.SerializationExtensions.JavascriptSerializerSettings">
+            <summary>
+            Gets a json serializer that uses camelCase suitable for Javascript.
+            </summary>
+        </member>
         <member name="F:Weavy.Core.Helpers.SerializationExtensions.DefaultJsonSerializerSettingsWithoutPrettyPrint">
             <summary>
             Gets a json serializer that uses snake_case but does not pretty print the output.
@@ -12520,15 +12659,16 @@
             <param name="source">The string to split.</param>
             <returns>An array of strings.</returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.StringExtensions.ToCamelCase(System.String)">
+        <member name="M:Weavy.Core.Helpers.StringExtensions.ToCamelCase(System.String,System.Boolean)">
             <summary>
-             Returns the CamelCased version of a string. See http://en.wikipedia.org/wiki/CamelCase.
+             Returns the camelCased version of a string. See http://en.wikipedia.org/wiki/Camel_case.
             </summary>
             <example>
-            The string "camel case" will return the string "CamelCase".
+            The string "camel case" will return the string "camelCase".
             </example>
             <param name="text">The text to convert.</param>
-            <returns>The converted text.</returns>
+            <param name="upperCamelCase">Set to true to get upper camel case aka pascal case</param>
+            <returns>camelCased text. aka lower camel case</returns>
         </member>
         <member name="M:Weavy.Core.Helpers.StringExtensions.ToSentenceCase(System.String)">
             <summary>
@@ -12570,7 +12710,7 @@
             <param name="text">The text to convert.</param>
             <returns>The converted text.</returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.StringExtensions.ToTitleCase(System.String)">
+        <member name="M:Weavy.Core.Helpers.StringExtensions.ToTitleCase(System.String,System.Boolean)">
             <summary>
             Converts text to title case.
             </summary>
@@ -12578,6 +12718,7 @@
             The string "title case" will return the string "Title Case".
             </example>
             <param name="text">The text to convert.</param>
+            <param name="onlyFirstLetter">Only change first letter of words</param>
             <returns>The converted text.</returns>
         </member>
         <member name="M:Weavy.Core.Helpers.StringExtensions.Left(System.String,System.Int32)">
@@ -13007,13 +13148,12 @@
             <param name="absolute"><c>false</c> to return a relative url or <c>true</c> to return an absolute url.</param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Helpers.UrlHelper.IconUrl(System.Nullable{System.Int32},System.Boolean,System.String,System.Boolean)">
+        <member name="M:Weavy.Core.Helpers.UrlHelper.IconUrl(System.Nullable{System.Int32},System.Boolean,System.Boolean)">
             <summary>
             Returns the url to the app icon (for the specified area).
             </summary>
             <param name="size"></param>
             <param name="absolute"></param>
-            <param name="area"></param>
             <param name="cachebust"></param>
         </member>
         <member name="M:Weavy.Core.Helpers.UrlHelper.ManifestUrl(System.Boolean,System.String)">
@@ -13566,11 +13706,12 @@
             <param name="t"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Json.EnumJsonConverter.GetEnumNameMap(System.Type)">
+        <member name="M:Weavy.Core.Json.EnumJsonConverter.GetEnumNameMap(System.Type,Newtonsoft.Json.JsonSerializer)">
             <summary>
             A cached representation of the Enum string representation to respect per Enum field name.
             </summary>
             <param name="t">The type of the Enum.</param>
+            <param name="serializer">The calling serializer.</param>
             <returns>A map of enum field name to the lowerized field name,.</returns>
         </member>
         <member name="T:Weavy.Core.Json.EnumJsonConverter.BidirectionalDictionary`2">
@@ -13611,7 +13752,7 @@
             Returns the snake_cased name of the property.
             </summary>
             <param name="propertyName">Name of the property.</param>
-            <returns>The snake_cased name.</returns>
+            <returns>The snake_cased or camelCased name.</returns>
         </member>
         <member name="M:Weavy.Core.Json.WeavyContractResolver.IsEmptyCollection(Newtonsoft.Json.Serialization.JsonProperty,System.Object)">
             <summary>
@@ -14046,159 +14187,12 @@
             <param name="e"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Plugins.PushNotificationHook.PushAsync(System.Collections.Generic.IEnumerable{Weavy.Core.Models.PushNotification})">
-            <summary>
-            Sends push notifications to registered clients.
-            </summary>
-            <param name="notifications">The notifications to send.</param>
-            <returns></returns>
-        </member>
-        <member name="T:Weavy.Core.Plugins.AuthenticationSettings">
-            <summary>
-            A plugin with auth settings for Weavy.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.AuthenticationSettings.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Weavy.Core.Plugins.AuthenticationSettings"/> class.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.PasswordRequiredLength">
-            <summary>
-            Minimum required password length.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.PasswordRequiresDigit">
-            <summary>
-            Require a digit ('0' - '9') in passwords.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.PasswordRequiresLowercase">
-            <summary>
-            Require a lower case letter ('a' - 'z') in passwords.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.PasswordRequiresUppercase">
-            <summary>
-            Require an upper case letter ('A' - 'Z') in passwords.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.PasswordRequiresSpecial">
-            <summary>
-            Require a special character (non letter or digit) in passwords.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.ActiveDirectoryDomain">
-            <summary>
-            Gets or sets the name of the domain or server.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.ActiveDirectoryUsername">
-            <summary>
-            Gets or sets the username to use when authenticating against the directory.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.ActiveDirectoryPassword">
-            <summary>
-            Gets or sets the password to use when authenticating against the directory.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.AzureAuthority">
-            <summary>
-            Gets the sign in endpoint.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.AzureClientId">
-            <summary>
-            Gets or sets the client id.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.AzureWhitelist">
-            <summary>
-            Gets or sets the tenant whitelist for authentication.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.AzureTenants">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.AuthenticationSettings.GetAzureClientId">
-            <summary>
-            Gets the AzureClientId. 
-            </summary>
-            <remarks>If running value is configured that value is returned - otherwise AppSettings with key "azure:clientid" is returned.</remarks>
-            <returns></returns>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.IsAzureConfigured">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.CustomAuthenticationEndpoint">
-            <summary>
-            Gets or sets the url to a custom authentication provider.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.GoogleAuthority">
-            <summary>
-            Gets the sign in endpoint for Google.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.GoogleClientId">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.GoogleClientSecret">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.GoogleDomains">
-            <summary>
-            Gets the list of whitelisted domains allowed to sign-in.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.GoogleWhitelist">
-            <summary>
-            Gets or sets the domain whitelist for authentication.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.IsGoogleConfigured">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.AuthenticationSettings.HasExternalAuthentication">
-            <summary>
-            Returns a value indicating if any external authentication options are configured.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.AuthenticationSettings.Validate(System.ComponentModel.DataAnnotations.ValidationContext)">
-            <summary>
-            
-            </summary>
-            <param name="validationContext"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Weavy.Core.Plugins.LookupAzureTenantFunction">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.LookupAzureTenantFunction.Domain">
-            <summary>
-            Gets or sets the domain for which to lookup Azure tenant id.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.LookupAzureTenantFunction.Run(System.Threading.CancellationToken,System.String[])">
-            <summary>
-            Sends a test email to verify email settings.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Weavy.Core.Plugins.TestPushNotificationFunction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Plugins.TestPushNotificationFunction.Destination">
             <summary>
             
             </summary>
@@ -14313,128 +14307,6 @@
         <member name="M:Weavy.Core.Plugins.IndexDaemon.Run(System.Threading.CancellationToken,System.String[])">
             <summary>
             Index entities that have changed since the last index operation.
-            </summary>
-        </member>
-        <member name="T:Weavy.Core.Plugins.SystemSettings">
-            <summary>
-            A plugin with misc settings for Weavy.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.SystemSettings.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Weavy.Core.Plugins.SystemSettings"/> class.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.ApplicationUrl">
-            <summary>
-            Gets or sets the base url for the application.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.MaxUploadSize">
-            <summary>
-            Gets or sets the maximum size for uploaded files (in bytes).
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.ExtensionWhitelist">
-            <summary>
-            Gets or sets the file extensions whitelist for file uploads.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.AllowOpenSpaces">
-            <summary>
-            Gets or sets a value indicating if users are allowed to create open spaces. Admins can always create all types of spaces.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.AllowClosedSpaces">
-            <summary>
-            Gets or sets a value indicating if users are allowed to create closed spaces. Admins can always create all types of spaces.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.AllowSecretSpaces">
-            <summary>
-            Gets or sets a value indicating if users are allowed to create secret spaces. Admins can always create all types of spaces.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.DomainWhitelist">
-            <summary>
-            Gets or sets the email domain whitelist for invites and sign ups.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.AllowInvites">
-            <summary>
-            Gets or sets a value indicating whether users can invite people.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.AllowSignUps">
-            <summary>
-            Gets or sets a value indicating whether users can sign up for an account.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SystemSettings.Domains">
-            <summary>
-            Gets the domain whitelist for invites and sign ups.
-            </summary>
-        </member>
-        <member name="T:Weavy.Core.Plugins.SmtpSettings">
-            <summary>
-            A plugin that configures the smtp server settings for outgoing email.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.Server">
-            <summary>
-             Gets or sets the name or IP address of the host used for SMTP transactions.  
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.Port">
-            <summary>
-            Gets or sets the port used for SMTP transactions.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.From">
-            <summary>
-            Gets or sets the default value that indicates who the outgoing email message is from.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.Username">
-            <summary>
-            Gets or sets the username used for SMTP transactions
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.Password">
-            <summary>
-            Gets or sets the password used for SMTP transactions.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.DefaultCredentials">
-            <summary>
-            Gets or sets a value indicating whether default user credentials should be used to access the smtp server.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.Ssl">
-            <summary>
-            Gets or sets a value indicating whether to use Secure Sockets Layer (SSL) to encrypt the connection.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.ClientDomain">
-            <summary>
-            Gets or sets the client domain name to use in the initial smtp protocol request to connect to the smtp server.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.TargetName">
-            <summary>
-            Gets or sets the Service Provider Name (SPN) to use for authentication when using extended protection for smtp transactions.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Plugins.SmtpSettings.GetPassword">
-            <summary>
-            Gets the running value for SMTP password. 
-            </summary>
-            <remarks>If running value is configured that value is returned - otherwise AppSettings with key "smtp:password" is returned.</remarks>
-            <returns></returns>
-        </member>
-        <member name="P:Weavy.Core.Plugins.SmtpSettings.IsConfigured">
-            <summary>
-            Gets a value indicating whether the minimum required settings (server and fronm address) are configured.
             </summary>
         </member>
         <member name="T:Weavy.Core.Plugins.AuditHook">
@@ -14738,9 +14610,610 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Weavy.Core.Providers.AzureNotificationProvider">
+            <summary>
+            An Azure notification hub implementation of <see cref="T:Weavy.Core.Providers.INotificationProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.AzureNotificationProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AzureNotificationProvider.Push(Weavy.Core.Models.PushNotification)">
+            <summary>
+            
+            </summary>
+            <param name="notification"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Weavy.Core.Providers.AzureNotificationProvider.SpacesHub">
+            <summary>
+            Gets the notification hub client for the Weavy Spaces app.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Providers.AzureNotificationProvider.MessengerHub">
+            <summary>
+            Gets the notification hub client for the Weavy Messenger app.
+            </summary>
+        </member>
+        <member name="T:Weavy.Core.Providers.INotificationProvider">
+            <summary>
+            Interface for push notification providers
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.INotificationProvider.Push(Weavy.Core.Models.PushNotification)">
+            <summary>
+            Push a notification
+            </summary>
+            <param name="notification"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Weavy.Core.Providers.AspNetCacheProvider">
+            <summary>
+              An in-process implementation of the <see cref="T:Weavy.Core.Providers.ICacheProvider" /> interface that internally uses the System.Web.Caching.Cache.
+            </summary>    
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the specified configuration settings.
+            </summary>
+            <param name="settings">Configuration settings.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Weavy.Core.Providers.AspNetCacheProvider.Hits">
+            <summary>
+            Gets the total number of cache hits.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Providers.AspNetCacheProvider.Misses">
+            <summary>
+            Gets the total number of cache misses.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Clear">
+            <summary>
+            Removes all items from the Cache.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
+            <summary>
+            Removes all items from the <see cref="T:Weavy.Core.Models.CacheRegion"/>.
+            </summary>
+            <param name="region">The <see cref="T:Weavy.Core.Models.CacheRegion"/> to clear.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Checks if the specified item exists in the cache.
+            </summary>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <typeparam name="T">The type of data to get from the cache.</typeparam>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns>The retrieved cache item, or null if the key is not found.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
+            <summary>
+            Inserts an item into the Cache object with a cache key to reference its location.
+            </summary>
+            <typeparam name="T">The type of data to put in the cache.</typeparam>
+            <param name="region">The cache region in which to put the cache item.</param> 
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="item">The object to be inserted into the cache.</param>
+            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes the specified items from the cache.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items starting with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items ending with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.GetRegionKey(Weavy.Core.Models.CacheRegion)">
+            <summary>
+            Gets the cache key for the specified CacheRegion.
+            </summary>
+            <param name="region">A CacheRegion for which to get cache key.</param>
+            <returns>A string used to identify the CacheRegion.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.GetCacheKey(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Gets the composite cache key for the specified CacheRegion and item key.
+            </summary>
+            <param name="region">A CacheRegion for which to get cache key.</param>
+            <param name="key">Cache key for a specific item in the cache region.</param>
+            <returns>A string used to identify the item in the CacheRegion.</returns>
+        </member>
+        <member name="T:Weavy.Core.Providers.DiskBlobProvider">
+            <summary>
+              Implementation of the <see cref="T:Weavy.Core.Providers.IBlobProvider"/> interface that stores blobs on local disk.
+            </summary>    
+        </member>
+        <member name="P:Weavy.Core.Providers.DiskBlobProvider.FilesDirectory">
+            <summary>
+            Gets the path to the files directory
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the specified configuration settings.
+            </summary>
+            <param name="settings">Configuration settings.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.HasData(Weavy.Core.Models.Blob)">
+            <summary>
+            Checks if the specified <see cref="T:Weavy.Core.Models.Blob"/> exists.
+            </summary>
+            <param name="blob">The blob to check.</param>
+            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.GetData(Weavy.Core.Models.Blob)">
+            <summary>
+            Returns the location of the specified <see cref="T:Weavy.Core.Models.Blob"/> object.
+            If the blob does not exists in the provider, <see cref="P:System.IO.FileInfo.Exists"/> will return false.
+            </summary>
+            <param name="blob">The blob.</param>
+            <returns>A <see cref="T:System.IO.FileInfo"/> object.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Downloads the binary data of the specified blob to the specified output stream.
+            </summary>
+            <param name="blob">The blob.</param>
+            <param name="output">The output stream where the data should be written.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Uploads the binary data for the specified blob.
+            </summary>
+            <param name="blob">Blob to insert.</param>
+            <param name="input">The input stream from which the data should be read.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.DiskBlobProvider.Delete(Weavy.Core.Models.Blob)">
+            <summary>
+            Permanently removes blob data from disk.
+            </summary>
+            <param name="blob">The blob to delete.</param>
+        </member>
+        <member name="T:Weavy.Core.Providers.IAuthenticationProvider">
+            <summary>
+            Interface for authentication providers.
+            </summary>
+        </member>
+        <member name="T:Weavy.Core.Providers.IBlobProvider">
+            <summary>
+            Interface for blob storage providers.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IBlobProvider.HasData(Weavy.Core.Models.Blob)">
+            <summary>
+            Checks if the provider has any data for the specified blob.
+            </summary>
+            <param name="blob">The blob.</param>
+            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.IBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Downloads the data of the blob to the specified output stream.
+            </summary>
+            <param name="blob">The blob.</param>
+            <param name="output">The output stream where the data should be written.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.IBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Uploads the the specified blob to blob storage. 
+            </summary>
+            <param name="blob">A <see cref="T:Weavy.Core.Models.Blob"/> object with metadata.</param>
+            <param name="input">The input stream from which the data should be read.</param>
+            <remarks>
+              The <see cref="T:Weavy.Core.Models.Blob"/> will be updated to reflect any changes made by the provider, i.e. Size.
+            </remarks>
+        </member>
+        <member name="M:Weavy.Core.Providers.IBlobProvider.Delete(Weavy.Core.Models.Blob)">
+            <summary>
+            Permanently deletes a blob from storage.
+            </summary>
+            <param name="blob">The blob to delete.</param>
+        </member>
+        <member name="T:Weavy.Core.Providers.ICacheProvider">
+            <summary>
+              Interface for cache providers.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Count">
+            <summary>
+            Gets the number of entities in the cache.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Clear">
+            <summary>
+            Removes all items from the cache.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
+            <summary>
+            Removes all items from the cache region.
+            </summary>
+            <param name="region">The cache region to clear.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Checks if the specified item exists in the cache.
+            </summary>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <typeparam name="T">The type of data to get from the cache.</typeparam>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns>The retrieved cache item, or null if the key is not found.</returns>
+        </member>
+        <member name="P:Weavy.Core.Providers.ICacheProvider.Hits">
+            <summary>
+            Gets the total number of cache hits.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Providers.ICacheProvider.Misses">
+            <summary>
+            Gets the total number of cache misses.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
+            <summary>
+            Inserts an item into the Cache object with a cache key to reference its location.
+            </summary>
+            <typeparam name="T">The type of data to put in the cache.</typeparam>
+            <param name="region">The cache region in which to put the cache item.</param> 
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="item">The object to be inserted into the cache.</param>
+            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes the specified items from the cache.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items starting with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.ICacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items ending with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="T:Weavy.Core.Providers.ILocalBlobProvider">
+            <summary>
+            Interface for local blob storage providers.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.ILocalBlobProvider.GetData(Weavy.Core.Models.Blob)">
+            <summary>
+            Returns a <see cref="T:System.IO.FileInfo"/> pointing to the location of the Blob.
+            If the blob does not exists in the provider, <see cref="P:System.IO.FileInfo.Exists"/> will return false.
+            </summary>
+            <param name="blob">The blob.</param>
+            <returns>A <see cref="T:Weavy.Core.Models.Blob"/> object pointing to the location of the blob.</returns>
+        </member>
+        <member name="T:Weavy.Core.Providers.IProvider">
+            <summary>
+             Interface for providers.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Called on application startup to initialize the provider with the specified configuration settings.
+            </summary>
+            <param name="settings">Configuration settings</param>        
+        </member>
+        <member name="T:Weavy.Core.Providers.NullCacheProvider">
+            <summary>
+              An implementation of the <see cref="T:Weavy.Core.Providers.ICacheProvider" /> interface that disables caching.
+            </summary>        
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the specified configuration settings.
+            </summary>
+            <param name="settings">Configuration settings.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Count">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Weavy.Core.Providers.NullCacheProvider.Hits">
+            <summary>
+            Gets the total number of cache hits.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Providers.NullCacheProvider.Misses">
+            <summary>
+            Gets the total number of cache misses.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Clear">
+            <summary>
+            Removes all items from the cache.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
+            <summary>
+            Removes all items from the cache region.
+            </summary>
+            <param name="region">The cache region to clear.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Checks if the specified item exists in the cache.
+            </summary>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <typeparam name="T">The type of data to get from the cache.</typeparam>
+            <param name="region">The cache region from which to get the cache item.</param>
+            <param name="key">The identifier for the cache item to retrieve.</param>
+            <returns>The retrieved cache item, or null if the key is not found.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
+            <summary>
+            Inserts an item into the Cache object with a cache key to reference its location.
+            </summary>
+            <typeparam name="T">The type of data to put in the cache.</typeparam>
+            <param name="region">The cache region in which to put the cache item.</param> 
+            <param name="key">The cache key used to reference the item.</param>
+            <param name="item">The object to be inserted into the cache.</param>
+            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes the specified items from the cache.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items starting with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.NullCacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
+            <summary>
+            Removes all items ending with the specified keys.
+            </summary>
+            <param name="region">The cache region from which to remove the cache item.</param> 
+            <param name="keys">The identifiers for the cache items to remove.</param>
+        </member>
+        <member name="T:Weavy.Core.Providers.SqlServerBlobProvider">
+            <summary>
+              Sql Server implementation of the <see cref="T:Weavy.Core.Providers.IBlobProvider"/> interface.
+            </summary>    
+        </member>
+        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initializes the provider with the specified configuration settings.
+            </summary>
+            <param name="settings">Configuration settings.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.HasData(Weavy.Core.Models.Blob)">
+            <summary>
+            Checks if the specified blob has any data.
+            </summary>
+            <param name="blob">The blob.</param>
+            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Writes the binary data of the file to the specified output stream.
+            </summary>
+            <param name="blob">The file.</param>
+            <param name="output">The output stream where the data should be written.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
+            <summary>
+            Reads the binary data from the specified input stream and stores it as a blob.
+            After insert <c>blob.Size</c> contains the size of the uploaded file.
+            </summary>
+            <param name="blob">Blob to insert.</param>
+            <param name="input">The input stream from which the data should be read.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.Delete(Weavy.Core.Models.Blob)">
+            <summary>
+            Permanently removes blob data from the repository.
+            </summary>
+            <param name="blob">The blob to delete.</param>
+        </member>
+        <member name="T:Weavy.Core.Providers.IIndexProvider">
+            <summary>
+            Interface for fulltext index providers.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Count">
+            <summary>
+            Gets the number of entities in the index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Size">
+            <summary>
+            Gets the size in bytes of the fulltext index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Optimize">
+            <summary>
+            Optimize the fulltext index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Delete(Weavy.Core.Models.IEntity)">
+            <summary>
+            Delete an entity from the fulltext index.
+            </summary>
+            <param name="entity">The entity to delete from the index.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Get(Weavy.Core.Models.IEntity)">
+            <summary>
+            Get an <see cref="T:Weavy.Core.Models.IndexDocument"/> from the fulltext index.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.GetLastIndexed(Weavy.Core.Models.EntityType)">
+            <summary>
+            Gets the timestamp of the last indexed entity with <see cref="T:Weavy.Core.Models.EntityType"/> <paramref name="type"/>.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Insert(System.Collections.Generic.IEnumerable{Weavy.Core.Models.IEntity})">
+            <summary>
+            Add a list of entities to the fulltext index.
+            </summary>
+            <param name="entities">The entities to add to the index.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.Search(Weavy.Core.Models.Query,System.String)">
+            <summary>
+            Search the fulltext index with the specified <see cref="T:Weavy.Core.Models.Query"/>.
+            </summary>
+            <param name="query">A query.</param>
+            <param name="searcher">A named searcher to use for the query.</param>
+            <returns>A list of documents matching the query.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.IIndexProvider.SetLastIndexed(Weavy.Core.Models.EntityType,System.Int64)">
+            <summary>
+            Sets the timestamp of the last indexed entity with <see cref="T:Weavy.Core.Models.EntityType"/> <paramref name="type"/>.
+            </summary>
+            <param name="timestamp"></param>
+            <param name="type"></param>
+        </member>
+        <member name="T:Weavy.Core.Providers.LuceneIndexProvider">
+            <summary>
+            Lucene provider to index operations. Allows to Insert/Delete items to the search index.
+            Remember to call Initialize before first usage.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Initialize the <see cref="T:Weavy.Core.Providers.LuceneIndexProvider"/> with the provided settings.
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Count">
+            <summary>
+            Gets the number of entities in the index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Size">
+            <summary>
+            Gets the size of the fulltext index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Optimize">
+            <summary>
+            Optimize the index.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Delete(Weavy.Core.Models.IEntity)">
+            <summary>
+            Delete an entity from the fulltext index.
+            </summary>
+            <param name="entity">The entity to delete from the index.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Get(Weavy.Core.Models.IEntity)">
+            <summary>
+            Get an <see cref="T:Weavy.Core.Models.IndexDocument"/> from the fulltext index.
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetDirectory">
+            <summary>
+            Gets the <see cref="T:Lucene.Net.Store.Directory"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetLastIndexed(Weavy.Core.Models.EntityType)">
+            <summary>
+            Gets the timestamp of the last indexed item.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetReader">
+            <summary>
+            Gets the IndexReader.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetWriter">
+            <summary>
+            Gets the IndexWriter.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Search(Weavy.Core.Models.Query,System.String)">
+            <summary>
+            Search the fulltext index with the specified <see cref="T:Weavy.Core.Models.Query"/>.
+            </summary>
+            <param name="query">A query.</param>
+            <param name="searcher">A named searcher to use for the query.</param>
+            <returns>A list of documents matching the query.</returns>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Insert(System.Collections.Generic.IEnumerable{Weavy.Core.Models.IEntity})">
+            <summary>
+            Add a list of entities to the fulltext index.
+            </summary>
+            <param name="entities">The entities to add to the index.</param>
+        </member>
+        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.SetLastIndexed(Weavy.Core.Models.EntityType,System.Int64)">
+            <summary>
+            Sets the timestamp of the last indexed item.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Weavy.Core.Services.PushService">
             <summary>
-              Service class for pushing realtime events to connected clients. They can subscribe to these events with weavy.realtime.on("event")
+              Service class for pushing realtime events to connected clients. They can subscribe to these events with wvy.realtime.on("event.weavy")
             </summary>
         </member>
         <member name="F:Weavy.Core.Services.PushService.CLIENT_CALLBACK">
@@ -14753,22 +15226,22 @@
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_POST">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_POST_INSERTED">
             <summary>
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_INSERTED_SPACE">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_SPACE_INSERTED">
             <summary>
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_TRASHED_SPACE">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_SPACE_TRASHED">
             <summary>
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_COMMENT">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_COMMENT_INSERTED">
             <summary>
             
             </summary>
@@ -14793,7 +15266,7 @@
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_MESSAGE">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_MESSAGE_INSERTED">
             <summary>
             
             </summary>
@@ -14818,7 +15291,7 @@
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_NOTIFICATION">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_NOTIFICATION_INSERTED">
             <summary>
             
             </summary>
@@ -14828,12 +15301,17 @@
             
             </summary>
         </member>
-        <member name="F:Weavy.Core.Services.PushService.EVENT_NOTIFICATION_READALL">
+        <member name="F:Weavy.Core.Services.PushService.EVENT_NOTIFICATIONS_ALL_READ">
             <summary>
             
             </summary>
         </member>
         <member name="F:Weavy.Core.Services.PushService.EVENT_PRESENCE">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Services.PushService.EVENT_REQUEST_AUTHENTICATION">
             <summary>
             
             </summary>
@@ -14881,6 +15359,18 @@
             <param name="name">Name of the event.</param>
             <param name="data">The data to send.</param>
             <param name="connectionIds">Id of <see cref="T:Weavy.Core.Models.Connection"/>s that should receive the event.</param>
+        </member>
+        <member name="M:Weavy.Core.Services.PushService.NotifyAsync(Weavy.Core.Models.PushNotification)">
+            <summary>
+            Sends a push notifications to registered clients.
+            </summary>
+            <param name="notification">The notification to send.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Weavy.Core.Services.PushService.PushNotification">
+            <summary>
+            Gets the underlying psuh notification provider.
+            </summary>
         </member>
         <member name="T:Weavy.Core.Services.AttachmentService">
             <summary>
@@ -15577,6 +16067,89 @@
             <param name="auth"></param>
             <returns></returns>
         </member>
+        <member name="T:Weavy.Core.Services.LoginService">
+            <summary>
+              Service layer for <see cref="T:Weavy.Core.Models.Login"/>  objects.
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Services.LoginService.LOCAL_AUTHENTICATION_TYPE">
+            <summary>
+            Authentication type used when signing in with local username/password 
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Services.LoginService.CUSTOM_AUTHENTICATION_TYPE">
+            <summary>
+            Authentication type for custom auth with JWT token 
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Services.LoginService.EXTERNAL_AUTHENTICATION_TYPE">
+            <summary>
+            Authentication type for temporary cookie when signing in with open id 
+            </summary>
+        </member>
+        <member name="F:Weavy.Core.Services.LoginService.WINDOWS_AUTHENTICATION_TYPE">
+            <summary>
+            Authentication type for Windows authentication and cookie based authentication against Active Directory   
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.Insert(Weavy.Core.Models.Login)">
+            <summary>
+            Insert an external login.
+            </summary>
+            <param name="login"></param>
+            <returns>The inserted login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.Get(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified id.
+            </summary>
+            <param name="id"></param>
+            <returns>A login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.Get(System.String,System.String)">
+            <summary>
+            Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified iss and sub.
+            </summary>
+            <param name="iss"></param>
+            <param name="sub"></param>
+            <returns>A login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.GetWindowsLogin(System.String)">
+            <summary>
+            Gets the Windows <see cref="T:Weavy.Core.Models.Login"/> with the specified sid.
+            </summary>
+            <param name="sid"></param>
+            <returns>A login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.Update(Weavy.Core.Models.Login)">
+            <summary>
+            Updates an external login.
+            </summary>
+            <param name="login"></param>
+            <returns>The inserted login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.Delete(Weavy.Core.Models.Login)">
+            <summary>
+            Delete the specified login.
+            </summary>
+            <param name="login"></param>
+            <returns>The deleted login.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.GetByUser(System.Int32)">
+            <summary>
+              Gets a list of <see cref="T:Weavy.Core.Models.Login"/> objects for the specified <see cref="T:Weavy.Core.Models.User"/>.
+            </summary>
+            <param name="id">Id of the user.</param>
+            <returns>Returns a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
+        </member>
+        <member name="M:Weavy.Core.Services.LoginService.GetLogins(System.String,System.String)">
+            <summary>
+              Get <see cref="T:Weavy.Core.Models.Login"/> objects with the specified type and issuer.
+            </summary>
+            <param name="type"></param>
+            <param name="issuer"></param>
+            <returns>Returns a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
+        </member>
         <member name="T:Weavy.Core.Services.ContentService">
             <summary>
               Service layer for <see cref="T:Weavy.Core.Models.Content"/> objects.
@@ -15968,79 +16541,176 @@
             <summary>
               Service class for getting configuration settings.
             </summary>
-            <remarks>
-              We need this class so that Weavy.exe can get configuration settings from the same web.config file as Weavy.Web.
-            </remarks>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.ActiveDirectoryDomain">
+            <summary>
+            Gets the name of the Active Directory domain or server to authenticate against (<code>weavy.active-directory-domain</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.ActiveDirectoryUsername">
+            <summary>
+            Gets the username to use when authenticating users against the active directory (<code>weavy.active-directory-username</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.ActiveDirectoryPassword">
+            <summary>
+            Gets the password to use when authenticating users against the active directory (<code>weavy.active-directory-password</code>).
+            </summary>
         </member>
         <member name="P:Weavy.Core.Services.ConfigurationService.ApplicationName">
             <summary>
-            Gets the name of the application, e.g. Weavy. 
+            Gets the name of the application, e.g. Weavy (<code>weavy.application-name</code>).
             </summary>
         </member>
         <member name="P:Weavy.Core.Services.ConfigurationService.ApplicationUrl">
             <summary>
             Gets the absolute url to the installation, e.g. http://intranet.weavy.com or https://www.weavy.com/intranet. 
-            Used for links in outgoing emails etc.
+            Used for links in outgoing emails etc. (<code>weavy.application-url</code>).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.SupportEmail">
+        <member name="P:Weavy.Core.Services.ConfigurationService.DomainWhitelist">
             <summary>
-            Gets the support email address.
+             Gets the whitelisted domains for invites and sign ups.
+             Sign-ups and invites with these email domains are automatically approved (leaving this field blank will require an admin to approve all sign-ups and invites) (<code>weavy.domain-whitelist</code>). 
+            </summary>
+            <remarks>
+              Separate multiple entries with comma, e.g. example.com, example.org
+            </remarks>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.CustomAuthenticationEndpoint">
+            <summary>
+            Gets the full url to a custom authentication endpoint. Must start with https://. (<code>weavy.custom-authentication-endpoint</code>).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.SupportUrl">
+        <member name="P:Weavy.Core.Services.ConfigurationService.Https">
             <summary>
-            Gets the url to the support page.
+            Gets a value indicating if HTTPS is required (<code>weavy.https</code>)..
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpPassword">
+        <member name="P:Weavy.Core.Services.ConfigurationService.Hsts">
             <summary>
-            Gets the smtp password.
+            Gets a value indicating whether HTTP Strict Transport Security (HSTS) is enabled (<code>weavy.hsts</code>).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.NotificationHubConnectionString">
+        <member name="P:Weavy.Core.Services.ConfigurationService.Invites">
             <summary>
-            Gets the connection string for the notification hub.
+            Gets a value indicating whether users can invite people (<code>weavy.invites</code>).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.NotificationHubPath">
+        <member name="P:Weavy.Core.Services.ConfigurationService.JwtSecret">
             <summary>
-            Gets the notification hub path.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.MessengerNotificationHubConnectionString">
-            <summary>
-            Gets the connection string for the Messenger notification hub.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.MessengerNotificationHubPath">
-            <summary>
-            Gets the Messenger notification hub path.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.IsWindowsAuthentication">
-            <summary>
-            Gets a value indicating whether the application is configured to use windows authentication.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.IsHttpsRequired">
-            <summary>
-            Gets a value indicating if https is required.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.Source">
-            <summary>
-            Gets the source of the deployment package.
+            Gets the shared secret to use for Widget SSO (<code>weavy.jwt-secret</code>).
             </summary>
         </member>
         <member name="P:Weavy.Core.Services.ConfigurationService.LicenseUrl">
             <summary>
-            Gets the url to the licensing server.
+            Gets the url to the licensing server (<code>weavy.license-url</code>).
             </summary>
         </member>
-        <member name="P:Weavy.Core.Services.ConfigurationService.AccountUrl">
+        <member name="P:Weavy.Core.Services.ConfigurationService.LicensePublicKey">
             <summary>
-            Gets the url to the account pages.
+            Gets the (base64 encoded) public key used to verify that the license signature is valid (<code>weavy.license-public-key</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.MaxUploadSize">
+            <summary>
+            Gets the maximum allowed size of uploaded files (in bytes).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.MessengerNotificationHubConnectionString">
+            <summary>
+            Gets the connection string for the Messenger notification hub (<code>weavy.messenger-notification-hub-connection-string</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.MessengerNotificationHubPath">
+            <summary>
+            Gets the Messenger notification hub path (<code>weavy.messenger-notification-hub-path</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.NotificationHubConnectionString">
+            <summary>
+            Gets the connection string for the notification hub (<code>weavy.notification-hub-connection-string</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.NotificationHubPath">
+            <summary>
+            Gets the notification hub path (<code>weavy.notification-hub-path</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.PasswordLength">
+            <summary>
+            Gets the minimum required password length (<code>weavy.password-length</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.PasswordRequiresDigit">
+            <summary>
+            Gets a value indicating whether passwords must contain at least one digit (0-9) (<code>weavy.password-requires-digit</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.PasswordRequiresLower">
+            <summary>
+            Gets a value indicating whether passwords must contain at least one lower case letter (a-z) (<code>weavy.password-requires-lower</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.PasswordRequiresUpper">
+            <summary>
+            Gets a value indicating whether passwords must contain at least one upper case letter (A-Z) (<code>weavy.password-requires-upper</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.PasswordRequiresSpecial">
+            <summary>
+            Gets a value indicating whether passwords must at least one special character (non letter or digit) (<code>weavy.password-requires-special</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.Signups">
+            <summary>
+            Gets a value indicating whether users can sign up for an account (<code>weavy.signups</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpFrom">
+            <summary>
+            Gets the email address from which outgoing emails should be sent (<code>weavy.smtp-from</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpPassword">
+            <summary>
+            Gets the password to use for authentication against the SMTP server (<code>weavy.smtp-password</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpPort">
+            <summary>
+             Gets the port used for SMTP transactions, default value is 25 (<code>weavy.smtp-port</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpServer">
+            <summary>
+            Gets the name or IP address of the host used for SMTP transactions (<code>weavy.smtp-server</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpUsername">
+            <summary>
+            Gets the username to use for authentication against the SMTP server (<code>weavy.smtp-username</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpDefaultCredentials">
+            <summary>
+            Gets a value indicating whether default user credentials should be used to access the SMTP server.
+            When this property is set, username and password will be ignored (<code>weavy.smtp-default-credentials</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.SmtpSsl">
+            <summary>
+            Gets a value indicating whether to use Secure Sockets Layer (SSL) to encrypt the connection with the SMTP server (<code>weavy.smtp-ssl</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.Source">
+            <summary>
+            Gets the source of the deployment package (<code>weavy.source</code>).
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Services.ConfigurationService.WindowsAuthentication">
+            <summary>
+            Gets a value indicating whether the application is configured to use windows authentication.
             </summary>
         </member>
         <member name="P:Weavy.Core.Services.ConfigurationService.Weavy">
@@ -16086,14 +16756,21 @@
             </summary>
             <returns>A ConnectionStringSettingsCollection object that contains the ConnectionStringsSection from the current configuration file.</returns>
         </member>
+        <member name="M:Weavy.Core.Services.ConfigurationService.IsValid">
+            <summary>
+            Validate and log errors.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weavy.Core.Services.ConfigurationService.Validate">
+            <summary>
+            Checks if the current configuration is valid. 
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Weavy.Core.Services.ActiveDirectoryService">
             <summary>
               Service layer for working with Active Directory.
-            </summary>
-        </member>
-        <member name="F:Weavy.Core.Services.ActiveDirectoryService.PROVIDER_NAME">
-            <summary>
-            
             </summary>
         </member>
         <member name="M:Weavy.Core.Services.ActiveDirectoryService.Authenticate(System.String,System.String,System.String)">
@@ -16103,7 +16780,7 @@
             <param name="domain">The name of the domain or server to use for authentication.</param>
             <param name="username">The username that is validated on the server.</param>
             <param name="password">The password that is validated on the server.</param>
-            <returns><c>true</c> if the credentials are valid; otherwise <c>false</c>.</returns>
+            <returns>A <see cref="T:System.Security.Claims.ClaimsIdentity"/> if the credentials are valid; otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Weavy.Core.Services.ActiveDirectoryService.GetPrincipalContext(System.String,System.String,System.String)">
             <summary>
@@ -16179,11 +16856,12 @@
             <param name="skip"></param>
             <returns>A paged list of <see cref="T:Weavy.Core.Models.Role"/> objects.</returns>
         </member>
-        <member name="M:Weavy.Core.Services.ActiveDirectoryService.Convert(System.DirectoryServices.AccountManagement.UserPrincipal)">
+        <member name="M:Weavy.Core.Services.ActiveDirectoryService.Convert(System.DirectoryServices.AccountManagement.UserPrincipal,System.String)">
             <summary>
               Converts a UserPrincipal to a <see cref="T:Weavy.Core.Models.User"/>.
             </summary>
             <param name="principal">The UserPrincipal to convert.</param>
+            <param name="authenticationType"></param>
             <returns>A <see cref="T:Weavy.Core.Models.User"/> object.</returns>
         </member>
         <member name="M:Weavy.Core.Services.ActiveDirectoryService.Convert(System.DirectoryServices.AccountManagement.GroupPrincipal)">
@@ -17102,9 +17780,14 @@
               Service layer for managing licenses.
             </summary>
         </member>
+        <member name="M:Weavy.Core.Services.LicenseService.#cctor">
+            <summary>
+            Defualt constructor.
+            </summary>
+        </member>
         <member name="M:Weavy.Core.Services.LicenseService.Get">
             <summary>
-            Gets the installed <see cref="T:Weavy.Core.Models.License"/>.
+            Gets the currently configured <see cref="T:Weavy.Core.Models.License"/>.
             </summary>
             <returns>A <see cref="T:Weavy.Core.Models.License"/> object.</returns>
         </member>
@@ -17148,14 +17831,15 @@
             </summary>
             <param name="license"></param>
         </member>
-        <member name="M:Weavy.Core.Services.LicenseService.IsValid(Weavy.Core.Models.License)">
+        <member name="M:Weavy.Core.Services.LicenseService.HasError(Weavy.Core.Models.License)">
             <summary>
-            Returns true if the license is valid, i.e. if the license key and signature checks out.
+            Returns true if there is something wrong with the license, e.g. the key and/or signature is invalid.
             </summary>
+            <param name="license">The license to check for errors.</param>
         </member>
-        <member name="M:Weavy.Core.Services.LicenseService.IsAllowed(Weavy.Core.Models.License)">
+        <member name="M:Weavy.Core.Services.LicenseService.IsVersionAllowed(Weavy.Core.Models.License)">
             <summary>
-            Returns true if the current version is allowed by the license, i.e. if the Maintenance subscription covers this release.
+            Returns true if the current version is allowed by the license, i.e. if the maintenance subscription covers this release.
             </summary>
         </member>
         <member name="M:Weavy.Core.Services.LicenseService.IsKeyValid(System.String)">
@@ -17207,6 +17891,12 @@
             Gets a value indicating if the number of users in the system has reached the user limit in the license.
             </summary>
         </member>
+        <member name="M:Weavy.Core.Services.LicenseService.IsInvalid(Weavy.Core.Models.License)">
+            <summary>
+            Gets a value indicating whether the specified license is invalid.
+            </summary>
+            <returns><c>true</c> if the license has expired and/or version is not allowed, otherwise <c>false</c>.</returns>
+        </member>
         <member name="M:Weavy.Core.Services.LicenseService.IsExpired(Weavy.Core.Models.License)">
             <summary>
             Gets a value indicating whether the specified license has reached the expiry date and there are no more grace days.
@@ -17224,7 +17914,7 @@
             </summary>
             <param name="license">The license to check, if <c>null</c> will check the currently installed license.</param>
         </member>
-        <member name="M:Weavy.Core.Services.LicenseService.IsGracePeriod(Weavy.Core.Models.License,System.Boolean)">
+        <member name="M:Weavy.Core.Services.LicenseService.IsGracePeriod(Weavy.Core.Models.License)">
             <summary>
             Gets a value indicating if the license has expired and is within the grace period.
             </summary>
@@ -17254,11 +17944,10 @@
             <summary>
             Returns <c>true</c> if application is configured to send emails, otherwise <c>false</c>.
             </summary>
-            <returns><c>true</c> if application is configured to send emails, otherwise <c>false</c>.</returns>
         </member>
         <member name="M:Weavy.Core.Services.MailService.GetSmtpClient">
             <summary>
-            Returns an <see cref="T:System.Net.Mail.SmtpClient"/> with the settings configured in <see cref="T:Weavy.Core.Plugins.SmtpSettings"/> plugin.
+            Returns an <see cref="T:System.Net.Mail.SmtpClient"/> with the settings from <see cref="T:Weavy.Core.Services.ConfigurationService"/>.
             </summary>
         </member>
         <member name="M:Weavy.Core.Services.MailService.Log(System.Net.Mail.MailMessage,System.Exception)">
@@ -17275,12 +17964,13 @@
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:Weavy.Core.Services.MailService.Send(System.Net.Mail.MailMessage,System.Net.Mail.SmtpClient)">
+        <member name="M:Weavy.Core.Services.MailService.Send(System.Net.Mail.MailMessage,System.Net.Mail.SmtpClient,System.Boolean)">
             <summary>
             Sends the specified <see cref="T:System.Net.Mail.MailMessage"/>.
             </summary>
             <param name="message">The <see cref="T:System.Net.Mail.MailMessage"/> to send.</param>
             <param name="smtp">The <see cref="T:System.Net.Mail.SmtpClient"/> settings to use or <c>null</c> to use default settings.</param>
+            <param name="linkResources"><c>true</c> to convert image urls in the message to linked resources, otherwise <c>false</c>.</param>
         </member>
         <member name="M:Weavy.Core.Services.MailService.Send(Weavy.Core.Models.EmailModel,System.Net.Mail.SmtpClient)">
             <summary>
@@ -17289,7 +17979,7 @@
             <param name="model"></param>
             <param name="smtp">The <see cref="T:System.Net.Mail.SmtpClient"/> settings to use or <c>null</c> to use default settings.</param>
         </member>
-        <member name="M:Weavy.Core.Services.MailService.Send(System.Net.Mail.MailMessage,System.Net.Mail.SmtpClient,System.Boolean)">
+        <member name="M:Weavy.Core.Services.MailService.SendMail(System.Net.Mail.MailMessage,System.Net.Mail.SmtpClient,System.Boolean)">
             <summary>
             Sends a <see cref="T:System.Net.Mail.MailMessage"/> using the specified smtp settings. 
             </summary>
@@ -17299,7 +17989,7 @@
         </member>
         <member name="M:Weavy.Core.Services.MailService.SendAsync(System.Net.Mail.MailMessage)">
             <summary>
-            Sends the specified <see cref="T:System.Net.Mail.MailMessage"/> using the smtp settings configured in the <see cref="T:Weavy.Core.Plugins.SmtpSettings"/> plugin.
+            Sends the specified <see cref="T:System.Net.Mail.MailMessage"/> using smtp settings from <see cref="T:Weavy.Core.Services.ConfigurationService"/>.
             This method does not block the calling thread.
             </summary>
             <param name="message">The <see cref="T:System.Net.Mail.MailMessage"/> to send.</param>
@@ -18440,14 +19130,6 @@
             <param name="auth"><c>true</c> to check if the user has permission to update the space, otherwise <c>false</c>.</param>
             <returns>The updated space</returns>
         </member>
-        <member name="M:Weavy.Core.Services.SpaceService.GetAllowedPrivacyLevels(System.Nullable{System.Int32})">
-            <summary>
-            Gets the allowed privacy levels for spaces.
-            </summary>
-            <param name="userid">Id if the <see cref="T:Weavy.Core.Models.User"/> for which to get privacy levels, <c>null</c> to get levels for the current user.</param>
-            <returns>The allowed privacy levels.</returns>
-            <remarks>Administrators has access to all privacy levels.</remarks>
-        </member>
         <member name="T:Weavy.Core.Services.InviteService">
             <summary>
               Service layer for <see cref="T:Weavy.Core.Models.Invite"/>  objects.
@@ -18574,35 +19256,6 @@
             <param name="userId2"></param>
             <returns></returns>
         </member>
-        <member name="M:Weavy.Core.Services.UserService.AddLogin(Weavy.Core.Models.Login)">
-            <summary>
-            Associate an external login with a user.
-            </summary>
-            <param name="login"></param>
-            <returns>The inserted login.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.GetLogin(System.String,System.String)">
-            <summary>
-            Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified provider name and id.
-            </summary>
-            <param name="provider"></param>
-            <param name="providerId"></param>
-            <returns>A login.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.UpdateLogin(Weavy.Core.Models.Login)">
-            <summary>
-            Updates an external login.
-            </summary>
-            <param name="login"></param>
-            <returns>The inserted login.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.RemoveLogin(Weavy.Core.Models.Login)">
-            <summary>
-            Remove an external login from a user.
-            </summary>
-            <param name="login"></param>
-            <returns>The removed login.</returns>
-        </member>
         <member name="M:Weavy.Core.Services.UserService.ChangePassword(System.Int32,System.String,System.String)">
             <summary>
             Updates the password for the <see cref="T:Weavy.Core.Models.User"/>.
@@ -18612,13 +19265,12 @@
             <param name="newPassword">The new password.</param>
             <returns><c>true</c> if the update was successful; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Weavy.Core.Services.UserService.CreateIdentity(Weavy.Core.Models.User,System.String)">
+        <member name="M:Weavy.Core.Services.UserService.SetIdentity(Weavy.Core.Models.User,System.Boolean)">
             <summary>
-            Create a <see cref="T:System.Security.Claims.ClaimsIdentity"/> from the specified <see cref="T:Weavy.Core.Models.User"/>.
+            Attach an <see cref="T:System.Security.Claims.ClaimsIdentity"/> to the specified <see cref="T:Weavy.Core.Models.User"/>.
             </summary>
-            <param name="user">The user for which to create a <see cref="T:System.Security.Claims.ClaimsIdentity"/> object</param>
-            <param name="authenticationType"></param>
-            <returns>A <see cref="T:System.Security.Claims.ClaimsIdentity"/> object.</returns>
+            <param name="user">The user for which to create and attach a <see cref="T:System.Security.Claims.ClaimsIdentity"/> object.</param>
+            <param name="authenticated"><c>true</c> to attach an authenticated identity, otherwise <c>false</c>.</param>
         </member>
         <member name="M:Weavy.Core.Services.UserService.Filter(System.Collections.Generic.IEnumerable{Weavy.Core.Models.User})">
             <summary>
@@ -18721,20 +19373,6 @@
             <param name="filter"></param>
             <returns>Returns a list of <see cref="T:Weavy.Core.Models.User"/> objects.</returns>
         </member>
-        <member name="M:Weavy.Core.Services.UserService.GetLogins(System.Int32)">
-            <summary>
-              Gets a list of <see cref="T:Weavy.Core.Models.Login"/> objects from the repository.
-            </summary>
-            <param name="id">Id of the user.</param>
-            <returns>Returns a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.GetLogins(System.String)">
-            <summary>
-              Gets a list of <see cref="T:Weavy.Core.Models.Login"/> objects from the repository.
-            </summary>
-            <param name="provider">Name of provider.</param>
-            <returns>Returns a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
-        </member>
         <member name="M:Weavy.Core.Services.UserService.GetOnline(Weavy.Core.Models.QueryOptions)">
             <summary>
               Gets a list of online users.
@@ -18789,19 +19427,6 @@
             </summary>
             <param name="username"></param>
         </member>
-        <member name="M:Weavy.Core.Services.UserService.SignIn(System.Int32)">
-            <summary>
-             Sign in a user by attaching a ClaimsIdentity object to the Identity property of the specified user.
-            </summary>
-            <param name="id">Id of user to sign in.</param>
-            <returns>A <see cref="T:Weavy.Core.Models.User"/> object with an authenticated Identity and an updated LastLogin date.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.SignOut(Weavy.Core.Models.User)">
-            <summary>
-            Trigger the signout event.
-            </summary>
-            <param name="user"></param>
-        </member>
         <member name="M:Weavy.Core.Services.UserService.GetByEmail(System.String,System.Boolean)">
             <summary>
               Gets the <see cref="T:Weavy.Core.Models.User"/> with the specified email address.
@@ -18815,15 +19440,6 @@
               Gets the <see cref="T:Weavy.Core.Models.User"/> with the specified guid.
             </summary>
             <param name="guid">The guid of the user.</param>       
-            <param name="filter"></param>
-            <returns>Returns an instance of the <see cref="T:Weavy.Core.Models.User"/> class.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.GetByLogin(System.String,System.String,System.Boolean)">
-            <summary>
-              Gets the <see cref="T:Weavy.Core.Models.User"/> with the specified login.
-            </summary>
-            <param name="provider"></param>       
-            <param name="providerId"></param>       
             <param name="filter"></param>
             <returns>Returns an instance of the <see cref="T:Weavy.Core.Models.User"/> class.</returns>
         </member>
@@ -18899,12 +19515,6 @@
             </summary>
             <param name="query">A <see cref="T:Weavy.Core.Models.UserQuery"/> object containing the search criteria.</param>
             <returns>Returns a paged list of <see cref="T:Weavy.Core.Models.User"/> items.</returns>
-        </member>
-        <member name="M:Weavy.Core.Services.UserService.SetUser(Weavy.Core.Models.User)">
-            <summary>
-              Sets the current <see cref="T:Weavy.Core.Models.User"/> used for authorization and access control.
-            </summary>
-            <param name="user">The <see cref="T:Weavy.Core.Models.User"/> to set.</param>
         </member>
         <member name="T:Weavy.Core.Lucene.Features.ArchivedFilter">
             <summary>
@@ -19901,6 +20511,54 @@
             <summary>
             The image is resized to fill the destination dimensions., the image is stretched if there is an aspect ratio difference.
             </summary>
+        </member>
+        <member name="T:Weavy.Core.Imaging.HslaColor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Imaging.HslaColor.H">
+            <summary>
+            Gets the hue component value (0-360°) of this <see cref="T:Weavy.Core.Imaging.HslaColor"/> structure.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Imaging.HslaColor.S">
+            <summary>
+            Gets the saturation component value (0-100%) of this <see cref="T:Weavy.Core.Imaging.HslaColor"/> structure.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Imaging.HslaColor.L">
+            <summary>
+            Gets or sets the lightness component value (0-100%) of this <see cref="T:Weavy.Core.Imaging.HslaColor"/> structure.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.Imaging.HslaColor.A">
+            <summary>
+            Gets the alpha component value (0-1) of this <see cref="T:Weavy.Core.Imaging.HslaColor"/> structure.
+            </summary>
+        </member>
+        <member name="M:Weavy.Core.Imaging.HslaColor.#ctor(System.Single,System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="h"></param>
+            <param name="s"></param>
+            <param name="l"></param>
+        </member>
+        <member name="M:Weavy.Core.Imaging.HslaColor.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="h"></param>
+            <param name="s"></param>
+            <param name="l"></param>
+            <param name="a"></param>
+        </member>
+        <member name="M:Weavy.Core.Imaging.HslaColor.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Weavy.Core.Imaging.JobOptions">
             <summary>
@@ -21993,26 +22651,41 @@
               The list of columns for SELECT statements.
             </summary>
         </member>
-        <member name="M:Weavy.Core.Repos.LoginRepo.Get(System.String,System.String)">
+        <member name="M:Weavy.Core.Repos.LoginRepo.Get(System.Int32)">
             <summary>
-              Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified provider name and id.
+              Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified id.
             </summary>
-            <param name="provider">Name of login provider.</param>
-            <param name="providerId">External user id.</param>
+            <param name="id"></param>
             <returns>Return a <see cref="T:Weavy.Core.Models.Login"/> object.</returns>
         </member>
-        <member name="M:Weavy.Core.Repos.LoginRepo.Get(System.Int32)">
+        <member name="M:Weavy.Core.Repos.LoginRepo.Get(System.String,System.String)">
+            <summary>
+              Gets the <see cref="T:Weavy.Core.Models.Login"/> with the specified iss and sub.
+            </summary>
+            <param name="iss"></param>
+            <param name="sub"></param>
+            <returns>Return a <see cref="T:Weavy.Core.Models.Login"/> object.</returns>
+        </member>
+        <member name="M:Weavy.Core.Repos.LoginRepo.GetWindowsLogin(System.String)">
+            <summary>
+              Gets Windows <see cref="T:Weavy.Core.Models.Login"/> with specified sid.
+            </summary>
+            <param name="sid"></param>
+            <returns>Return a <see cref="T:Weavy.Core.Models.Login"/> object.</returns>
+        </member>
+        <member name="M:Weavy.Core.Repos.LoginRepo.GetByUser(System.Int32)">
             <summary>
               Get logins for the specified user.
             </summary>
             <param name="userId">User id.</param>
             <returns>Return a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
         </member>
-        <member name="M:Weavy.Core.Repos.LoginRepo.Get(System.String)">
+        <member name="M:Weavy.Core.Repos.LoginRepo.GetByTypeAndIssuer(System.String,System.String)">
             <summary>
-              Get logins for the specified provider.
+              Get logins with the specified type and issuer.
             </summary>
-            <param name="provider">Name of login provider.</param>
+            <param name="type"></param>
+            <param name="iss"></param>    
             <returns>Return a list of <see cref="T:Weavy.Core.Models.Login"/> objects.</returns>
         </member>
         <member name="M:Weavy.Core.Repos.LoginRepo.Insert(Weavy.Core.Models.Login)">
@@ -22023,16 +22696,15 @@
         </member>
         <member name="M:Weavy.Core.Repos.LoginRepo.Update(Weavy.Core.Models.Login)">
             <summary>
-              Updatse a <see cref="T:Weavy.Core.Models.Login"/> object in the repository.
+              Updates a <see cref="T:Weavy.Core.Models.Login"/> object in the repository.
             </summary>
             <param name="login"><see cref="T:Weavy.Core.Models.Login"/> object to update.</param>
         </member>
-        <member name="M:Weavy.Core.Repos.LoginRepo.Delete(System.String,System.String)">
+        <member name="M:Weavy.Core.Repos.LoginRepo.Delete(System.Int32)">
             <summary>
               Permanently deletes a <see cref="T:Weavy.Core.Models.Login"/> object from the repository.
             </summary>
-            <param name="provider">Name of login provider.</param>
-            <param name="providerId">External user id.</param>
+            <param name="id"></param>
         </member>
         <member name="T:Weavy.Core.Repos.MessageRepo">
             <summary>
@@ -22913,14 +23585,9 @@
             Gets the root directory of the application, e.g. "C:\inetpub\weavy\".
             </summary>
         </member>
-        <member name="P:Weavy.Core.WeavyContext.User">
+        <member name="P:Weavy.Core.WeavyContext.ApplicationPath">
             <summary>
-            Gets the <see cref="P:Weavy.Core.WeavyContext.User"/> associated with the current thread/request.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.WeavyContext.Uri">
-            <summary>
-            Gets the absolute Uri to the application, e.g. http://weavy.example.com or https://www.example.com/weavy.
+            Gets the application's virtual application root path on the server, e.g. "/" or "/vdir/".
             </summary>
         </member>
         <member name="P:Weavy.Core.WeavyContext.ApplicationUrl">
@@ -22928,9 +23595,20 @@
             Gets the absolute url to the application, e.g. "http://weavy.example.com:8080/vdir/".
             </summary>
         </member>
-        <member name="P:Weavy.Core.WeavyContext.ApplicationPath">
+        <member name="F:Weavy.Core.WeavyContext.Localhost">
             <summary>
-            Gets the application's virtual application root path on the server, e.g. "/" or "/vdir/".
+            Get the default uri
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.WeavyContext.Uri">
+            <summary>
+            Gets the absolute Uri to the application, e.g. http://weavy.example.com or https://www.example.com/weavy.
+            </summary>
+        </member>
+        <member name="P:Weavy.Core.WeavyContext.User">
+            <summary>
+            Gets or sets the <see cref="P:Weavy.Core.WeavyContext.User"/> associated with the current request/thread. 
+            When actions/methods require certain permissions, they are always evaluated against this user.
             </summary>
         </member>
         <member name="P:Weavy.Core.WeavyContext.System">
@@ -22945,7 +23623,7 @@
         </member>
         <member name="P:Weavy.Core.WeavyContext.License">
             <summary>
-              Gets the installed license.
+              Gets the currently configured license.
             </summary>
         </member>
         <member name="M:Weavy.Core.WeavyContext.Copy(System.Boolean)">
@@ -22953,567 +23631,6 @@
             Creates a copy of the current context.
             </summary>
             <param name="user"><c>true</c> to also copy the User, otherwise <c>false</c>.</param>
-            <returns></returns>
-        </member>
-        <member name="T:Weavy.Core.Providers.AspNetCacheProvider">
-            <summary>
-              An in-process implementation of the <see cref="T:Weavy.Core.Providers.ICacheProvider" /> interface that internally uses the System.Web.Caching.Cache.
-            </summary>    
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initializes the provider with the specified configuration settings.
-            </summary>
-            <param name="settings">Configuration settings.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Count">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Weavy.Core.Providers.AspNetCacheProvider.Hits">
-            <summary>
-            Gets the total number of cache hits.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Providers.AspNetCacheProvider.Misses">
-            <summary>
-            Gets the total number of cache misses.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Clear">
-            <summary>
-            Removes all items from the Cache.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
-            <summary>
-            Removes all items from the <see cref="T:Weavy.Core.Models.CacheRegion"/>.
-            </summary>
-            <param name="region">The <see cref="T:Weavy.Core.Models.CacheRegion"/> to clear.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Checks if the specified item exists in the cache.
-            </summary>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Retrieves the specified item from the cache.
-            </summary>
-            <typeparam name="T">The type of data to get from the cache.</typeparam>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns>The retrieved cache item, or null if the key is not found.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
-            <summary>
-            Inserts an item into the Cache object with a cache key to reference its location.
-            </summary>
-            <typeparam name="T">The type of data to put in the cache.</typeparam>
-            <param name="region">The cache region in which to put the cache item.</param> 
-            <param name="key">The cache key used to reference the item.</param>
-            <param name="item">The object to be inserted into the cache.</param>
-            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes the specified items from the cache.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items starting with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items ending with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.GetRegionKey(Weavy.Core.Models.CacheRegion)">
-            <summary>
-            Gets the cache key for the specified CacheRegion.
-            </summary>
-            <param name="region">A CacheRegion for which to get cache key.</param>
-            <returns>A string used to identify the CacheRegion.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.AspNetCacheProvider.GetCacheKey(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Gets the composite cache key for the specified CacheRegion and item key.
-            </summary>
-            <param name="region">A CacheRegion for which to get cache key.</param>
-            <param name="key">Cache key for a specific item in the cache region.</param>
-            <returns>A string used to identify the item in the CacheRegion.</returns>
-        </member>
-        <member name="T:Weavy.Core.Providers.DiskBlobProvider">
-            <summary>
-              Implementation of the <see cref="T:Weavy.Core.Providers.IBlobProvider"/> interface that stores blobs on local disk.
-            </summary>    
-        </member>
-        <member name="P:Weavy.Core.Providers.DiskBlobProvider.FilesDirectory">
-            <summary>
-            Gets the path to the files directory
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initializes the provider with the specified configuration settings.
-            </summary>
-            <param name="settings">Configuration settings.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.HasData(Weavy.Core.Models.Blob)">
-            <summary>
-            Checks if the specified <see cref="T:Weavy.Core.Models.Blob"/> exists.
-            </summary>
-            <param name="blob">The blob to check.</param>
-            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.GetData(Weavy.Core.Models.Blob)">
-            <summary>
-            Returns the location of the specified <see cref="T:Weavy.Core.Models.Blob"/> object.
-            If the blob does not exists in the provider, <see cref="P:System.IO.FileInfo.Exists"/> will return false.
-            </summary>
-            <param name="blob">The blob.</param>
-            <returns>A <see cref="T:System.IO.FileInfo"/> object.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Downloads the binary data of the specified blob to the specified output stream.
-            </summary>
-            <param name="blob">The blob.</param>
-            <param name="output">The output stream where the data should be written.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Uploads the binary data for the specified blob.
-            </summary>
-            <param name="blob">Blob to insert.</param>
-            <param name="input">The input stream from which the data should be read.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.DiskBlobProvider.Delete(Weavy.Core.Models.Blob)">
-            <summary>
-            Permanently removes blob data from disk.
-            </summary>
-            <param name="blob">The blob to delete.</param>
-        </member>
-        <member name="T:Weavy.Core.Providers.IAuthenticationProvider">
-            <summary>
-            Interface for authentication providers.
-            </summary>
-        </member>
-        <member name="T:Weavy.Core.Providers.IBlobProvider">
-            <summary>
-            Interface for blob storage providers.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IBlobProvider.HasData(Weavy.Core.Models.Blob)">
-            <summary>
-            Checks if the provider has any data for the specified blob.
-            </summary>
-            <param name="blob">The blob.</param>
-            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.IBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Downloads the data of the blob to the specified output stream.
-            </summary>
-            <param name="blob">The blob.</param>
-            <param name="output">The output stream where the data should be written.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.IBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Uploads the the specified blob to blob storage. 
-            </summary>
-            <param name="blob">A <see cref="T:Weavy.Core.Models.Blob"/> object with metadata.</param>
-            <param name="input">The input stream from which the data should be read.</param>
-            <remarks>
-              The <see cref="T:Weavy.Core.Models.Blob"/> will be updated to reflect any changes made by the provider, i.e. Size.
-            </remarks>
-        </member>
-        <member name="M:Weavy.Core.Providers.IBlobProvider.Delete(Weavy.Core.Models.Blob)">
-            <summary>
-            Permanently deletes a blob from storage.
-            </summary>
-            <param name="blob">The blob to delete.</param>
-        </member>
-        <member name="T:Weavy.Core.Providers.ICacheProvider">
-            <summary>
-              Interface for cache providers.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Count">
-            <summary>
-            Gets the number of entities in the cache.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Clear">
-            <summary>
-            Removes all items from the cache.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
-            <summary>
-            Removes all items from the cache region.
-            </summary>
-            <param name="region">The cache region to clear.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Checks if the specified item exists in the cache.
-            </summary>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Retrieves the specified item from the cache.
-            </summary>
-            <typeparam name="T">The type of data to get from the cache.</typeparam>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns>The retrieved cache item, or null if the key is not found.</returns>
-        </member>
-        <member name="P:Weavy.Core.Providers.ICacheProvider.Hits">
-            <summary>
-            Gets the total number of cache hits.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Providers.ICacheProvider.Misses">
-            <summary>
-            Gets the total number of cache misses.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
-            <summary>
-            Inserts an item into the Cache object with a cache key to reference its location.
-            </summary>
-            <typeparam name="T">The type of data to put in the cache.</typeparam>
-            <param name="region">The cache region in which to put the cache item.</param> 
-            <param name="key">The cache key used to reference the item.</param>
-            <param name="item">The object to be inserted into the cache.</param>
-            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes the specified items from the cache.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items starting with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.ICacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items ending with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="T:Weavy.Core.Providers.ILocalBlobProvider">
-            <summary>
-            Interface for local blob storage providers.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.ILocalBlobProvider.GetData(Weavy.Core.Models.Blob)">
-            <summary>
-            Returns a <see cref="T:System.IO.FileInfo"/> pointing to the location of the Blob.
-            If the blob does not exists in the provider, <see cref="P:System.IO.FileInfo.Exists"/> will return false.
-            </summary>
-            <param name="blob">The blob.</param>
-            <returns>A <see cref="T:Weavy.Core.Models.Blob"/> object pointing to the location of the blob.</returns>
-        </member>
-        <member name="T:Weavy.Core.Providers.IProvider">
-            <summary>
-             Interface for providers.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Called on application startup to initialize the provider with the specified configuration settings.
-            </summary>
-            <param name="settings">Configuration settings</param>        
-        </member>
-        <member name="T:Weavy.Core.Providers.NullCacheProvider">
-            <summary>
-              An implementation of the <see cref="T:Weavy.Core.Providers.ICacheProvider" /> interface that disables caching.
-            </summary>        
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initializes the provider with the specified configuration settings.
-            </summary>
-            <param name="settings">Configuration settings.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Count">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Weavy.Core.Providers.NullCacheProvider.Hits">
-            <summary>
-            Gets the total number of cache hits.
-            </summary>
-        </member>
-        <member name="P:Weavy.Core.Providers.NullCacheProvider.Misses">
-            <summary>
-            Gets the total number of cache misses.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Clear">
-            <summary>
-            Removes all items from the cache.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Clear(Weavy.Core.Models.CacheRegion)">
-            <summary>
-            Removes all items from the cache region.
-            </summary>
-            <param name="region">The cache region to clear.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Exists(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Checks if the specified item exists in the cache.
-            </summary>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns><c>true</c> if the item exists in the cache, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Get``1(Weavy.Core.Models.CacheRegion,System.String)">
-            <summary>
-            Retrieves the specified item from the cache.
-            </summary>
-            <typeparam name="T">The type of data to get from the cache.</typeparam>
-            <param name="region">The cache region from which to get the cache item.</param>
-            <param name="key">The identifier for the cache item to retrieve.</param>
-            <returns>The retrieved cache item, or null if the key is not found.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Put``1(Weavy.Core.Models.CacheRegion,System.String,``0)">
-            <summary>
-            Inserts an item into the Cache object with a cache key to reference its location.
-            </summary>
-            <typeparam name="T">The type of data to put in the cache.</typeparam>
-            <param name="region">The cache region in which to put the cache item.</param> 
-            <param name="key">The cache key used to reference the item.</param>
-            <param name="item">The object to be inserted into the cache.</param>
-            <remarks>This method will overwrite an existing cache item whose key matches the key parameter.</remarks>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.Remove(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes the specified items from the cache.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.RemoveStartingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items starting with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.NullCacheProvider.RemoveEndingWith(Weavy.Core.Models.CacheRegion,System.String[])">
-            <summary>
-            Removes all items ending with the specified keys.
-            </summary>
-            <param name="region">The cache region from which to remove the cache item.</param> 
-            <param name="keys">The identifiers for the cache items to remove.</param>
-        </member>
-        <member name="T:Weavy.Core.Providers.SqlServerBlobProvider">
-            <summary>
-              Sql Server implementation of the <see cref="T:Weavy.Core.Providers.IBlobProvider"/> interface.
-            </summary>    
-        </member>
-        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initializes the provider with the specified configuration settings.
-            </summary>
-            <param name="settings">Configuration settings.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.HasData(Weavy.Core.Models.Blob)">
-            <summary>
-            Checks if the specified blob has any data.
-            </summary>
-            <param name="blob">The blob.</param>
-            <returns><c>true</c> if the blob exists; otherwise <c>false</c></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.DownloadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Writes the binary data of the file to the specified output stream.
-            </summary>
-            <param name="blob">The file.</param>
-            <param name="output">The output stream where the data should be written.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.UploadData(Weavy.Core.Models.Blob,System.IO.Stream)">
-            <summary>
-            Reads the binary data from the specified input stream and stores it as a blob.
-            After insert <c>blob.Size</c> contains the size of the uploaded file.
-            </summary>
-            <param name="blob">Blob to insert.</param>
-            <param name="input">The input stream from which the data should be read.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.SqlServerBlobProvider.Delete(Weavy.Core.Models.Blob)">
-            <summary>
-            Permanently removes blob data from the repository.
-            </summary>
-            <param name="blob">The blob to delete.</param>
-        </member>
-        <member name="T:Weavy.Core.Providers.IIndexProvider">
-            <summary>
-            Interface for fulltext index providers.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Count">
-            <summary>
-            Gets the number of entities in the index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Size">
-            <summary>
-            Gets the size in bytes of the fulltext index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Optimize">
-            <summary>
-            Optimize the fulltext index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Delete(Weavy.Core.Models.IEntity)">
-            <summary>
-            Delete an entity from the fulltext index.
-            </summary>
-            <param name="entity">The entity to delete from the index.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Get(Weavy.Core.Models.IEntity)">
-            <summary>
-            Get an <see cref="T:Weavy.Core.Models.IndexDocument"/> from the fulltext index.
-            </summary>
-            <param name="entity"></param>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.GetLastIndexed(Weavy.Core.Models.EntityType)">
-            <summary>
-            Gets the timestamp of the last indexed entity with <see cref="T:Weavy.Core.Models.EntityType"/> <paramref name="type"/>.
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Insert(System.Collections.Generic.IEnumerable{Weavy.Core.Models.IEntity})">
-            <summary>
-            Add a list of entities to the fulltext index.
-            </summary>
-            <param name="entities">The entities to add to the index.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.Search(Weavy.Core.Models.Query,System.String)">
-            <summary>
-            Search the fulltext index with the specified <see cref="T:Weavy.Core.Models.Query"/>.
-            </summary>
-            <param name="query">A query.</param>
-            <param name="searcher">A named searcher to use for the query.</param>
-            <returns>A list of documents matching the query.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.IIndexProvider.SetLastIndexed(Weavy.Core.Models.EntityType,System.Int64)">
-            <summary>
-            Sets the timestamp of the last indexed entity with <see cref="T:Weavy.Core.Models.EntityType"/> <paramref name="type"/>.
-            </summary>
-            <param name="timestamp"></param>
-            <param name="type"></param>
-        </member>
-        <member name="T:Weavy.Core.Providers.LuceneIndexProvider">
-            <summary>
-            Lucene provider to index operations. Allows to Insert/Delete items to the search index.
-            Remember to call Initialize before first usage.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Initialize(System.Collections.Specialized.NameValueCollection)">
-            <summary>
-            Initialize the <see cref="T:Weavy.Core.Providers.LuceneIndexProvider"/> with the provided settings.
-            </summary>
-            <param name="settings"></param>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Count">
-            <summary>
-            Gets the number of entities in the index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Size">
-            <summary>
-            Gets the size of the fulltext index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Optimize">
-            <summary>
-            Optimize the index.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Delete(Weavy.Core.Models.IEntity)">
-            <summary>
-            Delete an entity from the fulltext index.
-            </summary>
-            <param name="entity">The entity to delete from the index.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Get(Weavy.Core.Models.IEntity)">
-            <summary>
-            Get an <see cref="T:Weavy.Core.Models.IndexDocument"/> from the fulltext index.
-            </summary>
-            <param name="entity"></param>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetDirectory">
-            <summary>
-            Gets the <see cref="T:Lucene.Net.Store.Directory"/>.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetLastIndexed(Weavy.Core.Models.EntityType)">
-            <summary>
-            Gets the timestamp of the last indexed item.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetReader">
-            <summary>
-            Gets the IndexReader.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.GetWriter">
-            <summary>
-            Gets the IndexWriter.
-            </summary>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Search(Weavy.Core.Models.Query,System.String)">
-            <summary>
-            Search the fulltext index with the specified <see cref="T:Weavy.Core.Models.Query"/>.
-            </summary>
-            <param name="query">A query.</param>
-            <param name="searcher">A named searcher to use for the query.</param>
-            <returns>A list of documents matching the query.</returns>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.Insert(System.Collections.Generic.IEnumerable{Weavy.Core.Models.IEntity})">
-            <summary>
-            Add a list of entities to the fulltext index.
-            </summary>
-            <param name="entities">The entities to add to the index.</param>
-        </member>
-        <member name="M:Weavy.Core.Providers.LuceneIndexProvider.SetLastIndexed(Weavy.Core.Models.EntityType,System.Int64)">
-            <summary>
-            Sets the timestamp of the last indexed item.
-            </summary>
             <returns></returns>
         </member>
         <member name="T:Weavy.Core.TwitterText.Autolink">
@@ -24077,54 +24194,6 @@
             <summary>
             $cashtag token
             </summary>
-        </member>
-        <member name="T:Inventive.Core.Imaging.HslaColor">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Inventive.Core.Imaging.HslaColor.H">
-            <summary>
-            Gets the hue component value (0-360°) of this <see cref="T:Inventive.Core.Imaging.HslaColor"/> structure.
-            </summary>
-        </member>
-        <member name="P:Inventive.Core.Imaging.HslaColor.S">
-            <summary>
-            Gets the saturation component value (0-100%) of this <see cref="T:Inventive.Core.Imaging.HslaColor"/> structure.
-            </summary>
-        </member>
-        <member name="P:Inventive.Core.Imaging.HslaColor.L">
-            <summary>
-            Gets or sets the lightness component value (0-100%) of this <see cref="T:Inventive.Core.Imaging.HslaColor"/> structure.
-            </summary>
-        </member>
-        <member name="P:Inventive.Core.Imaging.HslaColor.A">
-            <summary>
-            Gets the alpha component value (0-1) of this <see cref="T:Inventive.Core.Imaging.HslaColor"/> structure.
-            </summary>
-        </member>
-        <member name="M:Inventive.Core.Imaging.HslaColor.#ctor(System.Single,System.Single,System.Single)">
-            <summary>
-            
-            </summary>
-            <param name="h"></param>
-            <param name="s"></param>
-            <param name="l"></param>
-        </member>
-        <member name="M:Inventive.Core.Imaging.HslaColor.#ctor(System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            
-            </summary>
-            <param name="h"></param>
-            <param name="s"></param>
-            <param name="l"></param>
-            <param name="a"></param>
-        </member>
-        <member name="M:Inventive.Core.Imaging.HslaColor.ToString">
-            <summary>
-            
-            </summary>
-            <returns></returns>
         </member>
     </members>
 </doc>

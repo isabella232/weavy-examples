@@ -52,15 +52,11 @@
             @(Html.ActionLink<SpaceController>(c => c.Index(null, null), icon: "view-grid", color: "primary", text: "Spaces", htmlAttributes: new { @class = "dropdown-item spaces" }, active: LinkActive.Action))
 
             @(Html.ActionLink<PeopleController>(c => c.Index(null, null), icon: "account-multiple", color: "primary", text: "People", htmlAttributes: new { @class = "dropdown-item" }, active: LinkActive.Controller))
-            <a class="dropdown-item d-desktop" href="@(Url.Action<Weavy.Web.Areas.Messenger.Controllers.MessengerController>(c => c.Index()))" target="_blank" title="Open Messenger">
+            <a class="dropdown-item d-desktop" href="@(Url.Action<Weavy.Web.Controllers.MessengerController>(c => c.Index()))" target="_blank" title="Open Messenger">
                 @Svg.Icon("message-text", color: "primary")
                 <span>Messenger</span>
                 @Svg.Icon("open-in-new", size: 18, htmlAttributes: new { @class = "mr--1" })
             </a>
-
-            @if (PermissionService.HasSystemPermission(Permission.ManageSystem)) {
-                @(Html.ActionLink<Weavy.Web.Areas.Manage.Controllers.HomeController>(c => c.Index(), icon: "settings", color: "primary", text: "Manage", htmlAttributes: new { @class = "dropdown-item" }, active: LinkActive.Area))
-            }
 
         </div>
     </div>

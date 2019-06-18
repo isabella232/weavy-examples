@@ -1,4 +1,4 @@
-﻿var weavy = weavy || {};
+﻿var wvy = wvy || {};
 
 // See https://github.com/psfpro/bootstrap-html5sortable
 
@@ -24,7 +24,7 @@
             if (options.sortField) {
                 $(this).on("sortupdate", function (e, sortable) {
                     $(this).find(options.sortField).each(function (index, element) {
-                        element.name = element.name.replace(/\[\d*\]/, `[${index}]`);
+                        element.name = element.name.replace(/\[\d*\]/, "[" + index + "]");
                     });
                 });
             }
@@ -39,7 +39,7 @@
                             url: options.ajaxPost,
                             data: $inputs.serialize(),
                             success: function (data) {
-                                console.debug("sorting saved");
+                                console.debug("sorted");
                             }
                         });
                     }

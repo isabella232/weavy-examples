@@ -1,33 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Weavy.Core.Helpers;
 using Weavy.Core.Models;
 using Weavy.Core.Services;
+using Weavy.Areas.Apps.Models;
 using Weavy.Web.Controllers;
-using Wvy.Areas.Apps.Models;
 
-namespace Wvy.Areas.Apps.Controllers
-{    
+namespace Weavy.Areas.Apps.Controllers {
+    /// <summary>
+    /// 
+    /// </summary>
     [RoutePrefix("{id:int}/F16EFF39-3BD7-4FB6-8DBF-F8FE88BBF3EB")]
-    public class TaskItemController : ContentController<TaskItem>
-    {
-        // GET: Apps/TaskItem
-        public override ActionResult Get(TaskItem content, Query query)
-        {
+    public class TaskItemController : ContentController<TaskItem> {
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public override ActionResult Get(TaskItem content, Query query) {
             return Redirect(content.App().Url() + $"#task-{content.Id}");
-            
+
         }
 
         /// <summary>
         /// Get task details
         /// </summary>
-        /// <param name="id">The id of the app</param>
-        /// <param name="tid">The id of the task</param>
+        /// <param name="id">The id of the app</param>        
         /// <returns></returns>
         [HttpGet]
         [Route("comments")]
-        public ActionResult Comments(int id)
-        {
+        public ActionResult Comments(int id) {
 
             var task = ContentService.Get<TaskItem>(id);
 
@@ -38,13 +42,11 @@ namespace Wvy.Areas.Apps.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id">The id of the app</param>
-        /// <param name="tid">The id of the task</param>
+        /// <param name="id">The id of the app</param>        
         /// <returns></returns>
         [HttpPut]
         [Route("toggle")]
-        public JsonResult ToggleCompleted(int id)
-        {
+        public async Task<JsonResult> ToggleCompleted(int id) {
 
             var task = ContentService.Get<TaskItem>(id);
 
@@ -52,14 +54,14 @@ namespace Wvy.Areas.Apps.Controllers
             var updated = ContentService.Update<TaskItem>(task);
 
             // push realtime event           
-            PushService.Push("task_toggle_completed", task);
-            
+            await PushService.Push("task_toggle_completed", task);
+
             return Json(updated);
         }
 
-      
 
-       
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -68,14 +70,12 @@ namespace Wvy.Areas.Apps.Controllers
         /// <returns></returns>
         [HttpPut]
         [Route("tasks")]
-        public JsonResult UpdateTask(int id, TaskIn model)
-        {
+        public async Task<JsonResult> UpdateTask(int id, TaskIn model) {
 
             var notify = false;
             var task = ContentService.Get<TaskItem>(model.Id);
 
-            if (model.AssignedTo.HasValue && model.AssignedTo != task.AssignedTo && model.AssignedTo != User.Id)
-            {
+            if (model.AssignedTo.HasValue && model.AssignedTo != task.AssignedTo && model.AssignedTo != User.Id) {
                 notify = true;
             }
 
@@ -89,8 +89,7 @@ namespace Wvy.Areas.Apps.Controllers
             var updated = ContentService.Update<TaskItem>(task);
 
             // notify
-            if (notify)
-            {
+            if (notify) {
                 NotificationService.Insert(
                     new Notification(model.AssignedTo.Value, $@"{User.GetTitle()} assigned you to the task <strong>{task.Name}</strong>") { Link = task }
                 );
@@ -98,7 +97,7 @@ namespace Wvy.Areas.Apps.Controllers
 
 
             // push realtime event           
-            PushService.Push("task_updated", task);
+            await PushService.Push("task_updated", task);
 
             return Json(updated);
         }
@@ -106,18 +105,15 @@ namespace Wvy.Areas.Apps.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id">The id of the app</param>
-        /// <param name="tid">The id of the task</param>
+        /// <param name="id">The id of the app</param>        
         /// <returns></returns>
         [HttpDelete]
         [Route("tasks")]
-        public JsonResult DeleteTask(int id)
-        {
+        public JsonResult DeleteTask(int id) {
 
             var task = ContentService.Get<TaskItem>(id);
 
-            if (task != null)
-            {
+            if (task != null) {
                 ContentService.Delete(task.Id);
             }
 

@@ -7,6 +7,8 @@
         width: 100%;
         border-collapse: initial;
         border-spacing: 0 .5rem;
+        margin-top: -.5rem;
+        margin-bottom: -.5rem;
     }
 
     td {
@@ -52,6 +54,10 @@
         display: none;
         white-space: nowrap;
 
+        &:empty {
+            display: none !important;
+        }
+
         @include media-breakpoint-up(sm) {
             display: flex;
             flex-wrap: nowrap;
@@ -67,9 +73,34 @@
         white-space: nowrap;
         padding: 0 0 0 .5rem;
 
+        &:empty {
+            display: none !important;
+        }
 
         @include media-breakpoint-up(sm) {
             display: none;
+        }
+
+        .more {
+            position: relative;
+            display: block;
+            width: 2rem;
+            height: 2rem;
+
+            .avatar {
+                background-color: $theme-200;
+            }
+
+            span {
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                line-height:2rem;
+                text-align:center;
+            }
         }
     }
 

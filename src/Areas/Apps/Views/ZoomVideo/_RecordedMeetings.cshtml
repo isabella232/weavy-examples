@@ -1,0 +1,30 @@
+﻿@model ZoomVideo
+
+<h3 class="mt-3">Recorded meetings</h3>
+
+@if (Model.RecordedMeetings != null && Model.RecordedMeetings.Length > 0) {
+    foreach (var m in Model.RecordedMeetings) {
+        /*var m = (ZoomMeetingRecordings)em.meeting;
+        var d = em.details;
+        var host = em.host;
+        bool isHost = Model.User?.id == m.host_id || !User.Email.IsNullOrEmpty() && d.settings.alternative_hosts.IndexOf(User.Email) >= 0 || Model.HasDefaultUser && Model.DefaultUser.email == User.Email;*/
+        <a class="card my-3" href="@(Url.Action<ZoomVideoController>(c => c.MeetingRecordings(WeavyContext.App.Id, m.id)))" data-toggle="modal" data-target="#ajax-modal" data-path="@(Url.Action<ZoomVideoController>(c => c.MeetingRecordings(WeavyContext.App.Id, m.id)))" data-title="@m.topic">
+            <div class="media m-3">
+                @*if (host != null) {
+                    @host.Member.AvatarImg(48)
+                } else {
+                    <div class="i avatar img-48"></div>
+                }*@
+                <div class="media-body">
+                    <h5 class="mt-0">@m.topic</h5>
+                    Recorded @m.start_time (@Html.Time(m.start_time))
+                </div>
+                <div class="media-icons">
+
+                </div>
+            </div>
+        </a>
+    }
+} else {
+    <em>No recorded meetings found.</em>
+}

@@ -40,6 +40,7 @@ html {
     overflow-x: hidden;
     scroll-behavior: smooth;
     overscroll-behavior-x: none;
+
     // Scrollbar handling
     &:not(.overlay-scrollbar) {
         // custom scrollbar (for chrome), not present when native overlay scrollbar is enabled

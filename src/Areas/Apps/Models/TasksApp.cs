@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Weavy.Core.Models;
 
-namespace Wvy.Areas.Apps.Models {
+namespace Weavy.Areas.Apps.Models {
     /// <summary>
     /// A task management app
     /// </summary>

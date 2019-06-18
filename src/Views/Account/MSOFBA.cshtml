@@ -35,18 +35,6 @@
                                 <button type="submit" class="btn btn-primary ml-auto">Sign in</button>
                             </div>
                         }
-
-                        @if (Bootstrapper.Status == SystemStatus.Ok && Model.Settings.HasExternalAuthentication) {
-                            <div class="mb-3 text-center">or</div>
-                            var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes().OrderBy(x => x.AuthenticationType);
-                            using (Html.BeginForm(nameof(AccountController.SignInExternal), typeof(AccountController).ControllerName(), new { path = Model.Path }, FormMethod.Post, new { target = "_blank" })) {
-                                <div class="form-buttons justify-content-center">
-                                    @foreach (AuthenticationDescription p in loginProviders) {
-                                        <button type="submit" class="btn btn-@p.AuthenticationType.Slugify()" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType">@Svg.Icon(p.AuthenticationType.Slugify()) Sign in with @p.Caption</button>
-                                    }
-                                </div>
-                            }
-                        }
                     </div>
                 </div>
             </div>

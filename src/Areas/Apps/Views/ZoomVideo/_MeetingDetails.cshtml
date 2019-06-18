@@ -1,0 +1,65 @@
+﻿@model ZoomVideo
+
+@if (!Model.MeetingDetails.IsNullOrDefault()) {
+    bool hasRegistrants = !Model.MeetingRegistrants.IsNullOrDefault() && !Model.MeetingRegistrants.registrants.IsNullOrEmpty();
+
+    ZoomUserMember host = Model.UserMembers?.Where(um => um.User.id == Model.MeetingDetails.host_id)?.FirstOrDefault();
+
+    IEnumerable<User> registrants = hasRegistrants ? Model.UserMembers.Where(um => Array.Exists(Model.MeetingRegistrants.registrants, r => r.email != null && r.email == um.Member.Email)).Select(um => um.Member) : new List<Member>();
+    if (registrants != null && host?.Member != null) {
+        registrants = registrants.Prepend(host.Member);
+    }
+
+    bool isRegistered = hasRegistrants && Array.Exists(Model.MeetingRegistrants.registrants, r => r.email != null && r.email == User.Email);
+    bool isHost = host?.Member.Id == User.Id;
+    bool showRegistration = !Model.MeetingDetails.registration_url.IsNullOrWhiteSpace() && !isRegistered && !isHost;
+
+
+        <div class="cover cover-bg text-center pt-4 mb-4">
+            @(host?.Member.AvatarImg(128))
+
+            <p class="pt-2 mb-0">@Model.MeetingDetails.topic @if (Model.MeetingDetails.status == "started") { <span class="badge badge-danger">live</span> }</p>
+
+            <div class="actions my-3">
+                @if (showRegistration) {
+
+                    <form action="@(Url.Action<ZoomVideoController>(c => c.MeetingRegister(Model.Id, Model.MeetingDetails.id)))" method="post" data-turboform>
+                        <button type="submit" class="zoom-join btn btn-primary">@Svg.Icon("calendar-check") <span>Register</span></button>
+
+                    </form>
+                    @*
+            <a class="zoom-join btn btn-primary" href="@Model.MeetingDetails.registration_url" target="_blank" onclick="return wvy.zoom.modal(this.href,'@Model.MeetingDetails.topic');">@Svg.Icon("calendar-check") <span>Register</span></a>
+                    *@
+
+                }
+                @if (isHost && Model.MeetingDetails.status == "waiting") {
+                    <a class="zoom-start btn btn-primary" href="https://zoom.us/s/@Model.MeetingDetails.id" target="_blank" onclick="return wvy.zoom.start(this.href, @Model.MeetingDetails.id.ToString(), '@Model.MeetingDetails.topic');">@Svg.Icon("message-video") <span>Start meeting</span></a>
+                } else {
+                    <a class="zoom-join btn btn-primary" href="https://zoom.us/j/@Model.MeetingDetails.id" target="_blank" onclick="return wvy.zoom.join(this.href, @Model.MeetingDetails.id.ToString(), '@Model.MeetingDetails.topic');">@Svg.Icon("message-video") <span>Join meeting</span></a>
+                }
+            </div>
+            @if(!registrants.IsNullOrEmpty()) {
+                <div class="facepile">
+                    @registrants.Facepile(size: 32, link: true, presence: true)
+                </div>
+            }
+        </div>
+    <div class="container py-3">
+        @if (!Model.MeetingDetails.start_time.IsNullOrDefault() || !Model.MeetingDetails.created_at.IsNullOrDefault()) {
+            <h3>@Html.DisplayNameFor(Model => Model.MeetingDetails.start_time)</h3>
+            <p>@((Model.MeetingDetails.start_time ?? Model.MeetingDetails.created_at).ToLocal().ToString("F", new System.Globalization.CultureInfo("en-US"))) (@Html.Time(Model.MeetingDetails.start_time ?? Model.MeetingDetails.created_at))</p>
+        }
+
+        @if (!Model.MeetingDetails.agenda.IsNullOrWhiteSpace()) {
+            <h3>@Html.DisplayNameFor(Model => Model.MeetingDetails.agenda)</h3>
+            <p>@Html.Raw(Model.MeetingDetails.agenda.HtmlSafe(true).TweetHtml())</p>
+        }
+
+        @if (!Model.MeetingDetails.duration.IsNullOrDefault()) {
+            <h3>@Html.DisplayNameFor(Model => Model.MeetingDetails.duration)</h3>
+            <p>@(new TimeSpan(0, Model.MeetingDetails.duration ?? 0, 0).ToStringRelative())</p>
+        }
+    </div>
+} else {
+    <em>The meeting was not found.</em>
+}

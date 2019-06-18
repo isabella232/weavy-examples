@@ -1,0 +1,29 @@
+﻿@model ZoomVideo
+
+@if (Model.MeetingRecordings != null) {
+    string isActive = "active";
+<div id="zoomrecordings" class="carousel slide flex-scale border-top m--3 mt--2 position-relative" data-interval="false" data-wrap="false">
+    <div class="carousel-inner">
+        @foreach (ZoomRecordingFile rf in Model.MeetingRecordings) {
+            <div class="carousel-item @isActive">
+                <div style="width: 100%; padding-bottom: 75%; min-height: 320px;"></div>
+                <iframe class="d-block w-100 h-100 t-0 border-0 position-absolute" allowtransparency="true" allowfullscreen="true" src="@rf.play_url"></iframe>
+            </div>
+            isActive = "";
+        }
+    </div>
+    @if (Model.MeetingRecordings.Length > 1) {
+    <a class="carousel-control-prev h-25 m-auto" href="#zoomrecordings" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next h-25 m-auto" href="#zoomrecordings" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    }
+</div>
+
+} else {
+    <em>No meeting recordings found.</em>
+}

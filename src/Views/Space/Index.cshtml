@@ -20,7 +20,7 @@
 
     @if (PermissionService.HasSystemPermission(Permission.CreateSpace)) {
         <div class="fab">
-            <a class="btn btn-round btn-primary" href="@(Url.Action<SpaceController>(c => c.New(null)))" title="Add space">@Svg.Icon("plus")</a>
+            <a class="btn btn-round btn-primary" href="@(Url.Action<SpaceController>(c => c.New()))" title="Add space">@Svg.Icon("plus")</a>
         </div>
     }
 }
@@ -45,7 +45,7 @@
                         bool visible = !space.IsTrashed() && space.HasPermission(Permission.View);
                         <tr class="@(space.IsArchived() ? "table-muted" : "") @(space.IsTrashed() ? "table-trashed" : "")" @Html.Raw(visible ? $@"data-href=""{space.Url()}""" : "")>
                             <td class="table-icon">@space.AvatarImg(32)</td>
-                            <td class="py-2 align-middle">
+                            <td>
                                 <div class="d-flex align-items-center">
                                     <div class="text-truncate">
                                         @if (visible) {
@@ -55,12 +55,13 @@
                                         }
                                         @if (space.Teamname != null) {<small class="text-muted">@@@space.Teamname</small>}
                                     </div>
-                                    @Html.StarToggle(space, htmlAttributes: new { @class = "flex-noscale" })
+
                                     @if (space.IsHQ) {
-                                        <span class="badge badge-info m-1 flex-noscale">main</span>
+                                        <span class="badge badge-info m-1">main</span>
                                     } else if (space.Privacy != Privacy.Open) {
-                                        <span class="m-1 flex-noscale">@Html.Badge(space.Privacy)</span>
+                                        @Html.Badge(space.Privacy, htmlAttributes: new { @class = "ml-1" })
                                     }
+                                    @Html.StarToggle(space, htmlAttributes: new { @class = "ml-auto" })
                                 </div>
                             </td>
                             <td>@space.Description</td>
@@ -91,7 +92,7 @@
             } else {
                 <text>Nothing to see here.</text>
                 if (PermissionService.HasSystemPermission(Permission.CreateSpace)) {
-                    <text>Why don't you <a href="@(Url.Action<SpaceController>(c => c.New(null)))">add a new space</a>?</text>
+                    <text>Why don't you <a href="@(Url.Action<SpaceController>(c => c.New()))">add a new space</a>?</text>
                 }
             }
         </p>

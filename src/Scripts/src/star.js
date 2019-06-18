@@ -1,6 +1,6 @@
-﻿var weavy = weavy || {};
+﻿var wvy = wvy || {};
 
-weavy.stars = (function ($) {
+wvy.stars = (function ($) {
 
     // star specified entity
     function star(entity, id) {
@@ -8,7 +8,7 @@ weavy.stars = (function ($) {
         $("[data-toggle=star][data-entity=" + entity + "][data-id=" + id + "]").addClass("on").removeClass("d-none").attr("title", "Unstar");
 
         // call api to star entity
-        weavy.api.star(entity, id);
+        wvy.api.star(entity, id);
     }
 
     // unstar specified entity
@@ -17,7 +17,7 @@ weavy.stars = (function ($) {
         $("[data-toggle=star][data-entity=" + entity + "][data-id=" + id + "]").removeClass("on").attr("title", "Star");
 
         // call api to unstar entity
-        weavy.api.unstar(entity, id);
+        wvy.api.unstar(entity, id);
     }
 
     function removeUnstarredInTab() {
@@ -41,11 +41,10 @@ weavy.stars = (function ($) {
         $(this).parents(".show").children("[data-toggle=dropdown]").dropdown("toggle");
     });
 
-    if (weavy.realtime) {
+    if (wvy.realtime) {
         // respond to realtime star event
-        weavy.realtime.on("star", function (e, data) {
-            console.log(e.type);
-
+        wvy.realtime.on("star.weavy", function (e, data) {
+            
             $("[data-toggle=star][data-entity=" + data.type + "][data-id=" + data.id + "]").addClass("on").removeClass("d-none").attr("title", "Unstar");
 
             // Add to stars tab
@@ -54,7 +53,7 @@ weavy.stars = (function ($) {
                 var $starItem = $('<tr data-href="' + data.url + '"></tr>');
 
                 if (data.type === "space" || data.type === "user") {
-                    $starItem.append('<td class="table-icon"><img alt="" class="img-32 avatar" src="' + data.thumb_url.replace(/{options}/, "64x64") + '"></td>');
+                    $starItem.append('<td class="table-icon"><img alt="" class="img-32 avatar" src="' + data.thumbUrl.replace(/{options}/, "64x64") + '"></td>');
                 } else {
                     $starItem.append('<td class="table-icon"><svg class="i' + (data.icon.color ? " text-" + data.icon.color : "") + '"><use xlink: href="#' + data.icon.name + '"></use></svg></td>')
                 }
@@ -66,8 +65,7 @@ weavy.stars = (function ($) {
         });
 
         // respond to realtime unstar event
-        weavy.realtime.on("unstar", function (e, data) {
-            console.log(data);
+        wvy.realtime.on("unstar.weavy", function (e, data) {            
             $("[data-toggle=star][data-entity=" + data.type + "][data-id=" + data.id + "]").removeClass("on").attr("title", "Star");
         });
     }

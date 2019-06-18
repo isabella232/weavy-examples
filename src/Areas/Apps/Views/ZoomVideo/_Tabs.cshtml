@@ -1,0 +1,5 @@
+﻿<nav class="nav nav-tabs mb-4">
+    @(Html.ActionLink<AppController>(c => c.Get(WeavyContext.App.Id, null), text: "Meetings", htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Path))
+    @(Html.ActionLink<ZoomVideoController>(c => c.Users(WeavyContext.App.Id), text: "Users", htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Action))
+    @(Html.ActionLink<ZoomVideoController>(c => c.RecordedMeetings(WeavyContext.App.Id), text: "Recordings", htmlAttributes: new { @class = "nav-link" }, active: LinkActive.Action))
+</nav>

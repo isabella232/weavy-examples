@@ -2,11 +2,10 @@
 using System.Web.Mvc;
 using Weavy.Core.Models;
 using Weavy.Core.Services;
+using Weavy.Areas.Apps.Models;
 using Weavy.Web.Controllers;
-using Wvy.Areas.Apps.Models;
 
-namespace Wvy.Areas.Apps.Controllers
-{
+namespace Weavy.Areas.Apps.Controllers {
     /// <summary>
     /// Controller for the <see cref="TasksApp"/>.
     /// </summary>    
@@ -19,12 +18,9 @@ namespace Wvy.Areas.Apps.Controllers
         /// <param name="app">The app to display.</param>
         /// <param name="query">An object with query parameters for search, paging etc.</param>        
         public override ActionResult Get(TasksApp app, Query query) {
-
             app.Tasks = ContentService.Search<TaskItem>(new ContentQuery<TaskItem>(query) { AppId = app.Id, Depth = 1, OrderBy = "CreatedAt ASC", Count = true });
-
             return View(app);
         }
-
 
         /// <summary>
         /// 
@@ -34,12 +30,10 @@ namespace Wvy.Areas.Apps.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("tasks")]
-        public JsonResult InsertTask(int id, TaskIn model)
-        {
+        public JsonResult InsertTask(int id, TaskIn model) {
             var app = AppService.Get<TasksApp>(id);
 
-            var task = new TaskItem
-            {
+            var task = new TaskItem {
                 Name = model.Name,
                 Order = model.Order
             };
@@ -56,15 +50,12 @@ namespace Wvy.Areas.Apps.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("tasks/sort")]
-        public JsonResult UpdateSortOrder(int id, IEnumerable<TaskIn> model)
-        {
+        public JsonResult UpdateSortOrder(int id, IEnumerable<TaskIn> model) {
             var app = AppService.Get<TasksApp>(id);
 
-            foreach (var input in model)
-            {
+            foreach (var input in model) {
                 var task = ContentService.Get<TaskItem>(input.Id);
-                if (task != null)
-                {
+                if (task != null) {
                     task.Order = input.Order;
                     ContentService.Update<TaskItem>(task);
                 }
@@ -75,5 +66,4 @@ namespace Wvy.Areas.Apps.Controllers
         }
 
     }
-
 }

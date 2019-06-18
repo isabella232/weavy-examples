@@ -1,0 +1,115 @@
+﻿@model ZoomVideo
+<div class="modal fade" id="zoom-modal" tabindex="-1" role="dialog" aria-labelledby="zoom-modal-title" aria-hidden="true" style="z-index: 1051;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header pb-2 border-bottom">
+                <h5 class="modal-title" id="zoom-modal-title"></h5>
+                <button type="button" class="btn btn-icon" data-dismiss="modal" aria-label="Close">
+                    @Svg.Icon("close")
+                </button>
+            </div>
+            <iframe class="flex-scale" style="border: none; height: 100vh" name="zoomlaunch"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+    wvy = wvy || {};
+    wvy.zoom = (function ($) {
+        var hiddenModal = @(Model.OptionHideProgress ? "true" : "false");
+
+        function start(url, meetingId, title) {
+            $(function () {
+                $("#zoom-modal-title").text(title);
+                window.open(url, "zoomlaunch");
+
+                if (!hiddenModal) {
+                    $("#zoom-modal").modal("show");
+                }
+
+                function meetingStart(event, zoomEvent) {
+                    if (zoomEvent.event == "meeting.started" && parseInt(zoomEvent.payload.object.id) == meetingId) {
+                        window.open("about:blank", "zoomlaunch");
+                        $("#zoom-modal").modal("hide");
+                        //wvy.realtime.off("meeting.zoom", meetingStart);
+                    }
+                }
+
+                wvy.realtime.on("meeting.zoom", meetingStart);
+            });
+            return false;
+        }
+
+        function join(url, id, title) {
+            $(function () {
+                $("#zoom-modal-title").text(title);
+                window.open(url, "zoomlaunch");
+
+                if (!hiddenModal) {
+                    $("#zoom-modal").modal("show");
+                }
+            });
+            return false;
+        }
+
+        function modal(url, title) {
+            $(function () {
+                $("#zoom-modal-title").text(title);
+                window.open(url, "zoomlaunch");
+
+                $("#zoom-modal").modal("show");
+            });
+            return false;
+        }
+
+        // Click modal binding
+        $(document).on("click", "[data-zoom-launch]", function (ev) {
+            ev.preventDefault();
+            join($(this).data("data-zoom-launch") || $(this).attr("href"), null, $(this).data("title") || $(this).attr("title") || $(this).text());
+        });
+
+        $(function () {
+            var reloadTimeout;
+
+            // Event updates
+            wvy.realtime.on("started.meeting.zoom ended.meeting.zoom", function (event, zoomEvent) {
+                var $reload = $("#zoom-meetings");
+                if ($reload.length && !reloadTimeout) {
+                    console.log("meeting.zoom event, reloading");
+                    reloadTimeout = setTimeout(function () {
+                        if (!window.location.href.endsWith("/instant")) {
+                            $reload.load(window.location.href);
+                        }
+                        reloadTimeout = null;
+                    }, 100);
+                }
+            });
+
+            wvy.realtime.on("recording.zoom", function (event, zoomEvent) {
+                var $reload = $("#zoom-recordings");
+                if ($reload.length && !reloadTimeout) {
+                    console.log("recording.zoom event, reloading")
+                    reloadTimeout = setTimeout(function () {
+                        $reload.load(window.location.href);
+                        reloadTimeout = null;
+                    }, 100);
+                }
+            });
+
+            wvy.realtime.on("user.zoom", function (event, zoomEvent) {
+                var $reload = $("#zoom-users");
+                if ($reload.length && !reloadTimeout) {
+                    console.log("user.zoom event, reloading")
+                    reloadTimeout = setTimeout(function () {
+                        $reload.load(window.location.href);
+                        reloadTimeout = null;
+                    }, 100);
+                }
+            });
+        });
+
+        return { start: start, join: join, modal: modal };
+
+
+    })(jQuery)
+</script>

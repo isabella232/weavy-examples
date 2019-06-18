@@ -1,0 +1,9 @@
+# Add path(s) to your script files here (one file per line)
+
+# libs
+vendor/vue.min.js
+vendor/sortable.min.js
+vendor/vuedraggable.min.js
+
+# apps
+tasks.js

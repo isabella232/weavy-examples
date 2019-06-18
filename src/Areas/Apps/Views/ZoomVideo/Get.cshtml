@@ -1,0 +1,13 @@
+﻿@model ZoomVideo
+@{
+    Title = Model.Name;
+}
+
+@Html.Partial("_Tabs")
+
+<div class="container" id="zoom-meetings">
+    @Html.Partial("_Meetings")
+</div>
+
+@Html.Partial("_ZoomModal")
+

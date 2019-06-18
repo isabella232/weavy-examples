@@ -1,5 +1,5 @@
-﻿@model Wvy.Areas.Apps.Models.TasksApp
-@using Wvy.Areas.Apps.Models;
+﻿@model TasksApp
+
 
 <div class="container" id="taskApp@(Model.Id)">
     <!-- App -->
@@ -176,15 +176,10 @@
 </div>
 
 <script>
-
     $(function () {
         wvy.taskapp.init(@Model.Id, '@Model.AppGuid', '@Model.Name', @Html.ToJson(Model.Tasks.Cast<TaskItem>().OrderBy(x => x.Order)));
     });
 </script>
-
-@section styles{
-    @Html.ThemeStyle("~/areas/apps/styles/tasks.scss")
-}
 
 @section footer {
     @{
