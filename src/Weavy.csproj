@@ -4340,6 +4340,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sandbox\BadJokeBot.cs" />
+    <Compile Include="Sandbox\SandboxAddUserFunction.cs" />
+    <Compile Include="Sandbox\SandboxApiController.cs" />
+    <Compile Include="Sandbox\SandboxHook.cs" />
+    <Compile Include="Sandbox\SandboxWelcomeFunction.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Apps\Views\Asana\Auth.cshtml" />
