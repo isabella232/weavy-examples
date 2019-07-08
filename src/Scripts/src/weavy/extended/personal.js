@@ -87,14 +87,15 @@
         // Widget events
         weavy.on("build", function (e, data) {
             var options = weavy.options.plugins[PLUGIN_NAME];
+            var panelOptions = weavy.extendDefaults(options, { url: null });
             
             if (weavy.isAuthenticated()) {
                 if (!weavy.nodes.personalPanel) {
-                    weavy.nodes.personalPanel = weavy.addPanel(options.panelId, options.url, options);
+                    weavy.nodes.personalPanel = weavy.addPanel(options.panelId, options.url, panelOptions);
                     weavy.nodes.personalFrame = $("iframe", weavy.nodes.personalPanel)[0];
 
                     if (weavy.plugins.dock) {
-                        weavy.nodes.personalButtonContainer = weavy.addButton(options.panelId, options);
+                        weavy.nodes.personalButtonContainer = weavy.addButton(options.panelId, panelOptions);
                         weavy.nodes.personalButton = weavy.nodes.personalButtonContainer.querySelector(".weavy-button");
                         weavy.nodes.personalButton.id = weavy.getId("weavy-button-" + options.panelId);
 

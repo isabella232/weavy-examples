@@ -55,13 +55,14 @@
 
         weavy.on("build", function () {
             var options = weavy.options.plugins[PLUGIN_NAME];
+            var panelOptions = weavy.extendDefaults(options, { url: null });
 
             if (weavy.isAuthenticated()) {
                 if (!weavy.nodes.startPanel) {
-                    weavy.nodes.startPanel = weavy.addPanel(options.panelId, options.url, options);
+                    weavy.nodes.startPanel = weavy.addPanel(options.panelId, options.url, panelOptions);
 
                     if (weavy.plugins.dock) {
-                        weavy.nodes.startButtonContainer = weavy.addButton(options.panelId, options);
+                        weavy.nodes.startButtonContainer = weavy.addButton(options.panelId, panelOptions);
 
                         weavy.one("after:build", function () {
                             // Place it last

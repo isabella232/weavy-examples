@@ -46,7 +46,7 @@ wvy.browser = {
     window.addEventListener("message", function (e) {                    
         switch (e.data.name) {
             case "ping":
-                e.source.postMessage({ "name": "ready" }, e.origin);
+                e.source.postMessage({ "name": "ready" }, e.origin !== "null" ? e.origin : "*");
                 break;
             case "reload":
                 window.location.reload();

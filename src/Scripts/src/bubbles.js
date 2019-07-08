@@ -23,17 +23,15 @@ wvy.bubbles = (function ($) {
         });
     }
 
-    function openBubble(bubbleTarget, destination) {
-        console.debug("opening bubble");
-
+    function requestOpen(requestId, destination) {
         if (wvy.browser.embedded) {
-            wvy.postal.post({ name: 'send', bubbleTarget: bubbleTarget, url: destination });
-        }
-    }
+            console.log("requesting panel open", requestId, destination);
 
-    function requestOpen(spaceId, destination) {
-        if (wvy.browser.embedded) {
-            wvy.postal.post({ name: 'request:open', spaceId: spaceId, destination: destination });
+            if (typeof requestId === 'number') {
+                wvy.postal.post({ name: 'request:open', spaceId: requestId, destination: destination });
+            } else {
+                wvy.postal.post({ name: 'request:open', panelId: requestId, destination: destination });
+            }
         }
     }
 
@@ -71,12 +69,17 @@ wvy.bubbles = (function ($) {
 
         // Intercept global search
         var urlBase = $body.data("path").indexOf("http") === 0 ? $body.data("path") : document.location.origin + $body.data("path");
-        var redirSpaceId = visitUrl.indexOf(urlBase + "search") === 0 ? -1 : newSpaceId;
+        var redirSpaceId = visitUrl && visitUrl.indexOf(urlBase + "search") === 0 ? -1 : newSpaceId;
 
         if (!wasSignedOut && redirSpaceId && newSpaceId !== currentSpaceId) {
 
             if (redirSpaceId === -1) {
-                openBubble("start", visitUrl);
+                if (currentSpaceId > 0) {
+                    requestOpen("start", visitUrl);
+                } else {
+                    requestOpen("start");
+                    return;
+                }
             } else {
                 // restore page and open bubble 
                 open(newSpaceId, visitUrl);

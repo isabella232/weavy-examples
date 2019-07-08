@@ -15,7 +15,7 @@ wvy.connection = (function ($, w) {
     var reconnectRetries = 0;
     var explicitlyDisconnected = false;
     var authenticated = null;
-    var awaitConnectionStart;
+    var whenConnectionStart;
 
     //----------------------------------------------------------
     // Init the connection
@@ -58,9 +58,9 @@ wvy.connection = (function ($, w) {
         }
 
         if (connection.state === $.signalR.connectionState.disconnected) {
-            return awaitConnectionStart = connection.start();
+            return whenConnectionStart = connection.start();
         } else {
-            return awaitConnectionStart;
+            return whenConnectionStart;
         }
     }
 
@@ -302,9 +302,10 @@ wvy.connection = (function ($, w) {
     if (!wvy.browser || !wvy.browser.standalone && !wvy.browser.embedded) {
         window.addEventListener("message", function (e) {
             switch (e.data.name) {
-                case "signed-in":
                 case "signed-out":
                     authenticated = false;
+                    // falls through
+                case "signed-in":
                     disconnectAndConnect().then(function () {
                         triggerEvent("user-change.connection.weavy", { eventName: e.data.name });
                     });

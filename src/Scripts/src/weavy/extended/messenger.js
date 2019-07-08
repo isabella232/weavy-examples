@@ -287,13 +287,15 @@
         // Widget events
         weavy.on("build", function (e) {
             var options = weavy.options.plugins[PLUGIN_NAME];
+            var panelOptions = weavy.extendDefaults(options, { url: null });
+
             if (weavy.isAuthenticated()) {
                 if (!weavy.nodes.messengerPanel) {
-                    weavy.nodes.messengerPanel = weavy.addPanel(options.panelId, options.url, options);
+                    weavy.nodes.messengerPanel = weavy.addPanel(options.panelId, options.url, panelOptions);
                     weavy.nodes.messengerFrame = weavy.nodes.messengerPanel.querySelector(".weavy-panel-frame");
 
                     if (weavy.plugins.dock) {
-                        weavy.nodes.messengerButtonContainer = weavy.addButton(options.panelId, options)
+                        weavy.nodes.messengerButtonContainer = weavy.addButton(options.panelId, panelOptions)
                         weavy.nodes.messengerButton = weavy.nodes.messengerButtonContainer.querySelector(".weavy-button");
 
                         weavy.nodes.conversations = document.createElement("div");

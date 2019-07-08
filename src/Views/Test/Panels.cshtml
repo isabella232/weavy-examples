@@ -152,38 +152,38 @@
             function invokeApi() {
                 // SPACES
                 // search for a space name
-                weavyRight.api.spaces.search("marketing").then(function (response) {
+                weavyRight.ajax("/api/spaces/search", { q: "marketing" }).then(function (response) {
                     weavyRight.alert("Search for 'marketing' resulted in " + response.data.length + " hit(s).");
                 });                
 
                 // get a space with a specific id
-                weavyRight.api.spaces.get(1).then(function (response) {
+                weavyRight.ajax("/api/spaces/1").then(function (response) {
                     weavyRight.alert("Getting Space with id 1: " + response.name);
                 }).fail(function (message) {
                     weavyRight.alert("Could not find any space  with id 1! [" + message + "].");
                 });
 
                 // list all apps in a specific space
-                weavyRight.api.apps.list(1).then(function (response) {
+                weavyRight.ajax("/api/spaces/1/apps").then(function (response) {
                     weavyRight.alert("Found " + response.length + " apps in space 1.");
                 });
 
                 // add members to a specific space
-                weavyRight.api.spaces.addMembers(1, [1, 2]).then(function (response) {                    
+                weavyRight.ajax("/api/spaces/1/members", { members: [1, 2] }, "POST").then(function (response) {                    
                     weavyRight.alert("Added members " + response.map(function (u) { return u.username }) + " to space 1.");
                 });
                 // create a new space
-                //weavyRight.api.spaces.insert("myspace " + new Date().getTime()).then(function (response) {
+                //weavyRight.ajax("/api/spaces", { name: "myspace " + new Date().getTime()}, "POST").then(function (response) {
                 //    console.log(response)
                 //});                
                 
                 // POSTS
                 // create a new post in a Posts App
-                //weavyRight.api.posts.insert(3, "This is a post!");
+                //weavyRight.ajax("/api/apps/3/posts", { text: "This is a post!" }, "POST");
 
                 // USERS
                 // search for users
-                weavyRight.api.users.search("admin").then(function (response) {
+                weavyRight.ajax("/api/users", { q: "admin" }).then(function (response) {
                     weavyRight.alert("Search for user 'admin' resulted in " + response.data.length + " hit(s).");
                 });;
             }
@@ -208,16 +208,12 @@
                 className: "",
                 id: "block",
                 plugins: {
-                    alert: true,
                     panels: {
                         controls: {
                             close: true,
                             expand: false
                         }
-                    },
-                    preview: true,
-                    theme: true,
-                    context: true
+                    }
                 }
             });
 

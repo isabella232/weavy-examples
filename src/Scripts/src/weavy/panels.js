@@ -338,7 +338,7 @@
                         var $frame = $("iframe", $panel);
 
                         if (open.destination) {
-                            weavy.log("load in destination", open.destination);
+                            weavy.log(".open() -> load in destination");
                             // load destination
                             weavy.load(open.panelId, open.destination, null, null, true);
                         } else if (!$frame.attr("src") && $frame.data("src")) {

@@ -1187,14 +1187,22 @@
                         }
                     }
 
-                    if (!frame.src) {
-                        // If no url is set yet, set a url
+
+                    if (frame.src !== frameUrl) {
+                        // If no url is set yet, set an url
                         frame.src = frameUrl;
                         if (method === "get") {
+                            weavy.info("sendToFrame using src");
                             // No need to send a form since data is appended to the url
                             return;
                         }
+                    } else if (frame.src && method === "get") {
+                        weavy.info("sendToFrame using window.open");
+                        window.open(frameUrl, frameName);
+                        return;
                     }
+
+                    weavy.info("sendToFrame using form");
 
                     // Create a form to send to the frame
                     var $form = $("<form>", {
@@ -1426,9 +1434,23 @@
                     weavy.maximize();
                     break;
                 case "send":
-                    weavy.load(message.panelId, message.url, message.data, message.method);
+                    weavy.load(message.panelId, message.url, message.data, message.method, true);
                     weavy.open(message.panelId);
                     break;
+
+                case "request:open":
+                    if (message.panelId) {
+                        if (message.destination) {
+                            weavy.load(message.panelId, message.destination, null, null, true);
+                        }
+                        weavy.open(message.panelId);
+                    }
+                    break;
+                case "request:close":
+                    if (message.panelId) {
+                        weavy.close(message.panelId);
+                    }
+                    break;   
             }
 
         });
@@ -1659,19 +1681,34 @@
      * 
      * @category options
      * @type {Object}
-     * @property {Weavy#options} Weavy.presets.core - Disable all plugins.
+     * @property {Weavy#options} Weavy.presets.noplugins - Disable all plugins.
+     * @property {Weavy#options} Weavy.presets.core - Enable all core plugins only.
+     * @property {Weavy#options} Weavy.presets.extended - Enable all core plugins and all extended plugins.
      * @property {Weavy#options} Weavy.presets.panel - Minimal plugin set to only have one or more panels.
-     * @property {Weavy#options} Weavy.presets.full - Enable all plugins.
      */
     Weavy.presets = {
-        core: {
+        noplugins: {
             includePlugins: false
+        },
+        core: {
+            includePlugins: false,
+            plugins: {
+                alert: true,
+                attach: true,
+                authentication: true,
+                panels: true,
+                preview: true,
+                sso: true,
+                theme: true
+            }
+        },
+        extended: {
+            includePlugins: true
         },
         panel: {
             includePlugins: false,
             className: "weavy-default",
             plugins: {
-                api: true,
                 attach: true,
                 panels: {
                     controls: false
@@ -1679,10 +1716,7 @@
                 preview: true,
                 theme: true
             }
-        },
-        full: {
-            includePlugins: true
-        },
+        }
     };
 
     /**

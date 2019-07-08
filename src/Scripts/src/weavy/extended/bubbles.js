@@ -214,6 +214,7 @@
             options.bubbles = [];
             weavy.bubbles = [];
             weavy.currentBubble = null;
+            requestOpen = [];
         };
 
         weavy.on("open", function (e, open) {
@@ -334,25 +335,28 @@
 
             switch (message.name) {
                 case "request:open":
-
-                    spaceId = message.spaceId;
-                    destination = message.destination;
-                    bubble = weavy.bubbles.filter(function (b) { return parseInt(b.spaceId) === parseInt(spaceId) });
-                    if (bubble.length) {
-                        weavy.open("bubble-" + spaceId, destination);
-                    } else {
-                        weavy.close();
-                        requestOpen.push(spaceId);
+                    if (message.spaceId) {
+                        spaceId = message.spaceId;
+                        destination = message.destination;
+                        bubble = weavy.bubbles.filter(function (b) { return parseInt(b.spaceId) === parseInt(spaceId) });
+                        if (bubble.length) {
+                            weavy.open("bubble-" + spaceId, destination);
+                        } else {
+                            weavy.close();
+                            requestOpen.push(spaceId);
+                        }
                     }
                     break;
                 case "request:close":
-                    // get the requesting space
-                    bubble = weavy.getBubble({ spaceId: message.spaceId });
+                    if (message.spaceId) {
+                        // get the requesting space
+                        bubble = weavy.getBubble({ spaceId: message.spaceId });
 
-                    if (bubble.type !== "detached") {
-                        weavy.removeBubble(bubble.bubbleId);
-                    } else {
-                        weavy.triggerEvent("bubble-removed", bubble);
+                        if (bubble.type !== "detached") {
+                            weavy.removeBubble(bubble.bubbleId);
+                        } else {
+                            weavy.triggerEvent("bubble-removed", bubble);
+                        }
                     }
                     break;
             }
